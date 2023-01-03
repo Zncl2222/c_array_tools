@@ -26,7 +26,7 @@
 # define c_array_length(arr) ((arr) ? (arr)->length : 0)
 
 # define c_array_assign(arr, idx, val)                                   \
-    do{                                                                  \
+    do {                                                                 \
         assert(idx < (arr)->capacity);                                   \
         (arr)->data[(idx)] = (val);                                      \
         (arr)->length = (idx) < (arr)->length ? (arr)->length : (idx);   \
@@ -57,12 +57,31 @@
     assert(l <= (arr)->capacity); (arr)->length = (l)
 
 # define c_array_push_back(arr, val)                             \
-    do{                                                          \
+    do {                                                         \
         if (c_array_capacity((arr)) <= c_array_length((arr))) {  \
             c_array_grow((arr));                                 \
         }                                                        \
         (arr)->data[(arr)->length] = val;                        \
         (arr)->length++;                                         \
+    } while(0)
+
+# define c_array_moveright(arr, idx) \
+    do {                                              \
+        if ((arr)->capacity <= (arr)->length) {       \
+             c_array_grow(arr);                       \
+        }                                             \
+        for(int i = (arr)->length; i > idx; i--) {    \
+            (arr)->data[i] = (arr)->data[i - 1];      \
+        }                                             \
+    } while(0)
+
+# define c_array_insert(arr, idx, val)                  \
+    do {                                                \
+        if ((idx) < (arr)->length) {                    \
+            c_array_moveright((arr), (idx));            \
+            (arr)->data[(idx)] = (val);                 \
+            (arr)->length++;                            \
+        }                                               \
     } while(0)
 
 # define c_array_free(arr) (free((arr)->data))
