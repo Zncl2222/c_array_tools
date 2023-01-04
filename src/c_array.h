@@ -68,12 +68,19 @@
 # define c_array_moveright(arr, idx) \
     do {                                              \
         if ((arr)->capacity <= (arr)->length) {       \
-             c_array_grow(arr);                       \
+            c_array_grow(arr);                        \
         }                                             \
         for(int i = (arr)->length; i > idx; i--) {    \
             (arr)->data[i] = (arr)->data[i - 1];      \
         }                                             \
     } while(0)
+
+# define c_array_moveleft(arr, idx)                         \
+    do {                                                    \
+        for(int i = idx; i < (arr)->length - 1; i++) {      \
+            (arr)->data[i] = (arr)->data[i + 1];            \
+        }                                                   \
+    } while(0)                                              \
 
 # define c_array_insert(arr, idx, val)                  \
     do {                                                \
@@ -82,6 +89,35 @@
             (arr)->data[(idx)] = (val);                 \
             (arr)->length++;                            \
         }                                               \
+    } while(0)
+
+# define c_array_remove(arr, idx)           \
+    do {                                    \
+        assert((arr)->length > 0);          \
+        c_array_moveleft(arr, idx);         \
+        (arr)->length--;                    \
+    } while(0)
+
+# define c_array_pop_back(arr)              \
+    do {                                    \
+        assert((arr)->length > 0);          \
+        (arr)->data[(arr)->length - 1] = 0; \
+        (arr)->length--;                    \
+    } while(0)
+
+# define c_array_print(arr, format)                     \
+    do {                                                \
+        printf(#arr);                                   \
+        printf(" = [");                                 \
+        for(int i = 0; i < (arr).length; i++) {         \
+            if (i < (arr).length - 1) {                 \
+                printf((format), arr.data[i]);          \
+                printf(", ");                           \
+            } else {                                    \
+                printf((format), arr.data[i]);          \
+            }                                           \
+        }                                               \
+        printf("]\n");                                  \
     } while(0)
 
 # define c_array_free(arr) (free((arr)->data))
