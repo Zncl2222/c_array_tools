@@ -12,6 +12,9 @@
 # include <assert.h>
 
 
+// -----------------------------------------------------------------------
+/*                     Array structure and initialize                   */
+
 # define c_array(T) struct { T* data; size_t length; size_t capacity; }
 
 # define c_array_init(arr, T, c)                                    \
@@ -20,6 +23,9 @@
         (arr)->capacity = (c);                                      \
         (arr)->data = calloc(0, c * sizeof(T));                     \
     } while(0)
+
+// -----------------------------------------------------------------------
+/*                      Array basic operations                          */
 
 # define c_array_capacity(arr) ((arr) ? (arr)->capacity : 0)
 
@@ -31,6 +37,9 @@
         (arr)->data[(idx)] = (val);                                      \
         (arr)->length = (idx) < (arr)->length ? (arr)->length : (idx);   \
     } while(0)
+
+// -----------------------------------------------------------------------
+/*                  Arrary size and attributes settings                 */
 
 # define c_array_byte(arr) (sizeof((arr)->data[0]))
 
@@ -56,6 +65,9 @@
 # define c_array_set_length(arr, l)     \
     assert(l <= (arr)->capacity); (arr)->length = (l)
 
+// -----------------------------------------------------------------------
+/*                  Arrary push_back and pop_back                       */
+
 # define c_array_push_back(arr, val)                             \
     do {                                                         \
         if (c_array_capacity((arr)) <= c_array_length((arr))) {  \
@@ -64,6 +76,16 @@
         (arr)->data[(arr)->length] = val;                        \
         (arr)->length++;                                         \
     } while(0)
+
+# define c_array_pop_back(arr)              \
+    do {                                    \
+        assert((arr)->length > 0);          \
+        (arr)->data[(arr)->length - 1] = 0; \
+        (arr)->length--;                    \
+    } while(0)
+
+// -----------------------------------------------------------------------
+/*                      Arrary insert and remove                        */
 
 # define c_array_moveright(arr, idx) \
     do {                                              \
@@ -98,12 +120,8 @@
         (arr)->length--;                    \
     } while(0)
 
-# define c_array_pop_back(arr)              \
-    do {                                    \
-        assert((arr)->length > 0);          \
-        (arr)->data[(arr)->length - 1] = 0; \
-        (arr)->length--;                    \
-    } while(0)
+// -----------------------------------------------------------------------
+/*                            Arrary utils                              */
 
 # define c_array_print(arr, format)                     \
     do {                                                \
@@ -122,11 +140,10 @@
 
 # define c_array_free(arr) (free((arr)->data))
 
+// -----------------------------------------------------------------------
+/*                  Matrix structure and initialize                     */
+
 # define c_matrix(T) struct { T** data; size_t rows; size_t cols; }
-
-# define c_matrix_rows(mat) ((mat) ? (mat)->rows : 0)
-
-# define c_matrix_cols(mat) ((mat) ? (mat)->cols : 0)
 
 # define c_matrix_init(mat, T, r, c)                \
     do{                                             \
@@ -137,6 +154,16 @@
             (mat)->data[i] = malloc(c * sizeof(T)); \
         }\
     } while(0)
+
+// -----------------------------------------------------------------------
+/*                       Matrix basic operations                        */
+
+# define c_matrix_rows(mat) ((mat) ? (mat)->rows : 0)
+
+# define c_matrix_cols(mat) ((mat) ? (mat)->cols : 0)
+
+// -----------------------------------------------------------------------
+/*                            Matrix utils                               */
 
 # define c_matrix_free(mat)                         \
     do{                                             \
