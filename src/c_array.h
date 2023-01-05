@@ -87,7 +87,7 @@
 // -----------------------------------------------------------------------
 /*                      Arrary insert and remove                        */
 
-# define c_array_moveright(arr, idx) \
+# define c_array_moveright(arr, idx)                  \
     do {                                              \
         if ((arr)->capacity <= (arr)->length) {       \
             c_array_grow(arr);                        \
@@ -162,11 +162,42 @@
 
 # define c_matrix_cols(mat) ((mat) ? (mat)->cols : 0)
 
+# define c_matrix_assign(mat, row, col, val)    \
+    do {                                        \
+        assert(row < (mat)->rows);              \
+        assert(col < (mat)->cols);              \
+        (mat)->data[row][col] = val;            \
+    } while(0)
+
 // -----------------------------------------------------------------------
 /*                            Matrix utils                               */
 
+# define c_matrix_print(mat, format)                        \
+    do {                                                    \
+        printf(#mat);                                       \
+        printf(" =\n   [ ");                                \
+        for (int i = 0; i < (mat).rows; i++) {              \
+            if (i != 0)                                     \
+                printf("     ");                            \
+            printf("[ ");                                   \
+            for(int j = 0; j < (mat).cols; j++) {           \
+                if (j < (mat).cols) {                       \
+                    printf((format), (mat).data[i][j]);     \
+                    printf(", ");                           \
+                } else {                                    \
+                    printf((format), (mat).data[i][j]);     \
+                }                                           \
+            }                                               \
+            printf("]");                                    \
+            if (i < (mat).rows - 1){                        \
+                printf("\n");                               \
+            }                                               \
+        }                                                   \
+        printf(" ]\n");                                     \
+    } while(0)
+
 # define c_matrix_free(mat)                         \
-    do{                                             \
+    do {                                            \
         for (int i = 0; i < (mat)->rows; i++) {     \
             free((mat)->data[i]);                   \
         }                                           \
