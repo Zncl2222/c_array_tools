@@ -33,9 +33,8 @@
 
 # define c_array_assign(arr, idx, val)                                   \
     do {                                                                 \
-        assert(idx < (arr)->capacity);                                   \
+        assert(idx < (arr)->length);                                    `\
         (arr)->data[(idx)] = (val);                                      \
-        (arr)->length = (idx) < (arr)->length ? (arr)->length : (idx);   \
     } while(0)
 
 // -----------------------------------------------------------------------
@@ -62,8 +61,14 @@
         (arr)->data = ptr;                                                  \
     } while(0)
 
-# define c_array_set_length(arr, l)     \
-    assert(l <= (arr)->capacity); (arr)->length = (l)
+# define c_array_set_length(arr, l)                                 \
+    do {                                                            \
+        assert(l <= (arr)->capacity);                               \
+        for (int i = (arr)->length; i < (arr)->capacity; i++) {     \
+            (arr)->data[i] = 0;                                     \
+        }                                                           \
+        (arr)->length = (l);                                        \
+    } while(0)
 
 // -----------------------------------------------------------------------
 /*                  Arrary push_back and pop_back                       */
