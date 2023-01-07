@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.4.0)
 
 project(unittest)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test)
 
 # Include header files
 include_directories(src/)
@@ -10,3 +10,12 @@ include_directories(src/)
 add_executable(unittest ./test/test.c)
 
 set_target_properties(unittest PROPERTIES SUFFIX ".out")
+
+project(example)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+include_directories(src/)
+
+add_executable(example example.c)
+
+set_target_properties(example PROPERTIES SUFFIX ".out")
