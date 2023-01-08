@@ -5,9 +5,10 @@
 This is a simple dynamic array tools similary to C++ **```std::vector```** implemented by C. It coded by macro to simulate the **```template```** function like in C++ or other languages. Thus user can use array in C more easily without declare the type again and again.
 
 # Installation
-Just put the src/c_array.h header file into your project and import it !
+It is a single header file library. Just put `src/c_array.h` into your project and import it !
 
 # Usuage
+Here is an example.c to display how to use this llibrary. You could just use the shell script example.sh (linux) or batch file example.bat to compile and run the program. The example program print out the results for user to understand how it works.
 
 ```C
 # include <stdio.h>
@@ -78,6 +79,9 @@ int main() {
     c_array_print(array, "%d");
     printf("Array length = %zu\n", array.length);
     printf("Array capacity = %zu\n\n", array.capacity);
+
+    // Remember to free the memory after you don't need it.
+    c_array_free(&array);
 
     return 0;
 }
