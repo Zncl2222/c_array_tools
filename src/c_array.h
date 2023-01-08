@@ -33,7 +33,7 @@
 
 # define c_array_assign(arr, idx, val)                                   \
     do {                                                                 \
-        assert(idx < (arr)->length);                                    `\
+        assert(idx < (arr)->length);                                     \
         (arr)->data[(idx)] = (val);                                      \
     } while(0)
 
