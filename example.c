@@ -67,5 +67,8 @@ int main() {
     printf("Array length = %zu\n", array.length);
     printf("Array capacity = %zu\n\n", array.capacity);
 
+    // Remember to free the memory after you don't need it.
+    c_array_free(&array);
+
     return 0;
 }
