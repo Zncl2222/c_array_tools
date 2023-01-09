@@ -1,6 +1,8 @@
 ![licence](https://img.shields.io/github/license/Zncl2222/c_array_tools)
 ![size](https://img.shields.io/github/repo-size/Zncl2222/c_array_tools)
-![language](https://img.shields.io/github/languages/top/Zncl2222/c_array_tools)
+![language](https://img.shields.io/badge/C-Solutions-blue.svg?style=flat&logo=c%2B%2B)
+![language_percent](https://img.shields.io/github/languages/top/Zncl2222/c_array_tools)
+[![build](https://github.com/Zncl2222/c_array_tools/actions/workflows/cmake.yml/badge.svg)](https://github.com/Zncl2222/c_array_tools/actions/workflows/cmake.yml)
 # c_array_tools
 This is a simple dynamic array tools similary to C++ **```std::vector```** implemented by C. It coded by macro to simulate the **```template```** function like in C++ or other languages. Thus user can use array in C more easily without declare the type again and again.
 
