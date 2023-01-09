@@ -21,7 +21,7 @@
     do {                                                            \
         (arr)->length = (c);                                        \
         (arr)->capacity = (c);                                      \
-        (arr)->data = calloc(0, c * sizeof(T));                     \
+        (arr)->data = calloc((c), sizeof(T));                       \
     } while(0)
 
 // -----------------------------------------------------------------------
