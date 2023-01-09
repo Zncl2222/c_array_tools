@@ -2,4 +2,5 @@ mkdir build
 cd build
 cmake ..
 make
-./test/unittest.out
+make test
+make memcheck
