@@ -143,6 +143,8 @@
         printf("]\n");                                  \
     } while(0)
 
+# define c_array_empty(arr) (arr->length == 0)
+
 # define c_array_free(arr) (free((arr)->data))
 
 // -----------------------------------------------------------------------
