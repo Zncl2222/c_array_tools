@@ -79,9 +79,18 @@ UTEST(test, c_array_set_length) {
     ASSERT_EQ(arr.capacity, 30);
     ASSERT_EQ(arr.length, 30);
 
-    c_array_push_back(&arr, 22);
-    ASSERT_EQ(arr.capacity, 60);
-    ASSERT_EQ(arr.length, 31);
+    c_array_set_length(&arr, 22);
+    ASSERT_EQ(arr.capacity, 30);
+    ASSERT_EQ(arr.length, 22);
+
+    c_array_resize(&arr, 90);
+    c_array_set_length(&arr, 70);
+    ASSERT_EQ(arr.capacity, 90);
+    ASSERT_EQ(arr.length, 70);
+
+    c_array_set_length(&arr, 90);
+    ASSERT_EQ(arr.capacity, 90);
+    ASSERT_EQ(arr.length, 90);
 
     c_array_free(&arr);
 }
@@ -107,6 +116,19 @@ UTEST(test, c_array_byte) {
     c_array_free(&d_arr);
 }
 
+UTEST(test, c_array_empty) {
+    c_array(int) arr;
+    c_array_init(&arr, int, 0);
+    ASSERT_EQ(c_array_empty(&arr), 1);
+
+    c_array_resize(&arr, 10);
+    ASSERT_EQ(c_array_empty(&arr), 1);
+
+    c_array_set_length(&arr, 10);
+    ASSERT_EQ(c_array_empty(&arr), 0);
+
+    c_array_free(&arr);
+}
 
 UTEST(test, c_array_push_back) {
     c_array(int) arr;
