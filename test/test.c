@@ -163,6 +163,44 @@ UTEST(test, c_array_push_back) {
     c_array_free(&arr);
 }
 
+UTEST(test, c_array_reverse) {
+    c_array(int) arr;
+    c_array_init(&arr, int, 0);
+
+    c_array_push_back(&arr, 1);
+    c_array_push_back(&arr, 2);
+    c_array_push_back(&arr, 3);
+    c_array_push_back(&arr, 4);
+    c_array_push_back(&arr, 5);
+    c_array_push_back(&arr, 6);
+    ASSERT_EQ(arr.data[0], 1);
+    ASSERT_EQ(arr.data[1], 2);
+    ASSERT_EQ(arr.data[2], 3);
+    ASSERT_EQ(arr.data[3], 4);
+    ASSERT_EQ(arr.data[4], 5);
+    ASSERT_EQ(arr.data[5], 6);
+
+    c_array_reverse(&arr);
+    ASSERT_EQ(arr.data[0], 6);
+    ASSERT_EQ(arr.data[1], 5);
+    ASSERT_EQ(arr.data[2], 4);
+    ASSERT_EQ(arr.data[3], 3);
+    ASSERT_EQ(arr.data[4], 2);
+    ASSERT_EQ(arr.data[5], 1);
+
+    c_array_push_back(&arr, 0);
+    c_array_reverse(&arr);
+    ASSERT_EQ(arr.data[0], 0);
+    ASSERT_EQ(arr.data[1], 1);
+    ASSERT_EQ(arr.data[2], 2);
+    ASSERT_EQ(arr.data[3], 3);
+    ASSERT_EQ(arr.data[4], 4);
+    ASSERT_EQ(arr.data[5], 5);
+    ASSERT_EQ(arr.data[6], 6);
+
+    c_array_free(&arr);
+}
+
 UTEST(test, c_array_pop_back) {
     c_array(int) arr;
     c_array_init(&arr, int, 0);
