@@ -145,6 +145,19 @@
 
 # define c_array_empty(arr) ((arr)->length == 0)
 
+# define c_array_reverse(arr)                                                       \
+    do {                                                                            \
+        if ((arr)->capacity == (arr)->length) {                                     \
+            c_array_resize((arr), (arr)->capacity + 1);                             \
+        }                                                                           \
+        for (int i = 0; i < ((arr)->length / 2); i++) {                             \
+            (arr)->data[(arr)->capacity - 1] = (arr)->data[i];                      \
+            (arr)->data[i] = (arr)->data[(arr)->length - 1 - i];                    \
+            (arr)->data[(arr)->length - 1 - i] = (arr)->data[(arr)->capacity - 1];  \
+        }                                                                           \
+        (arr)->data[(arr)->capacity - 1] = 0;                                       \
+    } while(0)
+
 # define c_array_free(arr) (free((arr)->data))
 
 // -----------------------------------------------------------------------
