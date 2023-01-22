@@ -130,6 +130,31 @@ UTEST(test, c_array_empty) {
     c_array_free(&arr);
 }
 
+UTEST(test, c_array_swap) {
+    c_array(int) arr;
+    c_array_init(&arr, int, 0);
+
+    c_array_push_back(&arr, 101);
+    c_array_push_back(&arr, -20);
+    ASSERT_EQ(arr.data[0], 101);
+    ASSERT_EQ(arr.data[1], -20);
+
+    c_array_swap(&arr, 0, 1);
+    ASSERT_EQ(arr.data[0], -20);
+    ASSERT_EQ(arr.data[1], 101);
+    ASSERT_EQ(arr.capacity, 3);
+
+    c_array_push_back(&arr, 9999);
+    c_array_push_back(&arr, -1111);
+    ASSERT_EQ(arr.capacity, 6);
+
+    c_array_swap(&arr, 0, 3);
+    ASSERT_EQ(arr.data[0], -1111);
+    ASSERT_EQ(arr.data[3], -20);
+
+    c_array_free(&arr);
+}
+
 UTEST(test, c_array_push_back) {
     c_array(int) arr;
     c_array_init(&arr, int, 0);
