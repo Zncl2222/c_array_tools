@@ -145,6 +145,18 @@
 
 # define c_array_empty(arr) ((arr)->length == 0)
 
+# define c_array_swap(arr, idx1, idx2)                              \
+    do {                                                            \
+        assert((idx1) < (arr)->length && (idx2) < (arr)->length);   \
+        assert((arr)->length >= 2);                                 \
+        if ((arr)->capacity == (arr)->length) {                     \
+            c_array_resize((arr), (arr)->capacity + 1);             \
+        }                                                           \
+        (arr)->data[(arr)->capacity - 1] = (arr)->data[idx2];       \
+        (arr)->data[idx2] = (arr)->data[idx1];                      \
+        (arr)->data[idx1] = (arr)->data[(arr)->capacity - 1];       \
+    } while(0)                                                      \
+
 # define c_array_reverse(arr)                                                       \
     do {                                                                            \
         if ((arr)->capacity == (arr)->length) {                                     \
