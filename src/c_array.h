@@ -17,11 +17,12 @@
 
 # define c_array(T) struct { T* data; size_t length; size_t capacity; }
 
-# define c_array_init(arr, T, c)                                    \
+# define c_array_init(arr, c)                                       \
     do {                                                            \
+        typeof(*((arr)->data)) x;                                   \
         (arr)->length = (c);                                        \
         (arr)->capacity = (c);                                      \
-        (arr)->data = calloc((c), sizeof(T));                       \
+        (arr)->data = calloc((c), sizeof(x));                       \
     } while(0)
 
 // -----------------------------------------------------------------------
@@ -149,25 +150,20 @@
     do {                                                            \
         assert((idx1) < (arr)->length && (idx2) < (arr)->length);   \
         assert((arr)->length >= 2);                                 \
-        if ((arr)->capacity == (arr)->length) {                     \
-            c_array_resize((arr), (arr)->capacity + 1);             \
-        }                                                           \
-        (arr)->data[(arr)->capacity - 1] = (arr)->data[idx2];       \
+        typeof(*((arr)->data)) x;                                   \
+        x = (arr)->data[idx2];                                      \
         (arr)->data[idx2] = (arr)->data[idx1];                      \
-        (arr)->data[idx1] = (arr)->data[(arr)->capacity - 1];       \
+        (arr)->data[idx1] = x;                                      \
     } while(0)                                                      \
 
 # define c_array_reverse(arr)                                                       \
     do {                                                                            \
-        if ((arr)->capacity == (arr)->length) {                                     \
-            c_array_resize((arr), (arr)->capacity + 1);                             \
-        }                                                                           \
+        typeof(*((arr)->data)) x;                                                   \
         for (int i = 0; i < ((arr)->length / 2); i++) {                             \
-            (arr)->data[(arr)->capacity - 1] = (arr)->data[i];                      \
+            x = (arr)->data[i];                                                     \
             (arr)->data[i] = (arr)->data[(arr)->length - 1 - i];                    \
-            (arr)->data[(arr)->length - 1 - i] = (arr)->data[(arr)->capacity - 1];  \
+            (arr)->data[(arr)->length - 1 - i] = x;                                 \
         }                                                                           \
-        (arr)->data[(arr)->capacity - 1] = 0;                                       \
     } while(0)
 
 # define c_array_free(arr) (free((arr)->data))
@@ -177,13 +173,15 @@
 
 # define c_matrix(T) struct { T** data; size_t rows; size_t cols; }
 
-# define c_matrix_init(mat, T, r, c)                \
+# define c_matrix_init(mat, r, c)                   \
     do{                                             \
+        typeof(**((mat)->data)) m;                  \
+        typeof(*((mat)->data)) n;                   \
         (mat)->rows = (r);                          \
         (mat)->cols = (c);                          \
-        (mat)->data = malloc(r * sizeof(T*));       \
+        (mat)->data = malloc(r * sizeof(n));        \
         for (int i = 0; i < (r); i++) {             \
-            (mat)->data[i] = malloc(c * sizeof(T)); \
+            (mat)->data[i] = malloc(c * sizeof(m)); \
         }\
     } while(0)
 

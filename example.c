@@ -6,7 +6,7 @@ int main() {
 
     // Initialize the array. If capacity > 0, then it will initialize with 0 val.
     c_array(int) array;
-    c_array_init(&array, int, 0);
+    c_array_init(&array, 0);
 
     // add element to the back (the idx of back is the current length of array)
     c_array_push_back(&array, 10);

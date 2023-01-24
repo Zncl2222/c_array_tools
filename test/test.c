@@ -4,32 +4,32 @@
 
 UTEST(test, c_array_init) {
     c_array(int) arr;
-    c_array_init(&arr, int, 0);
+    c_array_init(&arr, 0);
     ASSERT_TRUE(arr.capacity == 0);
     ASSERT_TRUE(arr.length == 0);
 
     c_array(int) arr2;
-    c_array_init(&arr2, int, 20);
+    c_array_init(&arr2, 20);
     ASSERT_TRUE(arr2.capacity == 20);
     ASSERT_TRUE(arr2.length == 20);
 
     c_array(float) f_arr;
-    c_array_init(&f_arr, float, 0);
+    c_array_init(&f_arr, 0);
     ASSERT_TRUE(f_arr.capacity == 0);
     ASSERT_TRUE(f_arr.length == 0);
 
     c_array(float) f_arr2;
-    c_array_init(&f_arr2, float, 20);
+    c_array_init(&f_arr2, 20);
     ASSERT_TRUE(f_arr2.capacity == 20);
     ASSERT_TRUE(f_arr2.length == 20);
 
     c_array(double) d_arr;
-    c_array_init(&d_arr, double, 0);
+    c_array_init(&d_arr, 0);
     ASSERT_TRUE(d_arr.capacity == 0);
     ASSERT_TRUE(d_arr.length == 0);
 
     c_array(double) d_arr2;
-    c_array_init(&d_arr2, double, 20);
+    c_array_init(&d_arr2, 20);
     ASSERT_TRUE(d_arr2.capacity == 20);
     ASSERT_TRUE(d_arr2.length == 20);
 
@@ -43,7 +43,7 @@ UTEST(test, c_array_init) {
 
 UTEST(test, c_array_assign) {
     c_array(int) arr;
-    c_array_init(&arr, int, 3);
+    c_array_init(&arr, 3);
 
     c_array_assign(&arr, 2, -99);
     ASSERT_EQ(arr.data[2], -99);
@@ -59,7 +59,7 @@ UTEST(test, c_array_assign) {
 
 UTEST(test, c_array_resize) {
     c_array(int) arr;
-    c_array_init(&arr, int, 3);
+    c_array_init(&arr, 3);
     ASSERT_EQ(arr.capacity, 3);
     ASSERT_EQ(arr.length, 3);
 
@@ -75,7 +75,7 @@ UTEST(test, c_array_resize) {
 
 UTEST(test, c_array_set_length) {
     c_array(int) arr;
-    c_array_init(&arr, int, 30);
+    c_array_init(&arr, 30);
     ASSERT_EQ(arr.capacity, 30);
     ASSERT_EQ(arr.length, 30);
 
@@ -97,17 +97,17 @@ UTEST(test, c_array_set_length) {
 
 UTEST(test, c_array_byte) {
     c_array(int) arr;
-    c_array_init(&arr, int, 1);
+    c_array_init(&arr, 1);
     c_array_assign(&arr, 0, 15);
     ASSERT_EQ(c_array_byte(&arr), 4);
 
     c_array(float) f_arr;
-    c_array_init(&f_arr, float, 1);
+    c_array_init(&f_arr, 1);
     c_array_assign(&f_arr, 0, 15.23);
     ASSERT_EQ(c_array_byte(&f_arr), 4);
 
     c_array(double) d_arr;
-    c_array_init(&d_arr, double, 1);
+    c_array_init(&d_arr, 1);
     c_array_assign(&d_arr, 0, 155.2348);
     ASSERT_EQ(c_array_byte(&d_arr), 8);
 
@@ -118,7 +118,7 @@ UTEST(test, c_array_byte) {
 
 UTEST(test, c_array_empty) {
     c_array(int) arr;
-    c_array_init(&arr, int, 0);
+    c_array_init(&arr, 0);
     ASSERT_EQ(c_array_empty(&arr), 1);
 
     c_array_resize(&arr, 10);
@@ -132,7 +132,7 @@ UTEST(test, c_array_empty) {
 
 UTEST(test, c_array_swap) {
     c_array(int) arr;
-    c_array_init(&arr, int, 0);
+    c_array_init(&arr, 0);
 
     c_array_push_back(&arr, 101);
     c_array_push_back(&arr, -20);
@@ -142,11 +142,9 @@ UTEST(test, c_array_swap) {
     c_array_swap(&arr, 0, 1);
     ASSERT_EQ(arr.data[0], -20);
     ASSERT_EQ(arr.data[1], 101);
-    ASSERT_EQ(arr.capacity, 3);
 
     c_array_push_back(&arr, 9999);
     c_array_push_back(&arr, -1111);
-    ASSERT_EQ(arr.capacity, 6);
 
     c_array_swap(&arr, 0, 3);
     ASSERT_EQ(arr.data[0], -1111);
@@ -157,7 +155,7 @@ UTEST(test, c_array_swap) {
 
 UTEST(test, c_array_push_back) {
     c_array(int) arr;
-    c_array_init(&arr, int, 0);
+    c_array_init(&arr, 0);
 
     c_array_push_back(&arr, 15);
     ASSERT_EQ(arr.capacity, 2);
@@ -190,7 +188,7 @@ UTEST(test, c_array_push_back) {
 
 UTEST(test, c_array_reverse) {
     c_array(int) arr;
-    c_array_init(&arr, int, 0);
+    c_array_init(&arr, 0);
 
     c_array_push_back(&arr, 1);
     c_array_push_back(&arr, 2);
@@ -228,7 +226,7 @@ UTEST(test, c_array_reverse) {
 
 UTEST(test, c_array_pop_back) {
     c_array(int) arr;
-    c_array_init(&arr, int, 0);
+    c_array_init(&arr, 0);
 
     c_array_push_back(&arr, 15);
     c_array_push_back(&arr, 20);
@@ -243,7 +241,7 @@ UTEST(test, c_array_pop_back) {
 
 UTEST(test, c_array_insert) {
     c_array(int) arr;
-    c_array_init(&arr, int, 0);
+    c_array_init(&arr, 0);
 
     c_array_push_back(&arr, 15);
     c_array_push_back(&arr, 29);
@@ -282,7 +280,7 @@ UTEST(test, c_array_insert) {
 
 UTEST(test, c_array_remove) {
     c_array(int) arr;
-    c_array_init(&arr, int, 0);
+    c_array_init(&arr, 0);
 
     c_array_push_back(&arr, 15);
     c_array_push_back(&arr, 29);
@@ -308,22 +306,22 @@ UTEST(test, c_array_remove) {
 
 UTEST(test, c_matrix_init) {
     c_matrix(int) mat;
-    c_matrix_init(&mat, int, 10, 6);
+    c_matrix_init(&mat, 10, 6);
     ASSERT_EQ(mat.rows, 10);
     ASSERT_EQ(mat.cols, 6);
 
     c_matrix(int) mat2;
-    c_matrix_init(&mat2, int, 1000, 6000);
+    c_matrix_init(&mat2, 1000, 6000);
     ASSERT_EQ(mat2.rows, 1000);
     ASSERT_EQ(mat2.cols, 6000);
 
     c_matrix(double) d_mat;
-    c_matrix_init(&d_mat, double, 10000, 6000);
+    c_matrix_init(&d_mat, 10000, 6000);
     ASSERT_EQ(d_mat.rows, 10000);
     ASSERT_EQ(d_mat.cols, 6000);
 
     c_matrix(float) f_mat;
-    c_matrix_init(&f_mat, float, 15112, 22131);
+    c_matrix_init(&f_mat, 15112, 22131);
     ASSERT_EQ(f_mat.rows, 15112);
     ASSERT_EQ(f_mat.cols, 22131);
 
