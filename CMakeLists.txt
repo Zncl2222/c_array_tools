@@ -6,7 +6,12 @@ project(example)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 add_executable(example example.c)
-set_target_properties(example PROPERTIES SUFFIX ".out")
+
+if(WIN32)
+    set_target_properties(example PROPERTIES SUFFIX ".exe")
+else()
+    set_target_properties(example PROPERTIES SUFFIX ".out")
+endif()
 
 # make sure example can run
 add_test(
