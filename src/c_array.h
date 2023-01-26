@@ -127,6 +127,40 @@
     } while(0)
 
 // -----------------------------------------------------------------------
+/*                              Array Sum                               */
+
+# define c_array_sum(arr)               \
+    _Generic((arr)->data,               \
+        int*: c_array_sum_int,          \
+        long*: c_array_sum_long,        \
+        float*: c_array_sum_float,      \
+        double*: c_array_sum_double     \
+    )((arr)->data, (arr)->length)
+
+# define c_array_sum_process(arr, size)     \
+    typeof(*(arr)) sum = 0;                 \
+    for (int i = 0; i < size; i++) {        \
+        sum += arr[i];                      \
+    }                                       \
+    return sum;                             \
+
+int c_array_sum_int(int* arr, int size) {
+    c_array_sum_process(arr, size);
+}
+
+long c_array_sum_long(long* arr, int size) {
+    c_array_sum_process(arr, size);
+}
+
+float c_array_sum_float(float* arr, int size) {
+    c_array_sum_process(arr, size);
+}
+
+double c_array_sum_double(double* arr, int size) {
+    c_array_sum_process(arr, size);
+}
+
+// -----------------------------------------------------------------------
 /*                            Arrary utils                              */
 
 # define c_array_print(arr, format)                     \

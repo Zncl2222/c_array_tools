@@ -304,6 +304,39 @@ UTEST(test, c_array_remove) {
     c_array_free(&arr);
 }
 
+UTEST(test, c_array_sum) {
+    c_array(int) arr;
+    c_array(long) arr_l;
+    c_array(float) arr_f;
+    c_array(double) arr_d;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_l, 0);
+    c_array_init(&arr_f, 0);
+    c_array_init(&arr_d, 0);
+
+    for (int i = 0; i < 9; i++) {
+        c_array_push_back(&arr, 1);
+        c_array_push_back(&arr_l, 199);
+        c_array_push_back(&arr_f, 1.5);
+        c_array_push_back(&arr_d, 2.5);
+    }
+
+    int sum_int = c_array_sum(&arr);
+    long sum_long = c_array_sum(&arr_l);
+    float sum_float = c_array_sum(&arr_f);
+    double sum_double = c_array_sum(&arr_d);
+    ASSERT_EQ(sum_int, 9);
+    ASSERT_EQ(sum_long, 1791);
+    ASSERT_EQ(sum_float, 13.5);
+    ASSERT_EQ(sum_double, 22.5);
+
+    c_array_free(&arr);
+    c_array_free(&arr_l);
+    c_array_free(&arr_f);
+    c_array_free(&arr_d);
+}
+
 UTEST(test, c_matrix_init) {
     c_matrix(int) mat;
     c_matrix_init(&mat, 10, 6);
