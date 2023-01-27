@@ -337,6 +337,75 @@ UTEST(test, c_array_sum) {
     c_array_free(&arr_d);
 }
 
+UTEST(test, c_array_min_max) {
+    c_array(int) arr;
+    c_array(long long) arr_l;
+    c_array(float) arr_f;
+    c_array(double) arr_d;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_l, 0);
+    c_array_init(&arr_f, 0);
+    c_array_init(&arr_d, 0);
+
+    c_array_push_back(&arr, 51);
+    c_array_push_back(&arr, 99);
+    int max_int = c_array_max(&arr);
+    int min_int = c_array_min(&arr);
+    ASSERT_EQ(max_int, 99);
+    ASSERT_EQ(min_int, 51);
+
+    c_array_push_back(&arr, -59999);
+    max_int = c_array_max(&arr);
+    min_int = c_array_min(&arr);
+    ASSERT_EQ(max_int, 99);
+    ASSERT_EQ(min_int, -59999);
+
+    c_array_push_back(&arr_l, 9223372036854775);
+    c_array_push_back(&arr_l, -9223372036854775);
+    long long max_long_long = c_array_max(&arr_l);
+    long long min_long_long = c_array_min(&arr_l);
+    ASSERT_EQ(max_long_long , 9223372036854775);
+    ASSERT_EQ(min_long_long , -9223372036854775);
+
+    c_array_push_back(&arr_l, -9223372036854775807);
+    max_long_long = c_array_max(&arr_l);
+    min_long_long = c_array_min(&arr_l);
+    ASSERT_EQ(max_long_long , 9223372036854775);
+    ASSERT_EQ(min_long_long , -9223372036854775807);
+
+    c_array_push_back(&arr_f, 15.6996445);
+    c_array_push_back(&arr_f, -55942.119454332);
+    float max_float = c_array_max(&arr_f);
+    float min_float = c_array_min(&arr_f);
+    ASSERT_NEAR(max_float, 15.6996445, 0.01f);
+    ASSERT_NEAR(min_float, -55942.119454332, 0.01f);
+
+    c_array_push_back(&arr_f, 99999.9999);
+    max_float = c_array_max(&arr_f);
+    min_float = c_array_min(&arr_f);
+    ASSERT_NEAR(max_float, 99999.9999, 0.01f);
+    ASSERT_NEAR(min_float, -55942.119454332, 0.01f);
+
+    c_array_push_back(&arr_d, 49.9541e300);
+    c_array_push_back(&arr_d, -5e307);
+    double max_double = c_array_max(&arr_d);
+    double min_double = c_array_min(&arr_d);
+    ASSERT_EQ(max_double, 49.9541e300);
+    ASSERT_EQ(min_double, -5e307);
+
+    c_array_push_back(&arr_d, 9e307);
+    max_double = c_array_max(&arr_d);
+    min_double = c_array_min(&arr_d);
+    ASSERT_EQ(max_double, 9e307);
+    ASSERT_EQ(min_double, -5e307);
+
+    c_array_free(&arr);
+    c_array_free(&arr_l);
+    c_array_free(&arr_f);
+    c_array_free(&arr_d);
+}
+
 UTEST(test, c_matrix_init) {
     c_matrix(int) mat;
     c_matrix_init(&mat, 10, 6);
