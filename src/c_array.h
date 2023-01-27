@@ -7,6 +7,8 @@
 # ifndef C_ARRAY_H
 # define C_ARRAY_H
 
+# include <stdio.h>
+# include <math.h>
 # include <stdlib.h>
 # include <string.h>
 # include <assert.h>
@@ -158,6 +160,95 @@ float c_array_sum_float(float* arr, int size) {
 
 double c_array_sum_double(double* arr, int size) {
     c_array_sum_process(arr, size);
+}
+
+// -----------------------------------------------------------------------
+/*                          Array Min and Max                           */
+
+# define c_array_max(arr)                       \
+    _Generic((arr)->data,                       \
+        int*: c_array_max_int,                  \
+        long long*: c_array_max_long_long,      \
+        float*: c_array_max_float,              \
+        double*: c_array_max_double             \
+    )((arr)->data, (arr)->length)
+
+# define c_array_min(arr)                       \
+    _Generic((arr)->data,                       \
+        int*: c_array_min_int,                  \
+        long long*: c_array_min_long_long,      \
+        float*: c_array_min_float,              \
+        double*: c_array_min_double             \
+    )((arr)->data, (arr)->length)
+
+# define c_array_maxmin_process(arr, n, mode)                               \
+    int odd = (n) & 1;                                                      \
+    typeof(*(arr)) max = -pow(2, (((sizeof(typeof(*(arr)))-  1) * 8)));     \
+    typeof(*(arr)) min = pow(2, (((sizeof(typeof(*(arr)))-  1) * 8))) - 1;  \
+    if (odd) {                                                              \
+        (n)--;                                                              \
+    }                                                                       \
+    typeof(*(arr)) minimum = arr[0];                                        \
+    typeof(*(arr)) maximum = arr[0];                                        \
+    for (int i = 0; i < n; i = i + 2) {                                     \
+        if (arr[i] > arr[i + 1]) {                                          \
+            minimum = arr[i + 1],                                           \
+            maximum = arr[i];                                               \
+        } else {                                                            \
+            minimum = arr[i],                                               \
+            maximum = arr[i + 1];                                           \
+        }                                                                   \
+        if (maximum > max) {                                                \
+            max = maximum;                                                  \
+        }                                                                   \
+        if (minimum < min) {                                                \
+            min = minimum;                                                  \
+        }                                                                   \
+    }                                                                       \
+    if (odd) {                                                              \
+        if (arr[n] > max) {                                                 \
+            max = arr[n];                                                   \
+        }                                                                   \
+        if (arr[n] < min) {                                                 \
+            min = arr[n];                                                   \
+        }                                                                   \
+    }                                                                       \
+    if (mode == "max") {                                                    \
+        return max;                                                         \
+    } else {                                                                \
+        return min;                                                         \
+    }                                                                       \
+
+int c_array_max_int(int* arr, int size) {
+    c_array_maxmin_process(arr, size, "max");
+}
+
+long long c_array_max_long_long(long long* arr, int size) {
+    c_array_maxmin_process(arr, size, "max");
+}
+
+float c_array_max_float(float* arr, int size) {
+    c_array_maxmin_process(arr, size, "max");
+}
+
+double c_array_max_double(double* arr, int size) {
+    c_array_maxmin_process(arr, size, "max");
+}
+
+int c_array_min_int(int* arr, int size) {
+    c_array_maxmin_process(arr, size, "min");
+}
+
+long long c_array_min_long_long(long long* arr, int size) {
+    c_array_maxmin_process(arr, size, "min");
+}
+
+float c_array_min_float(float* arr, int size) {
+    c_array_maxmin_process(arr, size, "min");
+}
+
+double c_array_min_double(double* arr, int size) {
+    c_array_maxmin_process(arr, size, "min");
 }
 
 // -----------------------------------------------------------------------
