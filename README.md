@@ -9,6 +9,18 @@ This is a simple dynamic array tools similary to C++ **```std::vector```** imple
 # Installation
 It is a single header file library. Just put `src/c_array.h` into your project and import it !
 
+Due to the `typeof` feature in the code, now the project was only tested base on the gcc compiler on windows (mingw) and ubuntu os.
+
+<div align='center'>
+
+| Compiler                      | Windows            | Ubuntu             | Mac                 |
+| ----------------------------- | ------------------ | ------------------ | ------------------  |
+| GNU Compiler Collection (gcc) | :x:                | :white_check_mark: | Not  yet tested     |
+| x86_64 mingw series (gcc)     | :white_check_mark: | :x:                | Not  yet tested     |
+| Visual Studio Build Tools     | :x:                | :x:                | Not  yet tested     |
+
+</div>
+
 # Usuage
 Here is an example.c to display how to use this llibrary. You could just use the shell script example.sh (linux) or batch file example.bat to compile and run the program. The example program print out the results for user to understand how it works.
 
