@@ -6,32 +6,32 @@ UTEST(test, c_array_init) {
     c_array(int) arr;
     c_array_init(&arr, 0);
     ASSERT_TRUE(arr.capacity == 0);
-    ASSERT_TRUE(arr.length == 0);
+    ASSERT_TRUE(arr.size == 0);
 
     c_array(int) arr2;
     c_array_init(&arr2, 20);
     ASSERT_TRUE(arr2.capacity == 20);
-    ASSERT_TRUE(arr2.length == 20);
+    ASSERT_TRUE(arr2.size == 20);
 
     c_array(float) f_arr;
     c_array_init(&f_arr, 0);
     ASSERT_TRUE(f_arr.capacity == 0);
-    ASSERT_TRUE(f_arr.length == 0);
+    ASSERT_TRUE(f_arr.size == 0);
 
     c_array(float) f_arr2;
     c_array_init(&f_arr2, 20);
     ASSERT_TRUE(f_arr2.capacity == 20);
-    ASSERT_TRUE(f_arr2.length == 20);
+    ASSERT_TRUE(f_arr2.size == 20);
 
     c_array(double) d_arr;
     c_array_init(&d_arr, 0);
     ASSERT_TRUE(d_arr.capacity == 0);
-    ASSERT_TRUE(d_arr.length == 0);
+    ASSERT_TRUE(d_arr.size == 0);
 
     c_array(double) d_arr2;
     c_array_init(&d_arr2, 20);
     ASSERT_TRUE(d_arr2.capacity == 20);
-    ASSERT_TRUE(d_arr2.length == 20);
+    ASSERT_TRUE(d_arr2.size == 20);
 
     c_array_free(&arr);
     c_array_free(&arr2);
@@ -61,11 +61,11 @@ UTEST(test, c_array_resize) {
     c_array(int) arr;
     c_array_init(&arr, 3);
     ASSERT_EQ(arr.capacity, 3);
-    ASSERT_EQ(arr.length, 3);
+    ASSERT_EQ(arr.size, 3);
 
     c_array_resize(&arr, 15);
     ASSERT_EQ(arr.capacity, 15);
-    ASSERT_EQ(arr.length, 3);
+    ASSERT_EQ(arr.size, 3);
 
     c_array_resize(&arr, 2);
     ASSERT_EQ(arr.capacity, 2);
@@ -73,24 +73,24 @@ UTEST(test, c_array_resize) {
     c_array_free(&arr);
 }
 
-UTEST(test, c_array_set_length) {
+UTEST(test, c_array_set_size) {
     c_array(int) arr;
     c_array_init(&arr, 30);
     ASSERT_EQ(arr.capacity, 30);
-    ASSERT_EQ(arr.length, 30);
+    ASSERT_EQ(arr.size, 30);
 
-    c_array_set_length(&arr, 22);
+    c_array_set_size(&arr, 22);
     ASSERT_EQ(arr.capacity, 30);
-    ASSERT_EQ(arr.length, 22);
+    ASSERT_EQ(arr.size, 22);
 
     c_array_resize(&arr, 90);
-    c_array_set_length(&arr, 70);
+    c_array_set_size(&arr, 70);
     ASSERT_EQ(arr.capacity, 90);
-    ASSERT_EQ(arr.length, 70);
+    ASSERT_EQ(arr.size, 70);
 
-    c_array_set_length(&arr, 90);
+    c_array_set_size(&arr, 90);
     ASSERT_EQ(arr.capacity, 90);
-    ASSERT_EQ(arr.length, 90);
+    ASSERT_EQ(arr.size, 90);
 
     c_array_free(&arr);
 }
@@ -124,7 +124,7 @@ UTEST(test, c_array_empty) {
     c_array_resize(&arr, 10);
     ASSERT_EQ(c_array_empty(&arr), 1);
 
-    c_array_set_length(&arr, 10);
+    c_array_set_size(&arr, 10);
     ASSERT_EQ(c_array_empty(&arr), 0);
 
     c_array_free(&arr);
@@ -159,23 +159,23 @@ UTEST(test, c_array_push_back) {
 
     c_array_push_back(&arr, 15);
     ASSERT_EQ(arr.capacity, 2);
-    ASSERT_EQ(arr.length, 1);
+    ASSERT_EQ(arr.size, 1);
 
     c_array_push_back(&arr, 29);
     ASSERT_EQ(arr.capacity, 2);
-    ASSERT_EQ(arr.length, 2);
+    ASSERT_EQ(arr.size, 2);
 
     c_array_push_back(&arr, 55);
     ASSERT_EQ(arr.capacity, 4);
-    ASSERT_EQ(arr.length, 3);
+    ASSERT_EQ(arr.size, 3);
 
     c_array_push_back(&arr, 66);
     ASSERT_EQ(arr.capacity, 4);
-    ASSERT_EQ(arr.length, 4);
+    ASSERT_EQ(arr.size, 4);
 
     c_array_push_back(&arr, -5);
     ASSERT_EQ(arr.capacity, 8);
-    ASSERT_EQ(arr.length, 5);
+    ASSERT_EQ(arr.size, 5);
 
     ASSERT_EQ(arr.data[0], 15);
     ASSERT_EQ(arr.data[1], 29);
@@ -230,11 +230,11 @@ UTEST(test, c_array_pop_back) {
 
     c_array_push_back(&arr, 15);
     c_array_push_back(&arr, 20);
-    ASSERT_EQ(arr.length, 2);
+    ASSERT_EQ(arr.size, 2);
 
     c_array_pop_back(&arr);
     ASSERT_EQ(arr.data[1], 0);
-    ASSERT_EQ(arr.length, 1);
+    ASSERT_EQ(arr.size, 1);
 
     c_array_free(&arr);
 }
@@ -256,7 +256,7 @@ UTEST(test, c_array_insert) {
     ASSERT_EQ(arr.data[3], 55);
     ASSERT_EQ(arr.data[4], 66);
     ASSERT_EQ(arr.data[5], -5);
-    ASSERT_EQ(arr.length, 6);
+    ASSERT_EQ(arr.size, 6);
 
     // insert at head
     c_array_insert(&arr, 0, 99999);
@@ -267,13 +267,13 @@ UTEST(test, c_array_insert) {
     ASSERT_EQ(arr.data[4], 55);
     ASSERT_EQ(arr.data[5], 66);
     ASSERT_EQ(arr.data[6], -5);
-    ASSERT_EQ(arr.length, 7);
+    ASSERT_EQ(arr.size, 7);
 
     // insert at tail
     c_array_insert(&arr, 6, 2151);
     ASSERT_EQ(arr.data[6], 2151);
     ASSERT_EQ(arr.data[7], -5);
-    ASSERT_EQ(arr.length, 8);
+    ASSERT_EQ(arr.size, 8);
 
     c_array_free(&arr);
 }
@@ -292,14 +292,14 @@ UTEST(test, c_array_remove) {
     ASSERT_EQ(arr.data[2], 55);
     ASSERT_EQ(arr.data[3], 66);
     ASSERT_EQ(arr.data[4], -5);
-    ASSERT_EQ(arr.length, 5);
+    ASSERT_EQ(arr.size, 5);
 
     c_array_remove(&arr, 1);
     ASSERT_EQ(arr.data[0], 15);
     ASSERT_EQ(arr.data[1], 55);
     ASSERT_EQ(arr.data[2], 66);
     ASSERT_EQ(arr.data[3], -5);
-    ASSERT_EQ(arr.length, 4);
+    ASSERT_EQ(arr.size, 4);
 
     c_array_free(&arr);
 }
