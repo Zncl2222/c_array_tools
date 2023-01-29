@@ -22,7 +22,7 @@
 # define c_array_init(arr, c)                                       \
     do {                                                            \
         typeof(*((arr)->data)) x;                                   \
-        (arr)->size = (c);                                        \
+        (arr)->size = (c);                                          \
         (arr)->capacity = (c);                                      \
         (arr)->data = calloc((c), sizeof(x));                       \
     } while(0)
@@ -36,7 +36,7 @@
 
 # define c_array_assign(arr, idx, val)                                   \
     do {                                                                 \
-        assert(idx < (arr)->size);                                     \
+        assert(idx < (arr)->size);                                       \
         (arr)->data[(idx)] = (val);                                      \
     } while(0)
 
@@ -64,13 +64,13 @@
         (arr)->data = ptr;                                                  \
     } while(0)
 
-# define c_array_set_size(arr, l)                                 \
+# define c_array_set_size(arr, l)                                   \
     do {                                                            \
         assert(l <= (arr)->capacity);                               \
-        for (int i = (arr)->size; i < (arr)->capacity; i++) {     \
+        for (int i = (arr)->size; i < (arr)->capacity; i++) {       \
             (arr)->data[i] = 0;                                     \
         }                                                           \
-        (arr)->size = (l);                                        \
+        (arr)->size = (l);                                          \
     } while(0)
 
 // -----------------------------------------------------------------------
@@ -78,18 +78,18 @@
 
 # define c_array_push_back(arr, val)                             \
     do {                                                         \
-        if (c_array_capacity((arr)) <= c_array_size((arr))) {  \
+        if (c_array_capacity((arr)) <= c_array_size((arr))) {    \
             c_array_grow((arr));                                 \
         }                                                        \
-        (arr)->data[(arr)->size] = val;                        \
-        (arr)->size++;                                         \
+        (arr)->data[(arr)->size] = val;                          \
+        (arr)->size++;                                           \
     } while(0)
 
 # define c_array_pop_back(arr)              \
     do {                                    \
-        assert((arr)->size > 0);          \
-        (arr)->data[(arr)->size - 1] = 0; \
-        (arr)->size--;                    \
+        assert((arr)->size > 0);            \
+        (arr)->data[(arr)->size - 1] = 0;   \
+        (arr)->size--;                      \
     } while(0)
 
 // -----------------------------------------------------------------------
@@ -97,35 +97,35 @@
 
 # define c_array_moveright(arr, idx)                  \
     do {                                              \
-        if ((arr)->capacity <= (arr)->size) {       \
+        if ((arr)->capacity <= (arr)->size) {         \
             c_array_grow(arr);                        \
         }                                             \
-        for(int i = (arr)->size; i > idx; i--) {    \
+        for(int i = (arr)->size; i > idx; i--) {      \
             (arr)->data[i] = (arr)->data[i - 1];      \
         }                                             \
     } while(0)
 
 # define c_array_moveleft(arr, idx)                         \
     do {                                                    \
-        for(int i = idx; i < (arr)->size - 1; i++) {      \
+        for(int i = idx; i < (arr)->size - 1; i++) {        \
             (arr)->data[i] = (arr)->data[i + 1];            \
         }                                                   \
     } while(0)                                              \
 
 # define c_array_insert(arr, idx, val)                  \
     do {                                                \
-        if ((idx) < (arr)->size) {                    \
+        if ((idx) < (arr)->size) {                      \
             c_array_moveright((arr), (idx));            \
             (arr)->data[(idx)] = (val);                 \
-            (arr)->size++;                            \
+            (arr)->size++;                              \
         }                                               \
     } while(0)
 
 # define c_array_remove(arr, idx)           \
     do {                                    \
-        assert((arr)->size > 0);          \
+        assert((arr)->size > 0);            \
         c_array_moveleft(arr, idx);         \
-        (arr)->size--;                    \
+        (arr)->size--;                      \
     } while(0)
 
 // -----------------------------------------------------------------------
@@ -258,8 +258,8 @@ double c_array_min_double(double* arr, int size) {
     do {                                                \
         printf(#arr);                                   \
         printf(" = [");                                 \
-        for(int i = 0; i < (arr).size; i++) {         \
-            if (i < (arr).size - 1) {                 \
+        for(int i = 0; i < (arr).size; i++) {           \
+            if (i < (arr).size - 1) {                   \
                 printf((format), arr.data[i]);          \
                 printf(", ");                           \
             } else {                                    \
@@ -273,8 +273,8 @@ double c_array_min_double(double* arr, int size) {
 
 # define c_array_swap(arr, idx1, idx2)                              \
     do {                                                            \
-        assert((idx1) < (arr)->size && (idx2) < (arr)->size);   \
-        assert((arr)->size >= 2);                                 \
+        assert((idx1) < (arr)->size && (idx2) < (arr)->size);       \
+        assert((arr)->size >= 2);                                   \
         typeof(*((arr)->data)) x;                                   \
         x = (arr)->data[idx2];                                      \
         (arr)->data[idx2] = (arr)->data[idx1];                      \
@@ -284,10 +284,10 @@ double c_array_min_double(double* arr, int size) {
 # define c_array_reverse(arr)                                                       \
     do {                                                                            \
         typeof(*((arr)->data)) x;                                                   \
-        for (int i = 0; i < ((arr)->size / 2); i++) {                             \
+        for (int i = 0; i < ((arr)->size / 2); i++) {                               \
             x = (arr)->data[i];                                                     \
-            (arr)->data[i] = (arr)->data[(arr)->size - 1 - i];                    \
-            (arr)->data[(arr)->size - 1 - i] = x;                                 \
+            (arr)->data[i] = (arr)->data[(arr)->size - 1 - i];                      \
+            (arr)->data[(arr)->size - 1 - i] = x;                                   \
         }                                                                           \
     } while(0)
 
