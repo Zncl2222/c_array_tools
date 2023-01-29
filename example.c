@@ -8,7 +8,7 @@ int main() {
     c_array(int) array;
     c_array_init(&array, 0);
 
-    // add element to the back (the idx of back is the current length of array)
+    // add element to the back (the idx of back is the current size of array)
     c_array_push_back(&array, 10);
     c_array_push_back(&array, 2222);
     c_array_push_back(&array, -1024);
@@ -16,7 +16,7 @@ int main() {
     // print the array in this style -> arr = [1, 2, 3]
     printf("After push back\n");
     c_array_print(array, "%d");
-    printf("Array length = %zu\n", array.length);
+    printf("Array size = %zu\n", array.size);
     printf("Array capacity = %zu\n\n", array.capacity);
 
     // assign value directly or via function.
@@ -29,11 +29,11 @@ int main() {
     c_array_print(array, "%d");
 
     // pop the last element in array.
-    // That element will be reseted to 0, and - 1 to the array length.
+    // That element will be reseted to 0, and - 1 to the array size.
     c_array_pop_back(&array);
     printf("\nAfter pop_back\n");
     c_array_print(array, "%d");
-    printf("Array length = %zu\n", array.length);
+    printf("Array size = %zu\n", array.size);
     printf("Array capacity = %zu\n\n", array.capacity);
 
     // insert the element at certain idx of the array
@@ -41,7 +41,7 @@ int main() {
     c_array_insert(&array, 1, 90);
     printf("\nAfter insert\n");
     c_array_print(array, "%d");
-    printf("Array length = %zu\n", array.length);
+    printf("Array size = %zu\n", array.size);
     printf("Array capacity = %zu\n\n", array.capacity);
 
     // remove the element at certain idx of the array
@@ -49,7 +49,7 @@ int main() {
     c_array_remove(&array, 1);
     printf("\nAfter remove\n");
     c_array_print(array, "%d");
-    printf("Array length = %zu\n", array.length);
+    printf("Array size = %zu\n", array.size);
     printf("Array capacity = %zu\n\n", array.capacity);
 
     // adjust the array capacity
@@ -57,14 +57,14 @@ int main() {
     c_array_resize(&array, 20);
     printf("\nAfter resize\n");
     c_array_print(array, "%d");
-    printf("Array length = %zu\n", array.length);
+    printf("Array size = %zu\n", array.size);
     printf("Array capacity = %zu\n\n", array.capacity);
 
-    // adjust the array length
-    c_array_set_length(&array, 20);
-    printf("\nAfter set length\n");
+    // adjust the array size
+    c_array_set_size(&array, 20);
+    printf("\nAfter set size\n");
     c_array_print(array, "%d");
-    printf("Array length = %zu\n", array.length);
+    printf("Array size = %zu\n", array.size);
     printf("Array capacity = %zu\n\n", array.capacity);
 
     // Remember to free the memory after you don't need it.
