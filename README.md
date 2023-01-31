@@ -9,7 +9,8 @@ This is a simple dynamic array tools similary to C++ **```std::vector```** imple
 # Installation
 It is a single header file library. Just put `src/c_array.h` into your project and import it !
 
-Due to the `typeof` feature in the code, now the project was only tested base on the gcc compiler on windows (mingw) and ubuntu os.
+Due to the `typeof` and `_Generic` features in the code, now the project was only tested base on the gcc compiler on windows (mingw) and ubuntu os. (gcc >= 4.9 is required, gcc does not support `_Generic` until version 4.9)
+
 
 <div align='center'>
 
