@@ -17,7 +17,7 @@
 // -----------------------------------------------------------------------
 /*                     Array structure and initialize                   */
 
-# define c_array(T) struct { T* data; size_t size; size_t capacity; }
+# define c_array(T) struct { size_t size; size_t capacity; T* data; }
 
 # define c_array_init(arr, c)                                       \
     do {                                                            \
