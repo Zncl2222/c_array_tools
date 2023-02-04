@@ -300,3 +300,34 @@ int main() {
     return 0;
 }
 ```
+
+----
+### c_array_sum
+Get the sum of an array.
+```C
+int main() {
+    c_array(int) arr;
+    c_array(&arr, 0);
+    c_array_push_back(&arr, 1);
+    c_array_push_back(&arr, 2);
+    c_array_push_back(&arr, 3);
+    int sum = c_array_sum(&arr); // sum = 6
+    return 0;
+}
+```
+
+----
+### c_array_max & c_array_min
+Get min or max value of an array
+```C
+int main() {
+    c_array(int) arr;
+    c_array(&arr, 0);
+    c_array_push_back(&arr, 1);
+    c_array_push_back(&arr, 2);
+    c_array_push_back(&arr, 3);
+    int max = c_array_max(&arr); // max = 3
+    int min = c_array_min(&arr); // min = 1
+    return 0;
+}
+```
