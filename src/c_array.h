@@ -13,6 +13,9 @@
 # include <string.h>
 # include <assert.h>
 
+typedef double mean_t;
+typedef double std_t;
+typedef double var_t;
 
 // -----------------------------------------------------------------------
 /*                     Array structure and initialize                   */
@@ -134,7 +137,7 @@
 # define c_array_sum(arr)               \
     _Generic((arr)->data,               \
         int*: c_array_sum_int,          \
-        long*: c_array_sum_long,        \
+        long long*: c_array_sum_long,   \
         float*: c_array_sum_float,      \
         double*: c_array_sum_double     \
     )((arr)->data, (arr)->size)
@@ -150,7 +153,7 @@ int c_array_sum_int(int* arr, int size) {
     c_array_sum_process(arr, size);
 }
 
-long c_array_sum_long(long* arr, int size) {
+long long c_array_sum_long(long long* arr, int size) {
     c_array_sum_process(arr, size);
 }
 
@@ -160,6 +163,102 @@ float c_array_sum_float(float* arr, int size) {
 
 double c_array_sum_double(double* arr, int size) {
     c_array_sum_process(arr, size);
+}
+
+// -----------------------------------------------------------------------
+/*                          Array mean value                            */
+
+# define c_array_mean(arr)                             \
+    _Generic((arr)->data,                              \
+        int*: c_array_mean_int,                        \
+        long long*: c_array_mean_long_long,            \
+        float*: c_array_mean_float,                    \
+        double*: c_array_mean_double                   \
+    )((arr)->data, (arr)->size, c_array_sum((arr)))
+
+# define c_array_mean_process(arr, size, sum)   \
+    mean_t mean = (mean_t)(sum) / (size);       \
+    return mean;
+
+mean_t c_array_mean_int(int* arr, int size, int sum) {
+    c_array_mean_process(arr, size, sum);
+}
+
+mean_t c_array_mean_long_long(long long* arr, int size, long long sum) {
+    c_array_mean_process(arr, size, sum);
+}
+
+mean_t c_array_mean_float(float* arr, int size, float sum) {
+    c_array_mean_process(arr, size, sum);
+}
+
+mean_t c_array_mean_double(double* arr, int size, double sum) {
+    c_array_mean_process(arr, size, sum);
+}
+
+// -----------------------------------------------------------------------
+/*                     Array standard deviation                         */
+
+# define c_array_std(arr)                           \
+    _Generic((arr)->data,                           \
+        int*: c_array_std_int,                      \
+        long long*: c_array_std_long_long,          \
+        float*: c_array_std_float,                  \
+        double*: c_array_std_double                 \
+    )((arr)->data, (arr)->size, c_array_mean((arr)))
+
+# define c_array_var(arr)                           \
+    _Generic((arr)->data,                           \
+        int*: c_array_var_int,                      \
+        long long*: c_array_var_long_long,          \
+        float*: c_array_var_float,                  \
+        double*: c_array_var_double                 \
+    )((arr)->data, (arr)->size, c_array_mean((arr)))
+
+# define c_array_var_process(arr, size, mean)  \
+    var_t var = 0;                             \
+    for (int i = 0; i < (size); i++) {         \
+        var += pow((arr)[i] - (mean), 2);      \
+    }                                          \
+
+var_t c_array_var_int(int* arr, int size, mean_t mean) {
+    c_array_var_process(arr, size, mean);
+    return (var / (size));
+}
+
+var_t c_array_var_long_long(long long* arr, int size, mean_t mean) {
+    c_array_var_process(arr, size, mean);
+    return (var / (size));
+}
+
+var_t c_array_var_float(float* arr, int size, mean_t mean) {
+    c_array_var_process(arr, size, mean);
+    return (var / (size));
+}
+
+var_t c_array_var_double(double* arr, int size, mean_t mean) {
+    c_array_var_process(arr, size, mean);
+    return (var / (size));
+}
+
+std_t c_array_std_int(int* arr, int size, mean_t mean) {
+    c_array_var_process(arr, size, mean);
+    return sqrt(var / (size));
+}
+
+std_t c_array_std_long_long(long long* arr, int size, mean_t mean) {
+    c_array_var_process(arr, size, mean);
+    return sqrt(var / (size));
+}
+
+std_t c_array_std_float(float* arr, int size, mean_t mean) {
+    c_array_var_process(arr, size, mean);
+    return sqrt(var / (size));
+}
+
+std_t c_array_std_double(double* arr, int size, mean_t mean) {
+    c_array_var_process(arr, size, mean);
+    return sqrt(var / (size));
 }
 
 // -----------------------------------------------------------------------
