@@ -306,7 +306,7 @@ UTEST(test, c_array_remove) {
 
 UTEST(test, c_array_sum) {
     c_array(int) arr;
-    c_array(long) arr_l;
+    c_array(long long) arr_l;
     c_array(float) arr_f;
     c_array(double) arr_d;
 
@@ -323,7 +323,7 @@ UTEST(test, c_array_sum) {
     }
 
     int sum_int = c_array_sum(&arr);
-    long sum_long = c_array_sum(&arr_l);
+    long long sum_long = c_array_sum(&arr_l);
     float sum_float = c_array_sum(&arr_f);
     double sum_double = c_array_sum(&arr_d);
     ASSERT_EQ(sum_int, 9);
@@ -399,6 +399,84 @@ UTEST(test, c_array_min_max) {
     min_double = c_array_min(&arr_d);
     ASSERT_EQ(max_double, 9e307);
     ASSERT_EQ(min_double, -5e307);
+
+    c_array_free(&arr);
+    c_array_free(&arr_l);
+    c_array_free(&arr_f);
+    c_array_free(&arr_d);
+}
+
+UTEST(test, c_array_mean) {
+    c_array(int) arr;
+    c_array(long long) arr_l;
+    c_array(float) arr_f;
+    c_array(double) arr_d;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_l, 0);
+    c_array_init(&arr_f, 0);
+    c_array_init(&arr_d, 0);
+
+    for (int i = 0; i < 5; i++) {
+        c_array_push_back(&arr, i);
+        c_array_push_back(&arr_l, i);
+        c_array_push_back(&arr_f, i * 0.4);
+        c_array_push_back(&arr_d, i * 0.1);
+    }
+
+    mean_t mean_int = c_array_mean(&arr);
+    mean_t mean_long = c_array_mean(&arr_l);
+    mean_t mean_float = c_array_mean(&arr_f);
+    mean_t mean_double = c_array_mean(&arr_d);
+
+    ASSERT_NEAR(mean_int, 2, 0.01f);
+    ASSERT_NEAR(mean_long, 2, 0.01f);
+    ASSERT_NEAR(mean_float, 0.8, 0.01f);
+    ASSERT_NEAR(mean_double, 0.2, 0.01f);
+
+    c_array_free(&arr);
+    c_array_free(&arr_l);
+    c_array_free(&arr_f);
+    c_array_free(&arr_d);
+}
+
+UTEST(test, c_array_var_std) {
+    c_array(int) arr;
+    c_array(long long) arr_l;
+    c_array(float) arr_f;
+    c_array(double) arr_d;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_l, 0);
+    c_array_init(&arr_f, 0);
+    c_array_init(&arr_d, 0);
+
+    for (int i = 1; i < 6; i++) {
+        c_array_push_back(&arr, i);
+        c_array_push_back(&arr_l, i);
+        c_array_push_back(&arr_f, i * 0.4);
+        c_array_push_back(&arr_d, i * 0.3);
+    }
+
+    var_t var_int = c_array_var(&arr);
+    var_t var_long = c_array_var(&arr_l);
+    var_t var_float = c_array_var(&arr_f);
+    var_t var_double = c_array_var(&arr_d);
+
+    ASSERT_NEAR(var_int, 2, 0.01f);
+    ASSERT_NEAR(var_long, 2, 0.01f);
+    ASSERT_NEAR(var_float, 0.32, 0.01f);
+    ASSERT_NEAR(var_double, 0.18, 0.01f);
+
+    std_t std_int = c_array_std(&arr);
+    std_t std_long = c_array_std(&arr_l);
+    std_t std_float = c_array_std(&arr_f);
+    std_t std_double = c_array_std(&arr_d);
+
+    ASSERT_NEAR(std_int, 1.414213562, 0.01f);
+    ASSERT_NEAR(std_long, 1.414213562, 0.01f);
+    ASSERT_NEAR(std_float, 0.5656854249, 0.01f);
+    ASSERT_NEAR(std_double, 0.4242640687, 0.01f);
 
     c_array_free(&arr);
     c_array_free(&arr_l);
