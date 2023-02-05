@@ -331,3 +331,34 @@ int main() {
     return 0;
 }
 ```
+
+----
+### c_array_mean
+Get mean value of an array
+```C
+int main() {
+    c_array(int) arr;
+    c_array(&arr, 0);
+    c_array_push_back(&arr, 1);
+    c_array_push_back(&arr, 2);
+    c_array_push_back(&arr, 3);
+    mean_t mean = c_arry_mean(&arr); // mean = 2
+    return 0;
+}
+```
+
+----
+### c_array_std & c_array_var
+Get the standard deviation or the variance of an array
+```C
+int main() {
+    c_array(int) arr;
+    c_array(&arr, 0);
+    c_array_push_back(&arr, 1);
+    c_array_push_back(&arr, 2);
+    c_array_push_back(&arr, 3);
+    std_t std = c_array_std(&arr); // std = 0.8164
+    var_t var = c_array_var(&arr); // var =  0.6667
+    return 0;
+}
+```
