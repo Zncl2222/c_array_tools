@@ -7,6 +7,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 add_executable(example example.c)
 
+if(UNIX)
+    target_link_libraries(example PRIVATE m)
+endif()
+
 if(WIN32)
     set_target_properties(example PROPERTIES SUFFIX ".exe")
 else()
@@ -32,6 +36,10 @@ add_test(
     --build ${CMAKE_BINARY_DIR}
     --target unittest
 )
+
+if(UNIX)
+    target_link_libraries(unittest PRIVATE m)
+endif()
 
 # memory check (valgrind)
 find_program(VALGRIND "valgrind")
