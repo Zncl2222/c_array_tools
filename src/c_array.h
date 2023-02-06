@@ -30,6 +30,18 @@ typedef double var_t;
         (arr)->data = calloc((c), sizeof(x));                       \
     } while(0)
 
+# define c_array_copy(arr1, arr2)                                                               \
+    do {                                                                                        \
+        char* dtype_arr1 = c_array_dtype(arr1);                                                 \
+        char* dtype_arr2 = c_array_dtype(arr2);                                                 \
+        char* err_msg = "The dtype of two arrays are different";                                \
+        c_array_assert(dtype_arr1 == dtype_arr2, err_msg);                                      \
+        (arr2)->size = (arr1)->size;                                                            \
+        (arr2)->capacity = (arr1)->capacity;                                                    \
+        (arr2)->data = malloc((arr2)->capacity * sizeof(typeof(*(arr2)->data)));                \
+        memcpy((arr2)->data, (arr1)->data, (arr2)->capacity * sizeof(typeof(*(arr2)->data)));   \
+    } while(0)
+
 // -----------------------------------------------------------------------
 /*                      Array basic operations                          */
 
@@ -391,6 +403,22 @@ double c_array_min_double(double* arr, int size) {
     } while(0)
 
 # define c_array_free(arr) (free((arr)->data))
+
+# define c_array_assert(expr, msg)          \
+    do {                                    \
+        if (!(expr)) {                      \
+            printf("Error: %s\n", (msg));   \
+            assert((expr));                 \
+        }                                   \
+    } while(0)
+
+# define c_array_dtype(arr)               \
+    _Generic((arr)->data,                 \
+        int*: "int",                      \
+        long long*: "long long",          \
+        float*: "float",                  \
+        double*: "double"                 \
+    )
 
 // -----------------------------------------------------------------------
 /*                  Matrix structure and initialize                     */
