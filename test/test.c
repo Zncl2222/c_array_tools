@@ -57,6 +57,59 @@ UTEST(test, c_array_assign) {
     c_array_free(&arr);
 }
 
+UTEST(test, c_array_copy) {
+    c_array(int) arr;
+    c_array(long long) arr_l;
+    c_array(float) arr_f;
+    c_array(double) arr_d;
+    c_array(int) arr_copy;
+    c_array(long long) arr_l_copy;
+    c_array(float) arr_f_copy;
+    c_array(double) arr_d_copy;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_l, 0);
+    c_array_init(&arr_f, 0);
+    c_array_init(&arr_d, 0);
+
+    for (int i = 0; i < 5; i++) {
+        c_array_push_back(&arr, i);
+        c_array_push_back(&arr_l, i);
+        c_array_push_back(&arr_f, i * 0.4);
+        c_array_push_back(&arr_d, i * 0.1);
+    }
+
+    c_array_copy(&arr, &arr_copy);
+    c_array_copy(&arr_l, &arr_l_copy);
+    c_array_copy(&arr_f, &arr_f_copy);
+    c_array_copy(&arr_d, &arr_d_copy);
+    ASSERT_EQ(arr_copy.capacity, 8);
+    ASSERT_EQ(arr_copy.size, 5);
+    ASSERT_EQ(arr_l_copy.capacity, 8);
+    ASSERT_EQ(arr_l_copy.size, 5);
+    ASSERT_EQ(arr_f_copy.capacity, 8);
+    ASSERT_EQ(arr_f_copy.size, 5);
+    ASSERT_EQ(arr_d_copy.capacity, 8);
+    ASSERT_EQ(arr_d_copy.size, 5);
+
+    for (int i = 0; i < 5; i++) {
+        ASSERT_EQ(arr.data[i], arr_copy.data[i]);
+        ASSERT_EQ(arr_l.data[i], arr_l_copy.data[i]);
+        ASSERT_EQ(arr_f.data[i], arr_f_copy.data[i]);
+        ASSERT_EQ(arr_d.data[i], arr_d_copy.data[i]);
+    }
+
+    c_array_free(&arr);
+    c_array_free(&arr_l);
+    c_array_free(&arr_f);
+    c_array_free(&arr_d);
+    c_array_free(&arr_copy);
+    c_array_free(&arr_l_copy);
+    c_array_free(&arr_f_copy);
+    c_array_free(&arr_d_copy);
+}
+
+
 UTEST(test, c_array_resize) {
     c_array(int) arr;
     c_array_init(&arr, 3);
