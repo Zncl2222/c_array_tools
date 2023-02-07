@@ -117,6 +117,25 @@ int main() {
 ```
 
 ----
+### c_array_copy
+Copy an array to the target arry.
+```C
+int main() {
+    c_array(int) arr;
+    c_array_init(&arr, 0); // arr[0] ~ arr[9] will be initialized with 0
+    c_array_push_back(&arr, 7);
+    c_array_push_back(&arr, 8);
+    c_array_push_back(&arr, 9);
+
+    c_array(int) arr_new;  // declare arr_new without initialize.
+    c_array_copy(&arr, &arr_new); // copy the memory from arr to arr_new
+    c_array_print(arr_new, "%d"); // arr_new = [7, 8, 9], size and capacity are also equals to arr
+
+    return 0;
+}
+```
+
+----
 ### c_array_capacity & c_array_size
 Get array capacity and size.
 ```C
