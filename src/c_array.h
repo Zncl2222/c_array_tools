@@ -365,7 +365,38 @@ double c_array_min_double(double* arr, int size) {
 // -----------------------------------------------------------------------
 /*                            Arrary utils                              */
 
-# define c_array_print(arr, format)                     \
+# define c_array_autoformat(arr)   \
+    _Generic((arr).data,           \
+        int*: "%d",                \
+        long long*: "%lld",        \
+        float*: "%f",              \
+        double*: "%lf"             \
+    )
+
+# define c_array_dtype(arr)        \
+    _Generic((arr)->data,          \
+        int*: "int",               \
+        long long*: "long long",   \
+        float*: "float",           \
+        double*: "double"          \
+    )
+
+# define c_array_print(arr)                                         \
+    do {                                                            \
+        printf(#arr);                                               \
+        printf(" = [");                                             \
+        for (int i = 0; i < (arr).size; i++) {                      \
+            if (i < (arr).size - 1) {                               \
+                printf(c_array_autoformat((arr)), (arr).data[i]);   \
+                printf(", ");                                       \
+            } else {                                                \
+                printf(c_array_autoformat((arr)), (arr).data[i]);   \
+            }                                                       \
+        }                                                           \
+        printf("]\n");                                              \
+    } while(0)
+
+# define c_array_printf(arr, format)                    \
     do {                                                \
         printf(#arr);                                   \
         printf(" = [");                                 \
@@ -411,14 +442,6 @@ double c_array_min_double(double* arr, int size) {
             assert((expr));                 \
         }                                   \
     } while(0)
-
-# define c_array_dtype(arr)               \
-    _Generic((arr)->data,                 \
-        int*: "int",                      \
-        long long*: "long long",          \
-        float*: "float",                  \
-        double*: "double"                 \
-    )
 
 // -----------------------------------------------------------------------
 /*                  Matrix structure and initialize                     */
