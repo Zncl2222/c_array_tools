@@ -250,7 +250,7 @@ int main() {
 ```
 
 ----
-### c_array_print
+### c_array_print & c_array_printf
 Print the array with clean style.
 ```C
 int main() {
@@ -259,7 +259,10 @@ int main() {
     c_array_push_back(&arr_print_test, 1);
     c_array_push_back(&arr_print_test, 2);
     c_array_push_back(&arr_print_test, 3);
-    c_array_print(arr_print_test, "%d");   // Don't need to pass the address of arr
+    c_array_printf(arr_print_test, "%d");   // Custom format to print the array
+    // Results shows: arr_print_test = [1, 2, 3]
+
+    c_array_print(arr_print_test); // Default format like %d %lld %f %lf. You can add more format in c_array_autoformat macro
     // Results shows: arr_print_test = [1, 2, 3]
     return 0;
 }
