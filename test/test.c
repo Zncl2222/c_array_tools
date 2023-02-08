@@ -239,6 +239,39 @@ UTEST(test, c_array_push_back) {
     c_array_free(&arr);
 }
 
+UTEST (test, c_array_print_and_printf) {
+    c_array(int) arr;
+    c_array(long long) arr_l;
+    c_array(float) arr_f;
+    c_array(double) arr_d;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_l, 0);
+    c_array_init(&arr_f, 0);
+    c_array_init(&arr_d, 0);
+
+    for (int i = 0; i < 9; i++) {
+        c_array_push_back(&arr, 1);
+        c_array_push_back(&arr_l, 199);
+        c_array_push_back(&arr_f, 1.5);
+        c_array_push_back(&arr_d, 2.5);
+    }
+
+    c_array_print(arr);
+    c_array_print(arr_l);
+    c_array_print(arr_f);
+    c_array_print(arr_d);
+    c_array_printf(arr, "%d");
+    c_array_printf(arr_l, "%lld");
+    c_array_printf(arr_f, "%f");
+    c_array_printf(arr_d, "%lf");
+
+    c_array_free(&arr);
+    c_array_free(&arr_l);
+    c_array_free(&arr_f);
+    c_array_free(&arr_d);
+}
+
 UTEST(test, c_array_reverse) {
     c_array(int) arr;
     c_array_init(&arr, 0);
