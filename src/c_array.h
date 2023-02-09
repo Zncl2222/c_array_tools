@@ -35,7 +35,7 @@ typedef double var_t;
         char* dtype_arr1 = c_array_dtype(arr1);                                                 \
         char* dtype_arr2 = c_array_dtype(arr2);                                                 \
         char* err_msg = "The dtype of two arrays are different";                                \
-        c_array_assert(dtype_arr1 == dtype_arr2, err_msg);                                      \
+        c_array_assert((dtype_arr1 == dtype_arr2), err_msg);                                    \
         (arr2)->size = (arr1)->size;                                                            \
         (arr2)->capacity = (arr1)->capacity;                                                    \
         (arr2)->data = malloc((arr2)->capacity * sizeof(typeof(*(arr2)->data)));                \
@@ -51,7 +51,8 @@ typedef double var_t;
 
 # define c_array_assign(arr, idx, val)                                   \
     do {                                                                 \
-        assert(idx < (arr)->size);                                       \
+        char* err_msg = "Index out of range (size)";                     \
+        c_array_assert((idx < (arr)->size), err_msg);                    \
         (arr)->data[(idx)] = (val);                                      \
     } while(0)
 
@@ -67,25 +68,28 @@ typedef double var_t;
         }                                                                           \
         (arr)->capacity *= 2;                                                       \
         void* ptr = realloc((arr)->data, (arr)->capacity * c_array_byte((arr)));    \
-        assert(ptr != NULL);                                                        \
+        char* err_msg = "Realloc Failed";                                           \
+        c_array_assert((ptr != NULL), err_msg);                                     \
         (arr)->data = ptr;                                                          \
     } while(0)
 
 # define c_array_resize(arr, c)                                             \
     do {                                                                    \
         void* ptr = realloc((arr)->data, (c) * c_array_byte((arr)));        \
-        assert(ptr != NULL);                                                \
+        char* err_msg = "Realloc Failed";                                   \
+        c_array_assert((ptr != NULL), err_msg);                             \
         (arr)->capacity = (c);                                              \
         (arr)->data = ptr;                                                  \
     } while(0)
 
-# define c_array_set_size(arr, l)                                   \
-    do {                                                            \
-        assert(l <= (arr)->capacity);                               \
-        for (int i = (arr)->size; i < (arr)->capacity; i++) {       \
-            (arr)->data[i] = 0;                                     \
-        }                                                           \
-        (arr)->size = (l);                                          \
+# define c_array_set_size(arr, l)                                       \
+    do {                                                                \
+        char* err_msg = "Size should less than or equal to capacity";   \
+        c_array_assert((l <= (arr)->capacity), err_msg);                \
+        for (int i = (arr)->size; i < (arr)->capacity; i++) {           \
+            (arr)->data[i] = 0;                                         \
+        }                                                               \
+        (arr)->size = (l);                                              \
     } while(0)
 
 // -----------------------------------------------------------------------
@@ -100,11 +104,12 @@ typedef double var_t;
         (arr)->size++;                                           \
     } while(0)
 
-# define c_array_pop_back(arr)              \
-    do {                                    \
-        assert((arr)->size > 0);            \
-        (arr)->data[(arr)->size - 1] = 0;   \
-        (arr)->size--;                      \
+# define c_array_pop_back(arr)                          \
+    do {                                                \
+        char* err_msg = "Size should greater than 0";   \
+        c_array_assert(((arr)->size > 0), err_msg);     \
+        (arr)->data[(arr)->size - 1] = 0;               \
+        (arr)->size--;                                  \
     } while(0)
 
 // -----------------------------------------------------------------------
@@ -136,11 +141,14 @@ typedef double var_t;
         }                                               \
     } while(0)
 
-# define c_array_remove(arr, idx)           \
-    do {                                    \
-        assert((arr)->size > 0);            \
-        c_array_moveleft(arr, idx);         \
-        (arr)->size--;                      \
+# define c_array_remove(arr, idx)                       \
+    do {                                                \
+        char* err_msg = "Size should greater than 0";   \
+        c_array_assert(((arr)->size > 0), err_msg);     \
+        char* err_msg2 = "Index out of range (size)";   \
+        c_array_assert(((arr)->size < idx), err_msg);   \
+        c_array_moveleft(arr, idx);                     \
+        (arr)->size--;                                  \
     } while(0)
 
 // -----------------------------------------------------------------------
@@ -413,15 +421,15 @@ double c_array_min_double(double* arr, int size) {
 
 # define c_array_empty(arr) ((arr)->size == 0)
 
-# define c_array_swap(arr, idx1, idx2)                              \
-    do {                                                            \
-        assert((idx1) < (arr)->size && (idx2) < (arr)->size);       \
-        assert((arr)->size >= 2);                                   \
-        typeof(*((arr)->data)) x;                                   \
-        x = (arr)->data[idx2];                                      \
-        (arr)->data[idx2] = (arr)->data[idx1];                      \
-        (arr)->data[idx1] = x;                                      \
-    } while(0)                                                      \
+# define c_array_swap(arr, idx1, idx2)                                              \
+    do {                                                                            \
+        char* err_msg = "Index out of range (size)";                                \
+        c_array_assert(((idx1) < (arr)->size && (idx2) < (arr)->size), err_msg);    \
+        typeof(*((arr)->data)) x;                                                   \
+        x = (arr)->data[idx2];                                                      \
+        (arr)->data[idx2] = (arr)->data[idx1];                                      \
+        (arr)->data[idx1] = x;                                                      \
+    } while(0)                                                                      \
 
 # define c_array_reverse(arr)                                                       \
     do {                                                                            \
@@ -467,11 +475,13 @@ double c_array_min_double(double* arr, int size) {
 
 # define c_matrix_cols(mat) ((mat) ? (mat)->cols : 0)
 
-# define c_matrix_assign(mat, row, col, val)    \
-    do {                                        \
-        assert(row < (mat)->rows);              \
-        assert(col < (mat)->cols);              \
-        (mat)->data[row][col] = val;            \
+# define c_matrix_assign(mat, row, col, val)                \
+    do {                                                    \
+        char* err_msg = "Index out of range (row)";         \
+        c_array_assert((row < (mat)->rows), err_msg);       \
+        char* err_msg2 = "Index out of range(col)";         \
+        c_array_assert((col < (mat)->cols), err_msg2);      \
+        (mat)->data[row][col] = val;                        \
     } while(0)
 
 // -----------------------------------------------------------------------
