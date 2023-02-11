@@ -146,7 +146,7 @@ typedef double var_t;
         char* err_msg = "Size should greater than 0";   \
         c_array_assert(((arr)->size > 0), err_msg);     \
         char* err_msg2 = "Index out of range (size)";   \
-        c_array_assert(((arr)->size < idx), err_msg);   \
+        c_array_assert(((arr)->size > idx), err_msg);   \
         c_array_moveleft(arr, idx);                     \
         (arr)->size--;                                  \
     } while(0)
@@ -171,16 +171,28 @@ int cmpfunc_int(const void * a, const void * b) {
    return ( *(int*)a - *(int*)b );
 }
 
-long long cmpfunc_long(const void * a, const void * b) {
+int cmpfunc_long(const void * a, const void * b) {
    return ( *(long long*)a - *(long long*)b );
 }
 
-float cmpfunc_float(const void * a, const void * b) {
-   return ( *(float*)a - *(float*)b );
+int cmpfunc_float(const void * a, const void * b) {
+    float ret = *(float*)a - *(float*)b;
+    if(ret > 0){
+        return 1;
+    } else if (ret < 0) {
+        return -1;
+    }
+    return 0;
 }
 
-double cmpfunc_double(const void * a, const void * b) {
-   return ( *(double*)a - *(double*)b );
+int cmpfunc_double(const void * a, const void * b) {
+    double ret = *(double*)a - *(double*)b;
+    if(ret > 0){
+        return 1;
+    } else if (ret < 0) {
+        return -1;
+    }
+    return 0;
 }
 
 // -----------------------------------------------------------------------
