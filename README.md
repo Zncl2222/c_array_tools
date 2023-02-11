@@ -324,6 +324,21 @@ int main() {
 ```
 
 ----
+### c_array_qsort
+Sort the array by the qsort function in <stdlib.h>
+```C
+int main() {
+    c_array(int) arr;
+    c_array(&arr, 0);
+    c_array_push_back(&arr, 99);
+    c_array_push_back(&arr, -2);
+    c_array_push_back(&arr, 2); // arr = [99, -2, 2]
+    c_array_qsort(&arr); // arr = [-2, 2, 99]
+    return 0;
+}
+```
+
+----
 ### c_array_sum
 Get the sum of an array.
 ```C

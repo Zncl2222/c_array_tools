@@ -146,10 +146,54 @@ typedef double var_t;
         char* err_msg = "Size should greater than 0";   \
         c_array_assert(((arr)->size > 0), err_msg);     \
         char* err_msg2 = "Index out of range (size)";   \
-        c_array_assert(((arr)->size < idx), err_msg);   \
+        c_array_assert(((arr)->size > idx), err_msg);   \
         c_array_moveleft(arr, idx);                     \
         (arr)->size--;                                  \
     } while(0)
+
+// -----------------------------------------------------------------------
+/*                           Array qsort                                */
+
+# define c_array_qsort(arr)                                                                       \
+    do {                                                                                          \
+        qsort((arr)->data, (arr)->size, sizeof(typeof((*(arr)->data))), c_array_qsort_cmp((arr)));\
+    } while(0)
+
+# define c_array_qsort_cmp(arr)                         \
+    _Generic((arr)->data,                               \
+        int*: cmpfunc_int,                              \
+        long long*: cmpfunc_long,                       \
+        float*: cmpfunc_float,                          \
+        double*: cmpfunc_double                         \
+    )
+
+int cmpfunc_int(const void * a, const void * b) {
+   return ( *(int*)a - *(int*)b );
+}
+
+int cmpfunc_long(const void * a, const void * b) {
+   return ( *(long long*)a - *(long long*)b );
+}
+
+int cmpfunc_float(const void * a, const void * b) {
+    float ret = *(float*)a - *(float*)b;
+    if(ret > 0){
+        return 1;
+    } else if (ret < 0) {
+        return -1;
+    }
+    return 0;
+}
+
+int cmpfunc_double(const void * a, const void * b) {
+    double ret = *(double*)a - *(double*)b;
+    if(ret > 0){
+        return 1;
+    } else if (ret < 0) {
+        return -1;
+    }
+    return 0;
+}
 
 // -----------------------------------------------------------------------
 /*                              Array Sum                               */
