@@ -152,6 +152,38 @@ typedef double var_t;
     } while(0)
 
 // -----------------------------------------------------------------------
+/*                           Array qsort                                */
+
+# define c_array_qsort(arr)                                                                       \
+    do {                                                                                          \
+        qsort((arr)->data, (arr)->size, sizeof(typeof((*(arr)->data))), c_array_qsort_cmp((arr)));\
+    } while(0)
+
+# define c_array_qsort_cmp(arr)                         \
+    _Generic((arr)->data,                               \
+        int*: cmpfunc_int,                              \
+        long long*: cmpfunc_long,                       \
+        float*: cmpfunc_float,                          \
+        double*: cmpfunc_double                         \
+    )
+
+int cmpfunc_int(const void * a, const void * b) {
+   return ( *(int*)a - *(int*)b );
+}
+
+long long cmpfunc_long(const void * a, const void * b) {
+   return ( *(long long*)a - *(long long*)b );
+}
+
+float cmpfunc_float(const void * a, const void * b) {
+   return ( *(float*)a - *(float*)b );
+}
+
+double cmpfunc_double(const void * a, const void * b) {
+   return ( *(double*)a - *(double*)b );
+}
+
+// -----------------------------------------------------------------------
 /*                              Array Sum                               */
 
 # define c_array_sum(arr)               \
