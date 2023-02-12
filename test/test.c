@@ -435,6 +435,51 @@ UTEST(test, c_array_qsort) {
     c_array_free(&arr_d);
 }
 
+UTEST(test, c_array_msort) {
+    c_array(int) arr;
+    c_array(long long) arr_l;
+    c_array(float) arr_f;
+    c_array(double) arr_d;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_l, 0);
+    c_array_init(&arr_f, 0);
+    c_array_init(&arr_d, 0);
+
+    int t_int[] = {9, 4, 245, 1, -9};
+    int ans_int[] = {-9, 1, 4, 9, 245};
+    long long t_long[] = {9, 2, 33, 9999999999, -123};
+    long long ans_long[] = {-123, 2, 9, 33, 9999999999};
+    float t_float[] = {2.43, -123.23, 222.9999, 222.999, -1221};
+    float ans_float[] = {-1221, -123.23, 2.43, 222.999, 222.9999};
+    double t_double[] = {9.99282, 9898889882, -2122.3, -2122.2, 0};
+    double ans_double[] = {-2122.3, -2122.2, 0, 9.99282, 9898889882};
+
+    for (int i = 0; i < 5; i++) {
+        c_array_push_back(&arr, t_int[i]);
+        c_array_push_back(&arr_l, t_long[i]);
+        c_array_push_back(&arr_f, t_float[i]);
+        c_array_push_back(&arr_d, t_double[i]);
+    }
+
+    c_array_msort(&arr);
+    c_array_msort(&arr_l);
+    c_array_msort(&arr_f);
+    c_array_msort(&arr_d);
+
+    for (int i = 0; i < 5; i++) {
+        ASSERT_EQ(arr.data[i], ans_int[i]);
+        ASSERT_EQ(arr_l.data[i], ans_long[i]);
+        ASSERT_NEAR(arr_f.data[i], ans_float[i], 0.01f);
+        ASSERT_NEAR(arr_d.data[i], ans_double[i], 0.01f);
+    }
+
+    c_array_free(&arr);
+    c_array_free(&arr_l);
+    c_array_free(&arr_f);
+    c_array_free(&arr_d);
+}
+
 UTEST(test, c_array_sum) {
     c_array(int) arr;
     c_array(long long) arr_l;

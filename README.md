@@ -1,6 +1,6 @@
 ![licence](https://img.shields.io/github/license/Zncl2222/c_array_tools)
 ![size](https://img.shields.io/github/repo-size/Zncl2222/c_array_tools)
-![language](https://img.shields.io/badge/C-Solutions-blue.svg?style=flat&logo=c%2B%2B)
+![language](https://img.shields.io/badge/-Solutions-blue.svg?style=flat&logo=c%2B%2B)
 ![language_percent](https://img.shields.io/github/languages/top/Zncl2222/c_array_tools)
 [![build](https://github.com/Zncl2222/c_array_tools/actions/workflows/cmake.yml/badge.svg)](https://github.com/Zncl2222/c_array_tools/actions/workflows/cmake.yml)
 # c_array_tools
@@ -324,8 +324,8 @@ int main() {
 ```
 
 ----
-### c_array_qsort
-Sort the array by the qsort function in <stdlib.h>
+### c_array_qsort & c_array_msort
+Sort the array by the qsort function in <stdlib.h>, or sort the array by the 'merge sort'.
 ```C
 int main() {
     c_array(int) arr;
@@ -334,6 +334,10 @@ int main() {
     c_array_push_back(&arr, -2);
     c_array_push_back(&arr, 2); // arr = [99, -2, 2]
     c_array_qsort(&arr); // arr = [-2, 2, 99]
+
+    c_array_push_back(&arr, -91);
+    c_array_push_back(&arr, 1); // arr = [-2, 2, 99, -91, 1]
+    c_array_msort(&arr); // arr = [-91, -2, 1, 2, 99]
     return 0;
 }
 ```
