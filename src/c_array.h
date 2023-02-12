@@ -196,6 +196,50 @@ int cmpfunc_double(const void * a, const void * b) {
 }
 
 // -----------------------------------------------------------------------
+/*                           Array msort                                */
+
+# define c_array_msort(arr)                                                 \
+    do {                                                                    \
+        int i, j, k, l1, r1, l2, r2;                                        \
+        int curr_size;                                                      \
+        typeof(*(arr)->data) temp[(arr)->size];                             \
+        for (curr_size = 1; curr_size < (arr)->size; curr_size *= 2) {      \
+            l1 = 0;                                                         \
+            k = 0;                                                          \
+            while (l1 + curr_size < (arr)->size) {                          \
+                r1 = l1 + curr_size - 1;                                    \
+                l2 = r1 + 1;                                                \
+                r2 = l2 + curr_size - 1;                                    \
+                if(r2 >= (arr)->size) {                                     \
+                    r2 = (arr)->size - 1;                                   \
+                }                                                           \
+                i = l1;                                                     \
+                j = l2;                                                     \
+                while (i <= r1 && j <= r2) {                                \
+                    if ((arr)->data[i] <= (arr)->data[j]) {                 \
+                        temp[k++] = (arr)->data[i++];                       \
+                    } else {                                                \
+                        temp[k++] = (arr)->data[j++];                       \
+                    }                                                       \
+                }                                                           \
+                while (i <= r1) {                                           \
+                    temp[k++] = (arr)->data[i++];                           \
+                }                                                           \
+                while (j <= r2) {                                           \
+                    temp[k++] = (arr)->data[j++];                           \
+                }                                                           \
+                l1 = r2 + 1;                                                \
+            }                                                               \
+            for (i = l1; k < (arr)->size; i++) {                            \
+                temp[k++] = (arr)->data[i];                                 \
+            }                                                               \
+            for (i = 0; i < (arr)->size; i++) {                             \
+                (arr)->data[i] = temp[i];                                   \
+            }                                                               \
+        }                                                                   \
+    } while(0)
+
+// -----------------------------------------------------------------------
 /*                              Array Sum                               */
 
 # define c_array_sum(arr)               \
