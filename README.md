@@ -104,7 +104,12 @@ int main() {
 ```
 
 ----
-### c_array and c_array_init
+### `c_array(T)` & `c_array_init(arr, c)`
+- params:<br>
+`T`: the data type of the array -> (**int, long long, float, double etc..**)<br>
+`arr`: c_array structure -> (**c_array**)<br>
+`c`: the capacity for init -> (**size_t**)<br>
+
 Create the array with given datatype by `c_array(datatype) arr;`. You should initialize it before use. `arr.size` is the logical size of the array and `arr.capacity` is the whole space for the container.
 
 Initialize the array with the given size & capacity by `c_array_init(&arr, size)`.
@@ -117,7 +122,11 @@ int main() {
 ```
 
 ----
-### c_array_copy
+### `c_array_copy(arr1, arr2)`
+- params:<br>
+`arr1`: c_array structure you want to copy -> (**c_array**)<br>
+`arr2`: new c_array structure -> (**c_array**)<br>
+
 Copy an array to the target arry.
 ```C
 int main() {
@@ -136,7 +145,10 @@ int main() {
 ```
 
 ----
-### c_array_capacity & c_array_size
+### `c_array_capacity(arr)` & `c_array_size(arr)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+
 Get array capacity and size.
 ```C
 int main() {
@@ -154,7 +166,12 @@ int main() {
 ```
 
 ----
-### c_array_assign
+### `c_array_assign(arr, idx, val)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+`idx`: index of the array -> (**int**)<br>
+`val`: value -> (**int, long long, float, double etc..**)<br>
+
 Assign the value at given location. This funciton will help to check if the memory is allocated before assigning the value. If memory is not allocated, then the program will abort with error.
 ```C
 int main() {
@@ -170,11 +187,16 @@ int main() {
 ```
 
 ----
-### c_array_grow
+### `c_array_grow`
 This macro is for array to grow the capacity while the memory is not enough. <b><font color=#ec733f>User don't have to call it manually</font></b>. If you want to adjust the size or the capacity, please refer to the `c_array_resize` and `c_array_set_size`. Features in c_array_tools will grow the capacity while the memory space is not enough. By default, each growing will **double** the **current capacity**.
 
 ----
-### c_array_resize & c_array_set_size
+### `c_array_resize(arr, c)` & `c_array_set_size(arr, size)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+`c`: capacity -> (**size_t**)<br>
+`size`: size -> (**size_t**)<br>
+
 Resize the capacity to given value.
 ```c
 int main() {
@@ -187,7 +209,11 @@ int main() {
 ```
 
 ----
-### c_array_push_back
+### `c_array_push_back(arr, val)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+`val`: value -> (**int, long long, float, double etc..**)<br>
+
 Push the element at the end of the array (depend on arr.size). If the capacity is not enough, this funciton will call `c_array_grow` to enlarge the capacity automatically. Notice if you need to push_back frequently, please use `c_array_resize` to set enough capacity to avoid the realloc of memory.
 ```C
 int main() {
@@ -201,7 +227,10 @@ int main() {
 ```
 
 ----
-### c_array_pop_back
+### `c_array_pop_back(arr)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+
 Remove the last element of the array (depend on arr.size).
 ```C
 int main() {
@@ -216,11 +245,16 @@ int main() {
 ```
 
 ----
-### c_array_move_left & c_array_move_right
+### `c_array_move_left` & `c_array_move_right`
 These are the feature for c_array_insert and c_array_remove.
 
 ----
-### c_array_insert(arr, idx, val)
+### `c_array_insert(arr, idx, val)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+`idx`: index of the array -> (**int**)<br>
+`val`: value -> (**int, long long, float, double etc..**)<br>
+
 Insert the element at given index.
 ```C
 int main() {
@@ -235,7 +269,11 @@ int main() {
 ```
 
 ----
-### c_array_remove(arr, idx)
+### `c_array_remove(arr, idx)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+`idx`: index of the array -> (**int**)<br>
+
 Remove the elemnt at given index.
 ```C
 int main() {
@@ -250,7 +288,11 @@ int main() {
 ```
 
 ----
-### c_array_print & c_array_printf
+### `c_array_print(arr)` & `c_array_printf(arr, format)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+`format`: format specifier -> (**char\***)<br>
+
 Print the array with clean style.
 ```C
 int main() {
@@ -269,7 +311,11 @@ int main() {
 ```
 
 ----
-### c_array_empty
+### `c_array_empty(arr)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+- return: 0 or 1 -> (**int**)<br>
+
 Check if array is empty, if yes return 1 else 0
 ```C
 int main() {
@@ -281,7 +327,12 @@ int main() {
 ```
 
 ----
-### c_array_swap
+### `c_array_swap(arr, idx1, idx2)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+`idx1`: index 1 -> (**int**)<br>
+`idx2`: index 2 -> (**int**)<br>
+
 Swap the data in array
 ```C
 int main() {
@@ -296,7 +347,10 @@ int main() {
 ```
 
 ----
-### c_array_reverse
+### `c_array_reverse(arr)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+
 Reverse the array
 ```C
 int main() {
@@ -311,7 +365,10 @@ int main() {
 ```
 
 ----
-### c_array_free
+### `c_array_free(arr)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+
 Free the memory allocated from heap.
 ```C
 int main() {
@@ -324,7 +381,10 @@ int main() {
 ```
 
 ----
-### c_array_qsort & c_array_msort
+### `c_array_qsort(arr)` & `c_array_msort(arr)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+
 Sort the array by the qsort function in <stdlib.h>, or sort the array by the 'merge sort'.
 ```C
 int main() {
@@ -343,7 +403,10 @@ int main() {
 ```
 
 ----
-### c_array_sum
+### `c_array_sum(arr)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+
 Get the sum of an array.
 ```C
 int main() {
@@ -358,7 +421,11 @@ int main() {
 ```
 
 ----
-### c_array_max & c_array_min
+### `c_array_max(arr)` & `c_array_min(arr)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+- return: `min or max` -> (**int, long long, float, double etc..**)<br>
+
 Get min or max value of an array
 ```C
 int main() {
@@ -374,7 +441,11 @@ int main() {
 ```
 
 ----
-### c_array_mean
+### `c_array_mean(arr)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+- return: `mean value` -> (**mean_t**)<br>
+
 Get mean value of an array
 ```C
 int main() {
@@ -389,7 +460,11 @@ int main() {
 ```
 
 ----
-### c_array_std & c_array_var
+### `c_array_std(arr)` & `c_array_var(arr)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+- return: `standard deviation or variance` -> (**std_t, var_t**)<br>
+
 Get the standard deviation or the variance of an array
 ```C
 int main() {
