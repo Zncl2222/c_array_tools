@@ -406,6 +406,7 @@ int main() {
 ### `c_array_sum(arr)`
 - params:<br>
 `arr`: c_array structure -> (**c_array**)<br>
+- return: `sum` -> (**int, long long, float, double etc..**)<br>
 
 Get the sum of an array.
 ```C
