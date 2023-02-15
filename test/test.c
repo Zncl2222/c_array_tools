@@ -390,6 +390,44 @@ UTEST(test, c_array_remove) {
     c_array_free(&arr);
 }
 
+UTEST(test, c_array_concat) {
+    c_array(int) arr;
+    c_array(int) arr2;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr2, 5);
+
+    c_array_push_back(&arr, 10);
+    c_array_push_back(&arr, 20);
+    ASSERT_EQ(arr.capacity, 2);
+    ASSERT_EQ(arr.size, 2);
+    ASSERT_EQ(arr2.capacity, 5);
+    ASSERT_EQ(arr2.size, 5);
+    int ans[7] = {10, 20, 0, 0, 0, 0, 0};
+
+    c_array_concat(&arr, &arr2);
+    ASSERT_EQ(arr.capacity, 7);
+    ASSERT_EQ(arr.size, 7);
+    for (int i = 0; i < arr.size; i++) {
+        ASSERT_EQ(arr.data[i], ans[i]);
+    }
+
+    c_array_push_back(&arr, 5);
+    ASSERT_EQ(arr.capacity, 14);
+    ASSERT_EQ(arr.size, 8);
+
+    c_array_concat(&arr, &arr2);
+    ASSERT_EQ(arr.capacity, 14);
+    ASSERT_EQ(arr.size, 13);
+    int ans2[13] = {10, 20, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0};
+    for (int i = 0; i < arr.size; i++) {
+        ASSERT_EQ(arr.data[i], ans2[i]);
+    }
+
+    c_array_free(&arr);
+    c_array_free(&arr2);
+}
+
 UTEST(test, c_array_qsort) {
     c_array(int) arr;
     c_array(long long) arr_l;
