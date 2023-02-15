@@ -156,6 +156,24 @@ typedef double var_t;
     } while(0)
 
 // -----------------------------------------------------------------------
+/*                       Arrary concatenation                           */
+
+# define c_array_concat(arr1, arr2)                                                 \
+    do {                                                                            \
+        char* err_msg = "The data type of two arrays should be the same";           \
+        c_array_assert((c_array_dtype((arr1)) == c_array_dtype((arr2))), err_msg);  \
+        size_t new_capacity = (arr1)->capacity + (arr2)->capacity;                  \
+        size_t new_size = (arr1)->size + (arr2)->size;                              \
+        if ((arr1)->capacity < new_size) {                                          \
+            c_array_resize(arr1, new_capacity);                                     \
+        }                                                                           \
+        for (int i = 0; i < (arr2)->size; i++) {                                    \
+            (arr1)->data[i + (arr1)->size] = (arr2)->data[i];                       \
+        }                                                                           \
+        (arr1)->size = new_size;                                                    \
+    } while(0)
+
+// -----------------------------------------------------------------------
 /*                           Array qsort                                */
 
 # define c_array_qsort(arr)                                                                       \

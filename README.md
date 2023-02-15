@@ -365,6 +365,30 @@ int main() {
 ```
 
 ----
+### `c_array_concat(arr1, arr2)`
+- params:<br>
+`arr1`: c_array structure (result will concat at this array) -> (**c_array**)<br>
+`arr2`: c_array structure -> (**c_array**)<br>
+
+Concat two arrays.
+```C
+int main() {
+    c_array(int) arr;
+    c_array(int) arr2;
+    c_array(&arr, 0);
+    c_array(&arr2, 0);
+    c_array_push_back(&arr, 1);
+    c_array_push_back(&arr, 2);
+    c_array_push_back(&arr2, 9);
+    c_array_push_back(&arr2, -45);
+
+    c_array_concat(&arr1, &arr2); // arr1 = [1, 2, 9, -45], arr2 = [9, -45]
+
+    return 0;
+}
+```
+
+----
 ### `c_array_free(arr)`
 - params:<br>
 `arr`: c_array structure -> (**c_array**)<br>
