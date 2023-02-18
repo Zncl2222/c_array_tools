@@ -5,7 +5,7 @@ enable_testing()
 project(example)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-add_executable(example example.c)
+add_executable(example ${CMAKE_CURRENT_SOURCE_DIR}/src/c_array.c example.c)
 
 if(UNIX)
     target_link_libraries(example PRIVATE m)
@@ -29,7 +29,7 @@ add_test(
 project(unittest)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test)
 
-add_executable(unittest ./test/test.c)
+add_executable(unittest ${CMAKE_CURRENT_SOURCE_DIR}/src/c_array.c ./test/test.c)
 add_test(
     unittest
     ${CMAKE_COMMAND}
