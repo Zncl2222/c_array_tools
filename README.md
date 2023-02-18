@@ -7,7 +7,17 @@
 This is a simple dynamic array tools similary to C++ **```std::vector```** implemented by C. It coded by macro to simulate the **```template```** function like in C++ or other languages. Thus user can use array in C more easily without declare the type again and again.
 
 # Installation
-It is a single header file library. Just put `src/c_array.h` into your project and import it !
+It is a single header file library. Just put `src/c_array.h` and `src/c_array.c (optional)` into your project. You need to compile the c_array.c file if you want to use these features:
+
+- `c_array_sum`
+- `c_array_mean`
+- `c_array_max`
+- `c_array_min`
+- `c_array_std`
+- `c_array_var`
+- `c_array_qsort`
+
+
 
 Due to the `typeof` and `_Generic` features in the code, now the project was only tested base on the gcc compiler on windows (mingw) and ubuntu os. (gcc >= 4.9 is required, gcc does not support `_Generic` until version 4.9)
 

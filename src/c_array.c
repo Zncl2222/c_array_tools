@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2022 Jian Yu, Chen
     License: MIT License
-    Version: V1.2.0
+    Version: V1.2.1
 
     The latest version is avaliable at:
     https://github.com/Zncl2222/c_array_tools
