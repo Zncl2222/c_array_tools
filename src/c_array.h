@@ -553,4 +553,29 @@ double c_array_min_double(double* arr, int size);
         free((mat)->data);                          \
     } while(0)
 
+// -----------------------------------------------------------------------
+/*                       Random number generator                        */
+
+/*  mt19937 license is declared in c_array_mt.c  */
+# ifndef M_PI
+# define M_PI 3.1415926
+# endif
+
+# define MT_N 624
+# define MT_M 397
+# define MT_MATRIX_A 0x9908b0df
+# define MT_UPPER_MASK 0x80000000
+# define MT_LOWER_MASK 0x7fffffff
+
+typedef struct {
+    unsigned int state[MT_N];
+    int index;
+} mt19937_state;
+
+void mt19937_init(mt19937_state* state, unsigned int seed);
+
+unsigned int mt19937_generate(mt19937_state* state);
+
+double random_normal(mt19937_state* state);
+
 # endif
