@@ -574,7 +574,17 @@ typedef struct {
 
 void mt19937_init(mt19937_state* state, unsigned int seed);
 
-unsigned int mt19937_generate(mt19937_state* state);
+unsigned long mt19937_generate(mt19937_state* state);
+
+float mt19937_get_float(mt19937_state* state);
+
+float mt19937_get_float_range(mt19937_state* state, float m, float n);
+
+double mt19937_get_double(mt19937_state* state);
+
+double mt19937_get_double_range(mt19937_state* state, double m, double n);
+
+int32_t mt19937_get_int32_range(mt19937_state* state, int32_t m, int32_t n);
 
 double random_normal(mt19937_state* state);
 

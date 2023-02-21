@@ -43,31 +43,31 @@ void mt19937_init(mt19937_state* state, unsigned int seed) {
     state->state[0] = seed;
 
     for (int i = 1; i < MT_N; i++) {
-        state->state[i] = (1812433253 * (state->state[i-1] ^ (state->state[i-1] >> 30)) + i);
+        state->state[i] = (1812433253 * (state->state[i - 1] ^ (state->state[i - 1] >> 30)) + i);
     }
 
     state->index = MT_N;
 }
 
-unsigned int mt19937_generate(mt19937_state* state) {
+unsigned long mt19937_generate(mt19937_state* state) {
     if (state->index >= MT_N) {
-        for (int i = 0; i < MT_N-MT_M; i++) {
-            unsigned int x = (state->state[i] & MT_UPPER_MASK) | (state->state[i+1] & MT_LOWER_MASK);
-            state->state[i] = state->state[i+MT_M] ^ (x >> 1) ^ ((x & 1) * MT_MATRIX_A);
+        for (int i = 0; i < MT_N - MT_M; i++) {
+            unsigned long x = (state->state[i] & MT_UPPER_MASK) | (state->state[i + 1] & MT_LOWER_MASK);
+            state->state[i] = state->state[i + MT_M] ^ (x >> 1) ^ ((x & 1) * MT_MATRIX_A);
         }
 
-        for (int i = MT_N-MT_M; i < MT_N-1; i++) {
-            unsigned int x = (state->state[i] & MT_UPPER_MASK) | (state->state[i+1] & MT_LOWER_MASK);
-            state->state[i] = state->state[i+(MT_M-MT_N)] ^ (x >> 1) ^ ((x & 1) * MT_MATRIX_A);
+        for (int i = MT_N - MT_M; i < MT_N-1; i++) {
+            unsigned long x = (state->state[i] & MT_UPPER_MASK) | (state->state[i + 1] & MT_LOWER_MASK);
+            state->state[i] = state->state[i + (MT_M-MT_N)] ^ (x >> 1) ^ ((x & 1) * MT_MATRIX_A);
         }
 
-        unsigned int x = (state->state[MT_N-1] & MT_UPPER_MASK) | (state->state[0] & MT_LOWER_MASK);
-        state->state[MT_N-1] = state->state[MT_M-1] ^ (x >> 1) ^ ((x & 1) * MT_MATRIX_A);
+        unsigned long x = (state->state[MT_N - 1] & MT_UPPER_MASK) | (state->state[0] & MT_LOWER_MASK);
+        state->state[MT_N - 1] = state->state[MT_M - 1] ^ (x >> 1) ^ ((x & 1) * MT_MATRIX_A);
 
         state->index = 0;
     }
 
-    unsigned int y = state->state[state->index++];
+    unsigned long y = state->state[state->index++];
     y ^= (y >> 11);
     y ^= (y << 7) & 0x9d2c5680;
     y ^= (y << 15) & 0xefc60000;
@@ -76,9 +76,29 @@ unsigned int mt19937_generate(mt19937_state* state) {
     return y;
 }
 
+int32_t mt19937_get_int32_range(mt19937_state* state, int32_t m, int32_t n) {
+    return mt19937_generate(state) % (n - m + 1) + m;
+};
+
+float mt19937_get_float(mt19937_state* state) {
+    return mt19937_generate(state) / 4294967296.0;
+}
+
+float mt19937_get_float_range(mt19937_state* state, float m, float n) {
+    return (mt19937_generate(state) / 4294967296.0) * (n - m) + m;
+}
+
+double mt19937_get_double(mt19937_state* state) {
+    return mt19937_generate(state) / 4294967296.0;
+}
+
+double mt19937_get_double_range(mt19937_state* state, double m, double n) {
+    return (mt19937_generate(state) / 4294967296.0) * (n - m) + m;
+}
+
 double random_normal(mt19937_state* state) {
-    double x = mt19937_generate(state) / 4294967296.0f;
-    double y = mt19937_generate(state) / 4294967296.0f;
+    double x = mt19937_get_double(state);
+    double y = mt19937_get_double(state);
     double z = sqrtf(-2 * log(x)) * cosf(2 * M_PI * y);
     return z;
 }
