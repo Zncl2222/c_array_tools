@@ -30,7 +30,12 @@ project(unittest)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test)
 
 add_executable(unittest ${CMAKE_CURRENT_SOURCE_DIR}/src/c_array.c ./test/test.c)
-add_executable(unittest_mt ${CMAKE_CURRENT_SOURCE_DIR}/src/c_array_mt.c ./test/test_mt.c)
+add_executable(
+    unittest_mt
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/c_array_mt.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/c_array.c
+    ./test/test_mt.c
+)
 
 add_test(
     unittest

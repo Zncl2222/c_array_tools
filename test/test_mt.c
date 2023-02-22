@@ -111,4 +111,58 @@ UTEST(test, random_normal) {
     }
 }
 
+UTEST(test, c_array_randnormal) {
+    mt19937_state state;
+    unsigned int seed = 12345;
+    mt19937_init(&state, seed);
+
+    c_array(double) array;
+    c_array_randnormal(&array, 10000, &state);
+    ASSERT_EQ(array.size, 10000);
+    ASSERT_EQ(array.capacity, 10000);
+    for (int i = 0; i < 10000; i++) {
+        ASSERT_TRUE((array.data[i] < 6 & array.data[i] >= -6));
+    }
+    ASSERT_NEAR(c_array_mean(&array), 0, 0.01f);
+    ASSERT_NEAR(c_array_std(&array), 1, 0.01f);
+    c_array_free(&array);
+}
+
+UTEST(test, c_array_random_range) {
+    mt19937_state state;
+    unsigned int seed = 12345;
+    mt19937_init(&state, seed);
+
+    c_array(double) array_d;
+    c_array_rand_range(&array_d, 5000, mt19937_get_double_range(&state, 2.65, 5.5));
+    ASSERT_EQ(array_d.size, 5000);
+    ASSERT_EQ(array_d.capacity, 5000);
+    for (int i = 0; i < 5000; i++) {
+        ASSERT_TRUE((array_d.data[i] < 5.5 & array_d.data[i] >= 2.65));
+    }
+    ASSERT_NEAR(c_array_mean(&array_d), (5.5 + 2.65) / 2, 0.01f);
+
+    c_array(float) array_f;
+    c_array_rand_range(&array_f, 2000, mt19937_get_float_range(&state, -5.99, 5.5));
+    ASSERT_EQ(array_f.size, 2000);
+    ASSERT_EQ(array_f.capacity, 2000);
+    for (int i = 0; i < 2000; i++) {
+        ASSERT_TRUE((array_f.data[i] < 5.5 & array_f.data[i] >= -5.99));
+    }
+    ASSERT_NEAR(c_array_mean(&array_f), (5.5 - 5.99) / 2, 0.01f);
+
+    c_array(int) array;
+    c_array_rand_range(&array, 10000, mt19937_get_double_range(&state, -5, 5));
+    ASSERT_EQ(array.size, 10000);
+    ASSERT_EQ(array.capacity, 10000);
+    for (int i = 0; i < 10000; i++) {
+        ASSERT_TRUE((array.data[i] < 5 & array.data[i] >= -5));
+    }
+    ASSERT_NEAR(c_array_mean(&array), 0, 0.01f);
+
+    c_array_free(&array);
+    c_array_free(&array_d);
+    c_array_free(&array_f);
+}
+
 UTEST_MAIN();
