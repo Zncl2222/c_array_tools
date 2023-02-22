@@ -46,6 +46,28 @@ typedef double var_t;
         memcpy((arr2)->data, (arr1)->data, (arr2)->capacity * sizeof(typeof(*(arr2)->data)));   \
     } while(0)
 
+/* c_array_mt.c is necessary for c_array_randnormal & c_array_rand_range */
+
+# define c_array_randnormal(arr, c, rng_state)                          \
+    do {                                                                \
+        (arr)->size = (c);                                              \
+        (arr)->capacity = (c);                                          \
+        (arr)->data = malloc(sizeof(typeof(*((arr)->data))) * (c));     \
+        for (int i = 0; i < (arr)->size; i++) {                         \
+            (arr)->data[i] = random_normal(rng_state);                  \
+        }                                                               \
+    } while(0)
+
+# define c_array_rand_range(arr, c, rng_function)                       \
+    do {                                                                \
+        (arr)->size = (c);                                              \
+        (arr)->capacity = (c);                                          \
+        (arr)->data = malloc(sizeof(typeof(*((arr)->data))) * (c));     \
+        for (int i = 0; i < (arr)->size; i++) {                         \
+            (arr)->data[i] = rng_function;                              \
+        }                                                               \
+    } while(0)
+
 // -----------------------------------------------------------------------
 /*                      Array basic operations                          */
 
@@ -584,7 +606,7 @@ double mt19937_get_double(mt19937_state* state);
 
 double mt19937_get_double_range(mt19937_state* state, double m, double n);
 
-int32_t mt19937_get_int32_range(mt19937_state* state, int32_t m, int32_t n);
+int mt19937_get_int32_range(mt19937_state* state, int m, int n);
 
 double random_normal(mt19937_state* state);
 

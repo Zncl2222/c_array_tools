@@ -76,7 +76,7 @@ unsigned long mt19937_generate(mt19937_state* state) {
     return y;
 }
 
-int32_t mt19937_get_int32_range(mt19937_state* state, int32_t m, int32_t n) {
+int mt19937_get_int32_range(mt19937_state* state, int m, int n) {
     return mt19937_generate(state) % (n - m + 1) + m;
 };
 
