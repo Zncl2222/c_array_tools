@@ -7,16 +7,28 @@
 This is a simple dynamic array tools similary to C++ **```std::vector```** implemented by C. It coded by macro to simulate the **```template```** function like in C++ or other languages. Thus user can use array in C more easily without declare the type again and again.
 
 # Installation
-It is a single header file library. Just put `src/c_array.h` and `src/c_array.c (optional)` into your project. You need to compile the c_array.c file if you want to use these features:
+It is a single header file library. For most basic dynamic array features, you only need to include `src/c_array.h` into your project. If you want to use the extension features like **statistic calculation** and **mt199937 random number generator**, you should also link `src/c_array.c` or `src/c_array_mt.c` while compiling. (The functions are declared in `src/c_array.h`, so you can call any of them if you include the header file `src/c_array.h` in your source code.).
 
-- `c_array_sum`
-- `c_array_mean`
-- `c_array_max`
-- `c_array_min`
-- `c_array_std`
-- `c_array_var`
-- `c_array_qsort`
+For example :
 
+
+### main.c
+
+```C
+# incude "c_array.h"
+
+int main() {
+    c_array(int) array;
+    c_array_rand_range(&array, -5, 20); // This funciton should link c_array_mt.c while compling
+    int sum = c_array_sum(&array);      // This funciton should link c_array.c while compling
+    c_array_free(&array);
+}
+```
+
+compile with gcc
+```shell script
+gcc main.c c_array_mt.c c_array.c -o main.out
+```
 
 
 Due to the `typeof` and `_Generic` features in the code, now the project was only tested base on the gcc compiler on windows (mingw) and ubuntu os. (gcc >= 4.9 is required, gcc does not support `_Generic` until version 4.9)
