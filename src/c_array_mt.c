@@ -5,6 +5,15 @@
  * Copyright 2022, Jian Yu, Chen
  * All rights reserved.
  *
+ * -----------------------------------------------------------------------
+ * Version: V1.3.0
+ * file   : c_array_mt.c
+ *
+ * The latest version is avaliable at:
+ * https://github.com/Zncl2222/c_array_tools
+ *
+ * -----------------------------------------------------------------------
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
