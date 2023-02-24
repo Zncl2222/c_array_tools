@@ -1,7 +1,8 @@
 /*
     Copyright (c) 2022 Jian Yu, Chen
     License: MIT License
-    Version: v1.2.1
+    Version: v1.3.0
+    file   : c_array.h
 
     The latest version is avaliable at:
     https://github.com/Zncl2222/c_array_tools
@@ -44,6 +45,28 @@ typedef double var_t;
         (arr2)->capacity = (arr1)->capacity;                                                    \
         (arr2)->data = malloc((arr2)->capacity * sizeof(typeof(*(arr2)->data)));                \
         memcpy((arr2)->data, (arr1)->data, (arr2)->capacity * sizeof(typeof(*(arr2)->data)));   \
+    } while(0)
+
+/* c_array_mt.c is necessary for c_array_randnormal & c_array_rand_range */
+
+# define c_array_randnormal(arr, c, rng_state)                          \
+    do {                                                                \
+        (arr)->size = (c);                                              \
+        (arr)->capacity = (c);                                          \
+        (arr)->data = malloc(sizeof(typeof(*((arr)->data))) * (c));     \
+        for (int i = 0; i < (arr)->size; i++) {                         \
+            (arr)->data[i] = random_normal(rng_state);                  \
+        }                                                               \
+    } while(0)
+
+# define c_array_rand_range(arr, c, rng_function)                       \
+    do {                                                                \
+        (arr)->size = (c);                                              \
+        (arr)->capacity = (c);                                          \
+        (arr)->data = malloc(sizeof(typeof(*((arr)->data))) * (c));     \
+        for (int i = 0; i < (arr)->size; i++) {                         \
+            (arr)->data[i] = rng_function;                              \
+        }                                                               \
     } while(0)
 
 // -----------------------------------------------------------------------
@@ -552,5 +575,40 @@ double c_array_min_double(double* arr, int size);
         }                                           \
         free((mat)->data);                          \
     } while(0)
+
+// -----------------------------------------------------------------------
+/*                       Random number generator                        */
+
+/*  mt19937 license is declared in c_array_mt.c  */
+# ifndef M_PI
+# define M_PI 3.1415926
+# endif
+
+# define MT_N 624
+# define MT_M 397
+# define MT_MATRIX_A 0x9908b0df
+# define MT_UPPER_MASK 0x80000000
+# define MT_LOWER_MASK 0x7fffffff
+
+typedef struct {
+    unsigned int state[MT_N];
+    int index;
+} mt19937_state;
+
+void mt19937_init(mt19937_state* state, unsigned int seed);
+
+unsigned long mt19937_generate(mt19937_state* state);
+
+float mt19937_get_float(mt19937_state* state);
+
+float mt19937_get_float_range(mt19937_state* state, float m, float n);
+
+double mt19937_get_double(mt19937_state* state);
+
+double mt19937_get_double_range(mt19937_state* state, double m, double n);
+
+int mt19937_get_int32_range(mt19937_state* state, int m, int n);
+
+double random_normal(mt19937_state* state);
 
 # endif

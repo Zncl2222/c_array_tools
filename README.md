@@ -7,17 +7,35 @@
 This is a simple dynamic array tools similary to C++ **```std::vector```** implemented by C. It coded by macro to simulate the **```template```** function like in C++ or other languages. Thus user can use array in C more easily without declare the type again and again.
 
 # Installation
-It is a single header file library. Just put `src/c_array.h` and `src/c_array.c (optional)` into your project. You need to compile the c_array.c file if you want to use these features:
+It is a single header file library. For most basic dynamic array features, you only need to include `src/c_array.h` into your project. If you want to use the extension features like **statistic calculation** and **mt19937 random number generator**, you should also link `src/c_array.c` or `src/c_array_mt.c` while compiling. (The functions are declared in `src/c_array.h`, so you can call any of them if you include the header file `src/c_array.h` in your source code.).
 
-- `c_array_sum`
-- `c_array_mean`
-- `c_array_max`
-- `c_array_min`
-- `c_array_std`
-- `c_array_var`
-- `c_array_qsort`
+For example, you have a program main.c like:
 
 
+### main.c
+
+```C
+# include "c_array.h"
+
+int main() {
+    c_array(int) array;
+    mt19937_state state;
+    mt19937_init(&state, 1314);
+
+    // This funciton is implemented in c_array_mt.c
+    c_array_rand_range(&array, 10, mt19937_get_int32_range(&state, -5, 20));
+
+     // This funciton is implemented in c_array.c
+    int sum = c_array_sum(&array);
+
+    c_array_free(&array);
+}
+```
+
+compile with gcc (remember to add -lm to link math.h in linux os)
+```bash
+gcc main.c c_array_mt.c c_array.c -lm -o main.out
+```
 
 Due to the `typeof` and `_Generic` features in the code, now the project was only tested base on the gcc compiler on windows (mingw) and ubuntu os. (gcc >= 4.9 is required, gcc does not support `_Generic` until version 4.9)
 
@@ -31,6 +49,27 @@ Due to the `typeof` and `_Generic` features in the code, now the project was onl
 | Visual Studio Build Tools     | :x:                | :x:                | Not  yet tested     |
 
 </div>
+
+### Extension in c_array.c
+- [c_array_sum](#c_array_sumarr)
+- [c_array_mean](#c_array_meanarr)
+- [c_array_std](#c_array_stdarr--c_array_vararr)
+- [c_array_var](#c_array_stdarr--c_array_vararr)
+- [c_array_max](#c_array_maxarr--c_array_minarr)
+- [c_array_min](#c_array_maxarr--c_array_minarr)
+- [c_array_qsort](#c_array_qsortarr--c_array_msortarr)
+
+### Extension in c_array_mt.c
+- [mt19937_init](#void-mt19937_initmt19937_state-state-unsigned-int-seed)
+- [mt19937_generate](#unsigned-long-mt19937_generatemt19937_state-state)
+- [mt19937_get_int32_range](#int-mt19937_get_int32_rangemt19937_state-state-int-m-int-n)
+- [mt19937_get_float](#float-mt19937_get_floatmt19937_state-state)
+- [mt19937_get_float_range](#float-mt19937_get_float_rangemt19937_state-state-float-m-float-n)
+- [mt19937_get_double](#double-mt19937_get_doublemt19937_state-state)
+- [mt19937_get_double_range](#double-mt19937_get_double_rangemt19937_state-state-double-m-double-n)
+- [random_normal](#double-random_normalmt19937_state-state)
+- [c_array_randnormal](#c_array_randnormalarr-c-rng_state)
+- [c_array_rand_range](#c_array_rand_rangearr-c-rng_function)
 
 # Usuage
 Here is an example.c to display how to use this llibrary. You could just use the shell script example.sh (linux) or batch file example.bat to compile and run the program. The example program print out the results for user to understand how it works.
@@ -510,6 +549,177 @@ int main() {
     c_array_push_back(&arr, 3);
     std_t std = c_array_std(&arr); // std = 0.8164
     var_t var = c_array_var(&arr); // var =  0.6667
+    return 0;
+}
+```
+
+----
+### `void mt19937_init(mt19937_state* state, unsigned int seed)`
+- params:<br>
+`state`: state of random seed generator -> (**mt19937_state***)<br>
+`seed`: random seed number -> (**unsigned int**)<br>
+- return: `void` -> (**void**)<br>
+
+Create the random seed generator with the given random seed.
+```C
+int main() {
+    mt19937_state state;
+    mt19937_init(&state, 12345);
+    return 0;
+}
+```
+
+----
+### `unsigned long mt19937_generate(mt19937_state* state)`
+- params:<br>
+`state`: state of random seed generator -> (**mt19937_state***)<br>
+- return: `random value` -> (**unsigned long**)<br>
+
+Get the long or integer type random value between 0 ~ 4294967296.
+```C
+int main() {
+    mt19937_state state;
+    mt19937_init(&state, 12345);
+    long num = mt19937_generate(&state);
+    return 0;
+}
+```
+
+----
+### `float mt19937_get_float(mt19937_state* state)`
+- params:<br>
+`state`: state of random seed generator -> (**mt19937_state***)<br>
+- return: `random value` -> (**float**)<br>
+
+Get the float type random value between 0 ~ 1.
+```C
+int main() {
+    mt19937_state state;
+    mt19937_init(&state, 12345);
+    float num = mt19937_get_float(&state);
+    return 0;
+}
+```
+
+----
+### `double mt19937_get_double(mt19937_state* state)`
+- params:<br>
+`state`: state of random seed generator -> (**mt19937_state***)<br>
+- return: `random value` -> (**double**)<br>
+
+Get the double type random value between 0 ~ 1.
+```C
+int main() {
+    mt19937_state state;
+    mt19937_init(&state, 12345);
+    double num = mt19937_get_double(&state);
+    return 0;
+}
+```
+
+----
+### `int mt19937_get_int32_range(mt19937_state* state, int m, int n)`
+- params:<br>
+`state`: state of random seed generator -> (**mt19937_state***)<br>
+`m`: min value -> (**int**)<br>
+`n`: max value -> (**int**)<br>
+- return: `random value` -> (**int**)<br>
+
+Get the random value between given min and max.
+```C
+int main() {
+    mt19937_state state;
+    mt19937_init(&state, 12345);
+    int num = mt19937_get_int32_range(&state, -10, 20); // -10 <= num <= 20
+    return 0;
+}
+```
+
+----
+### `float mt19937_get_float_range(mt19937_state* state, float m, float n)`
+- params:<br>
+`state`: state of random seed generator -> (**mt19937_state***)<br>
+`m`: min value -> (**float**)<br>
+`n`: max value -> (**float**)<br>
+- return: `random value` -> (**float**)<br>
+
+Get the random value between given min and max.
+```C
+int main() {
+    mt19937_state state;
+    mt19937_init(&state, 12345);
+    float num = mt19937_get_float_range(&state, -5.65, 20.11); // -5.65 <= num < 20.11
+    return 0;
+}
+```
+
+----
+### `double mt19937_get_double_range(mt19937_state* state, double m, double n)`
+- params:<br>
+`state`: state of random seed generator -> (**mt19937_state***)<br>
+`m`: min value -> (**double**)<br>
+`n`: max value -> (**double**)<br>
+- return: `random value` -> (**double**)<br>
+
+Get the random value between given min and max.
+```C
+int main() {
+    mt19937_state state;
+    mt19937_init(&state, 12345);
+    double num = mt19937_get_double_range(&state, -5.65, 20.11); // -5.65 <= num < 20.11
+    return 0;
+}
+```
+
+----
+### `double random_normal(mt19937_state* state)`
+- params:<br>
+`state`: state of random seed generator -> (**mt19937_state***)<br>
+- return: `random value` -> (**double**)<br>
+
+Draw the random value from standard normal distribution.
+```C
+int main() {
+    mt19937_state state;
+    mt19937_init(&state, 12345);
+    double num = random_normal(&state);
+    return 0;
+}
+```
+
+----
+### `c_array_randnormal(arr, c, rng_state)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+`c`: capacity and size for init -> (**int**)<br>
+`rng_state`: state of random seed generator -> (**mt19937_state***)<br>
+
+Initialize the c_array with the random value from standard normal distribution.
+```C
+int main() {
+    mt19937_state state;
+    mt19937_init(&state, 12345);
+    c_array(double) array;
+    c_array_randnormal(&array, 10, &state);
+    return 0;
+}
+```
+
+----
+### `c_array_rand_range(arr, c, rng_function)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+`c`: capacity and size for init -> (**int**)<br>
+`rng_function`: rng_function -> (**rng_function**)<br>
+
+Initialize the c_array with the random value from given random function
+```C
+int main() {
+    mt19937_state state;
+    mt19937_init(&state, 12345);
+    c_array(double) array;
+    double num = random_normal(&state);
+    c_array_rand_range(&arr, c, mt19937_get_int32_range(&state, -5, 20))
     return 0;
 }
 ```
