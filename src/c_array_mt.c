@@ -108,6 +108,6 @@ double mt19937_get_double_range(mt19937_state* state, double m, double n) {
 double random_normal(mt19937_state* state) {
     double x = mt19937_get_double(state);
     double y = mt19937_get_double(state);
-    double z = sqrtf(-2 * log(x)) * cosf(2 * M_PI * y);
+    double z = sqrt(-2 * log(x)) * cos(2 * M_PI * y);
     return z;
 }
