@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2022 Jian Yu, Chen
     License: MIT License
-    Version: v1.3.0
+    Version: v1.3.1
     file   : c_array.h
 
     The latest version is avaliable at:
@@ -68,6 +68,11 @@ typedef double var_t;
             (arr)->data[i] = rng_function;                              \
         }                                                               \
     } while(0)
+
+typedef c_array(int) c_array_int;
+typedef c_array(long long) c_array_long_long;
+typedef c_array(float) c_array_float;
+typedef c_array(double) c_array_double;
 
 // -----------------------------------------------------------------------
 /*                      Array basic operations                          */
@@ -524,6 +529,11 @@ double c_array_min_double(double* arr, int size);
             (mat)->data[i] = malloc(c * sizeof(m)); \
         }\
     } while(0)
+
+typedef c_matrix(int) c_matrix_int;
+typedef c_matrix(long long) c_matrix_long_long;
+typedef c_matrix(float) c_matrix_float;
+typedef c_matrix(double) c_matrix_double;
 
 // -----------------------------------------------------------------------
 /*                       Matrix basic operations                        */

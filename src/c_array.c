@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2022 Jian Yu, Chen
     License: MIT License
-    Version: V1.3.0
+    Version: v1.3.1
     file   : c_array.c
 
     The latest version is avaliable at:

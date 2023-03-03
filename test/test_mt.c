@@ -1,3 +1,14 @@
+/*
+    Copyright (c) 2022 Jian Yu, Chen
+    License: MIT License
+    Version: v1.3.1
+    file   : test_mt.c
+
+    The latest version is avaliable at:
+    https://github.com/Zncl2222/c_array_tools
+*/
+
+
 # include <stdio.h>
 # include "../src/c_array.h"
 # include "utest.h"
@@ -116,7 +127,7 @@ UTEST(test, c_array_randnormal) {
     unsigned int seed = 12345;
     mt19937_init(&state, seed);
 
-    c_array(double) array;
+    c_array_double array;
     c_array_randnormal(&array, 10000, &state);
     ASSERT_EQ(array.size, 10000);
     ASSERT_EQ(array.capacity, 10000);
@@ -133,7 +144,7 @@ UTEST(test, c_array_random_range) {
     unsigned int seed = 12345;
     mt19937_init(&state, seed);
 
-    c_array(double) array_d;
+    c_array_double array_d;
     c_array_rand_range(&array_d, 5000, mt19937_get_double_range(&state, 2.65, 5.5));
     ASSERT_EQ(array_d.size, 5000);
     ASSERT_EQ(array_d.capacity, 5000);
@@ -142,7 +153,7 @@ UTEST(test, c_array_random_range) {
     }
     ASSERT_NEAR(c_array_mean(&array_d), (5.5 + 2.65) / 2, 0.01f);
 
-    c_array(float) array_f;
+    c_array_float array_f;
     c_array_rand_range(&array_f, 2000, mt19937_get_float_range(&state, -5.99, 5.5));
     ASSERT_EQ(array_f.size, 2000);
     ASSERT_EQ(array_f.capacity, 2000);
@@ -151,7 +162,7 @@ UTEST(test, c_array_random_range) {
     }
     ASSERT_NEAR(c_array_mean(&array_f), (5.5 - 5.99) / 2, 0.01f);
 
-    c_array(int) array;
+    c_array_int array;
     c_array_rand_range(&array, 10000, mt19937_get_double_range(&state, -5, 5));
     ASSERT_EQ(array.size, 10000);
     ASSERT_EQ(array.capacity, 10000);
