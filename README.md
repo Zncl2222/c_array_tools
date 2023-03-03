@@ -18,7 +18,7 @@ For example, you have a program main.c like:
 # include "c_array.h"
 
 int main() {
-    c_array(int) array;
+    c_array_int array;
     mt19937_state state;
     mt19937_init(&state, 1314);
 
@@ -83,7 +83,7 @@ int main() {
     printf("\nc_array Example\n\n");
 
     // Initialize the array. If capacity > 0, then it will initialize with 0 val.
-    c_array(int) array;
+    c_array_int array;
     c_array_init(&array, 0);
 
     // add element to the back (the idx of back is the current size of array)
@@ -159,12 +159,13 @@ int main() {
 `arr`: c_array structure -> (**c_array**)<br>
 `c`: the capacity for init -> (**size_t**)<br>
 
-Create the array with given datatype by `c_array(datatype) arr;`. You should initialize it before use. `arr.size` is the logical size of the array and `arr.capacity` is the whole space for the container.
+Create the array with given datatype by `c_array(datatype) arr;`. You should initialize it before use. `arr.size` is the logical size of the array and `arr.capacity` is the whole space for the container. However it is better to use `c_array_int`, `c_array_float`, `c_array_doulbe` which was defined by `typdef`. You can also define your own type like `typedef c_array_long c_array(long);`.
 
 Initialize the array with the given size & capacity by `c_array_init(&arr, size)`.
 ```C
 int main() {
-    c_array(int) arr;
+    c_array(int) arr;  // You can use this method to declare array, but it can't be used in other function which need to declare the dtype.
+    c_array_int array; // This is the dtype of c_array(int). You can use this in any function which need to declare dtype like void foo(c_array_int array, int num);
     c_array_init(&arr, 10); // arr[0] ~ arr[9] will be initialized with 0
     return 0;
 }
@@ -179,13 +180,13 @@ int main() {
 Copy an array to the target arry.
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array_init(&arr, 0); // arr[0] ~ arr[9] will be initialized with 0
     c_array_push_back(&arr, 7);
     c_array_push_back(&arr, 8);
     c_array_push_back(&arr, 9);
 
-    c_array(int) arr_new;  // declare arr_new without initialize.
+    c_array_int arr_new;  // declare arr_new without initialize.
     c_array_copy(&arr, &arr_new); // copy the memory from arr to arr_new
     c_array_print(arr_new, "%d"); // arr_new = [7, 8, 9], size and capacity are also equals to arr
 
@@ -201,7 +202,7 @@ int main() {
 Get array capacity and size.
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array_init(&arr, 10);
     // Get size and capacity by macro
     int size = c_array_size(&arr); // equals to 10
@@ -224,7 +225,7 @@ int main() {
 Assign the value at given location. This funciton will help to check if the memory is allocated before assigning the value. If memory is not allocated, then the program will abort with error.
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array_init(&arr, 10);
     c_array_assign(&arr, 0, 150); // arr.data[0] now is 150
     c_array_assign(&arr, 11, 150); // program abort due to the size of array is only 10.
@@ -249,7 +250,7 @@ This macro is for array to grow the capacity while the memory is not enough. <b>
 Resize the capacity to given value.
 ```c
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array_init(&arr, 0); // capacity and size are both 0 now
     c_array_resize(&arr, 10); // capacity become 10 and size remain 0.
     c_array_set_size(&arr, 8); // capacity is 10 and size is 8 (element will initialize with 0)
@@ -266,7 +267,7 @@ int main() {
 Push the element at the end of the array (depend on arr.size). If the capacity is not enough, this funciton will call `c_array_grow` to enlarge the capacity automatically. Notice if you need to push_back frequently, please use `c_array_resize` to set enough capacity to avoid the realloc of memory.
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array(&arr, 0);
     c_array_push_back(&arr, 1); // capacity and size is 1 now
     c_array_push_back(&arr, 2); // capacity and size is 2 now
@@ -283,7 +284,7 @@ int main() {
 Remove the last element of the array (depend on arr.size).
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array(&arr, 0);
     c_array_push_back(&arr, 1);
     c_array_push_back(&arr, 2);
@@ -307,7 +308,7 @@ These are the feature for c_array_insert and c_array_remove.
 Insert the element at given index.
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array(&arr, 0);
     c_array_push_back(&arr, 1);
     c_array_push_back(&arr, 2);
@@ -326,7 +327,7 @@ int main() {
 Remove the elemnt at given index.
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array(&arr, 0);
     c_array_push_back(&arr, 1);
     c_array_push_back(&arr, 2);
@@ -345,7 +346,7 @@ int main() {
 Print the array with clean style.
 ```C
 int main() {
-    c_array(int) arr_print_test;
+    c_array_int arr_print_test;
     c_array(&arr_print_test, 0);
     c_array_push_back(&arr_print_test, 1);
     c_array_push_back(&arr_print_test, 2);
@@ -368,7 +369,7 @@ int main() {
 Check if array is empty, if yes return 1 else 0
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array(&arr, 0);
     int e = c_array_empty(&arr); // e = 1
     return 0;
@@ -385,7 +386,7 @@ int main() {
 Swap the data in array
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array(&arr, 0);
     c_array_push_back(&arr, 1);
     c_array_push_back(&arr, 2);
@@ -403,7 +404,7 @@ int main() {
 Reverse the array
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array(&arr, 0);
     c_array_push_back(&arr, 1);
     c_array_push_back(&arr, 2);
@@ -422,8 +423,8 @@ int main() {
 Concat two arrays.
 ```C
 int main() {
-    c_array(int) arr;
-    c_array(int) arr2;
+    c_array_int arr;
+    c_array_int arr2;
     c_array(&arr, 0);
     c_array(&arr2, 0);
     c_array_push_back(&arr, 1);
@@ -445,7 +446,7 @@ int main() {
 Free the memory allocated from heap.
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array(&arr, 0);
     c_array_push_back(&arr, 1);
     c_array_free(&arr);
@@ -461,7 +462,7 @@ int main() {
 Sort the array by the qsort function in <stdlib.h>, or sort the array by the 'merge sort'.
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array(&arr, 0);
     c_array_push_back(&arr, 99);
     c_array_push_back(&arr, -2);
@@ -484,7 +485,7 @@ int main() {
 Get the sum of an array.
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array(&arr, 0);
     c_array_push_back(&arr, 1);
     c_array_push_back(&arr, 2);
@@ -503,7 +504,7 @@ int main() {
 Get min or max value of an array
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array(&arr, 0);
     c_array_push_back(&arr, 1);
     c_array_push_back(&arr, 2);
@@ -523,7 +524,7 @@ int main() {
 Get mean value of an array
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array(&arr, 0);
     c_array_push_back(&arr, 1);
     c_array_push_back(&arr, 2);
@@ -542,7 +543,7 @@ int main() {
 Get the standard deviation or the variance of an array
 ```C
 int main() {
-    c_array(int) arr;
+    c_array_int arr;
     c_array(&arr, 0);
     c_array_push_back(&arr, 1);
     c_array_push_back(&arr, 2);
@@ -699,7 +700,7 @@ Initialize the c_array with the random value from standard normal distribution.
 int main() {
     mt19937_state state;
     mt19937_init(&state, 12345);
-    c_array(double) array;
+    c_array_double array;
     c_array_randnormal(&array, 10, &state);
     return 0;
 }
@@ -717,7 +718,7 @@ Initialize the c_array with the random value from given random function
 int main() {
     mt19937_state state;
     mt19937_init(&state, 12345);
-    c_array(double) array;
+    c_array_double array;
     double num = random_normal(&state);
     c_array_rand_range(&arr, c, mt19937_get_int32_range(&state, -5, 20))
     return 0;
