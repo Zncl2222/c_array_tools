@@ -51,42 +51,42 @@ double c_array_min_double(double* arr, int size) {
 
 var_t c_array_var_int(int* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean);
-    return (var / (size));
+    return (var / size);
 }
 
 var_t c_array_var_long_long(long long* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean);
-    return (var / (size));
+    return (var / size);
 }
 
 var_t c_array_var_float(float* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean);
-    return (var / (size));
+    return (var / size);
 }
 
 var_t c_array_var_double(double* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean);
-    return (var / (size));
+    return (var / size);
 }
 
 std_t c_array_std_int(int* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean);
-    return sqrt(var / (size));
+    return sqrt(var / size);
 }
 
 std_t c_array_std_long_long(long long* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean);
-    return sqrt(var / (size));
+    return sqrt(var / size);
 }
 
 std_t c_array_std_float(float* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean);
-    return sqrt(var / (size));
+    return sqrt(var / size);
 }
 
 std_t c_array_std_double(double* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean);
-    return sqrt(var / (size));
+    return sqrt(var / size);
 }
 
 // -----------------------------------------------------------------------
@@ -134,7 +134,7 @@ int cmpfunc_int(const void * a, const void * b) {
    return ( *(int*)a - *(int*)b );
 }
 
-int cmpfunc_long(const void * a, const void * b) {
+long long cmpfunc_long(const void * a, const void * b) {
    return ( *(long long*)a - *(long long*)b );
 }
 

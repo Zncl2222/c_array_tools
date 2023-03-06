@@ -219,7 +219,7 @@ typedef c_array(double) c_array_double;
 
 int cmpfunc_int(const void * a, const void * b);
 
-int cmpfunc_long(const void * a, const void * b);
+long long cmpfunc_long(const void * a, const void * b);
 
 int cmpfunc_float(const void * a, const void * b);
 
