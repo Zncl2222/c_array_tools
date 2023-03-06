@@ -3,6 +3,9 @@ enable_testing()
 
 # example
 project(example)
+include(Dart)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
+set(CTEST_COVERAGE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/coverage")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 add_executable(example ${CMAKE_CURRENT_SOURCE_DIR}/src/c_array.c example.c)
@@ -55,6 +58,15 @@ if(UNIX)
     target_link_libraries(unittest PRIVATE m)
     target_link_libraries(unittest_mt PRIVATE m)
 endif()
+
+set(CTEST_COVERAGE_EXCLUDE
+  '/usr/include/*' # Exclude system headers
+  '${CMAKE_CURRENT_SOURCE_DIR}/test/utest.h' # Exclude a specific file
+)
+add_custom_target(
+    coverage
+    COMMAND ctest -T Coverage
+)
 
 # memory check (valgrind)
 find_program(VALGRIND "valgrind")

@@ -3,4 +3,4 @@ cd build
 cmake ..
 make
 make test
-make memcheck
+make memcheck coverage
