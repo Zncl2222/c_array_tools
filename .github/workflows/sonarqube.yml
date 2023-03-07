@@ -34,14 +34,14 @@ jobs:
           ./bin/example.out
           ./test/unittest
           ./test/unittest_mt
-          make coverage
           cd ..
       - name: Collect coverage into one XML report
         run: |
-          gcovr --sonarqube || find ./build -iname 'Coverage.xml'
+          gcovr --sonarqube > coverage.xml
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Put the name of your token here
         run: |
-          sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
+          sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" \
+                        --define sonar.coverageReportPaths=coverage.xml
