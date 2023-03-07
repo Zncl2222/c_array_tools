@@ -30,13 +30,15 @@ jobs:
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release
       - name: Run tests to generate coverage statistics
         run: |
-          ls
-          ./build/bin/example.out
-          ./build/test/unittest
-          ./build/test/unittest_mt
+          cd build
+          ./bin/example.out
+          ./test/unittest
+          ./test/unittest_mt
+          make coverage
+          cd ..
       - name: Collect coverage into one XML report
         run: |
-          gcovr --sonarqube > coverage.xml
+          gcovr --sonarqube || find ./build -iname 'Coverage.xml'
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
