@@ -6,7 +6,7 @@
  * All rights reserved.
  *
  * -----------------------------------------------------------------------
- * Version: v1.3.1
+ * Version: v1.3.2
  * file   : c_array_mt.c
  *
  * The latest version is avaliable at:
@@ -90,19 +90,19 @@ int mt19937_get_int32_range(mt19937_state* state, int m, int n) {
 };
 
 float mt19937_get_float(mt19937_state* state) {
-    return mt19937_generate(state) / 4294967296.0;
+    return (float)mt19937_generate(state) / (float)4294967296.0;
 }
 
 float mt19937_get_float_range(mt19937_state* state, float m, float n) {
-    return (mt19937_generate(state) / 4294967296.0) * (n - m) + m;
+    return ((float)mt19937_generate(state) / (float)4294967296.0) * (n - m) + m;
 }
 
 double mt19937_get_double(mt19937_state* state) {
-    return mt19937_generate(state) / 4294967296.0;
+    return (double)mt19937_generate(state) / 4294967296.0;
 }
 
 double mt19937_get_double_range(mt19937_state* state, double m, double n) {
-    return (mt19937_generate(state) / 4294967296.0) * (n - m) + m;
+    return ((double)mt19937_generate(state) / 4294967296.0) * (n - m) + m;
 }
 
 double random_normal(mt19937_state* state) {

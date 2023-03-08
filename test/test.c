@@ -632,6 +632,50 @@ UTEST(test, c_array_min_max) {
     c_array_free(&arr_d);
 }
 
+UTEST(test, c_array_statistic_original_func) {
+    c_array_int arr;
+    c_array_long_long arr_l;
+    c_array_float arr_f;
+    c_array_double arr_d;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_l, 0);
+    c_array_init(&arr_f, 0);
+    c_array_init(&arr_d, 0);
+
+    for (int i = 1; i < 6; i++) {
+        c_array_push_back(&arr, i);
+        c_array_push_back(&arr_l, i);
+        c_array_push_back(&arr_f, i * 0.4);
+        c_array_push_back(&arr_d, i * 0.3);
+    }
+
+    int sum_int = c_array_sum_int(arr.data, arr.size);
+    long long sum_long = c_array_sum_long(arr_l.data, arr_l.size);
+    float sum_float = c_array_sum_float(arr_f.data, arr_f.size);
+    double sum_double = c_array_sum_double(arr_d.data, arr_d.size);
+
+    mean_t mean_int = c_array_mean_int(arr.data, arr.size, sum_int);
+    mean_t mean_long = c_array_mean_long_long(arr_l.data, arr_l.size, sum_long);
+    mean_t mean_float = c_array_mean_float(arr_f.data, arr_f.size, sum_float);
+    mean_t mean_double = c_array_mean_double(arr_d.data, arr_d.size, sum_double);
+
+    var_t var_int = c_array_var_int(arr.data, arr.size, sum_int);
+    var_t var_long = c_array_var_long_long(arr_l.data, arr_l.size, sum_long);
+    var_t var_float = c_array_var_float(arr_f.data, arr_f.size, sum_float);
+    var_t var_double = c_array_var_double(arr_d.data, arr_d.size, sum_double);
+
+    std_t std_int = c_array_std_int(arr.data, arr.size, sum_int);
+    std_t std_long = c_array_std_long_long(arr_l.data, arr_l.size, sum_long);
+    std_t std_float = c_array_std_float(arr_f.data, arr_f.size, sum_float);
+    std_t std_double = c_array_std_double(arr_d.data, arr_d.size, sum_double);
+
+    c_array_free(&arr);
+    c_array_free(&arr_l);
+    c_array_free(&arr_f);
+    c_array_free(&arr_d);
+}
+
 UTEST(test, c_array_mean) {
     c_array_int arr;
     c_array_long_long arr_l;
