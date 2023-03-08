@@ -15,116 +15,116 @@
 /*                          Array Min and Max                           */
 
 int c_array_max_int(int* arr, int size) {
-    c_array_maxmin_process(arr, size, "max");
+    c_array_maxmin_process(arr, size, "max")
 }
 
 long long c_array_max_long_long(long long* arr, int size) {
-    c_array_maxmin_process(arr, size, "max");
+    c_array_maxmin_process(arr, size, "max")
 }
 
 float c_array_max_float(float* arr, int size) {
-    c_array_maxmin_process(arr, size, "max");
+    c_array_maxmin_process(arr, size, "max")
 }
 
 double c_array_max_double(double* arr, int size) {
-    c_array_maxmin_process(arr, size, "max");
+    c_array_maxmin_process(arr, size, "max")
 }
 
 int c_array_min_int(int* arr, int size) {
-    c_array_maxmin_process(arr, size, "min");
+    c_array_maxmin_process(arr, size, "min")
 }
 
 long long c_array_min_long_long(long long* arr, int size) {
-    c_array_maxmin_process(arr, size, "min");
+    c_array_maxmin_process(arr, size, "min")
 }
 
 float c_array_min_float(float* arr, int size) {
-    c_array_maxmin_process(arr, size, "min");
+    c_array_maxmin_process(arr, size, "min")
 }
 
 double c_array_min_double(double* arr, int size) {
-    c_array_maxmin_process(arr, size, "min");
+    c_array_maxmin_process(arr, size, "min")
 }
 
 // -----------------------------------------------------------------------
 /*                     Array standard deviation                         */
 
 var_t c_array_var_int(int* arr, int size, mean_t mean) {
-    c_array_var_process(arr, size, mean);
-    return (var / (size));
+    c_array_var_process(arr, size, mean)
+    return (var / size);
 }
 
 var_t c_array_var_long_long(long long* arr, int size, mean_t mean) {
-    c_array_var_process(arr, size, mean);
-    return (var / (size));
+    c_array_var_process(arr, size, mean)
+    return (var / size);
 }
 
 var_t c_array_var_float(float* arr, int size, mean_t mean) {
-    c_array_var_process(arr, size, mean);
-    return (var / (size));
+    c_array_var_process(arr, size, mean)
+    return (var / size);
 }
 
 var_t c_array_var_double(double* arr, int size, mean_t mean) {
-    c_array_var_process(arr, size, mean);
-    return (var / (size));
+    c_array_var_process(arr, size, mean)
+    return (var / size);
 }
 
 std_t c_array_std_int(int* arr, int size, mean_t mean) {
-    c_array_var_process(arr, size, mean);
-    return sqrt(var / (size));
+    c_array_var_process(arr, size, mean)
+    return sqrt(var / size);
 }
 
 std_t c_array_std_long_long(long long* arr, int size, mean_t mean) {
-    c_array_var_process(arr, size, mean);
-    return sqrt(var / (size));
+    c_array_var_process(arr, size, mean)
+    return sqrt(var / size);
 }
 
 std_t c_array_std_float(float* arr, int size, mean_t mean) {
-    c_array_var_process(arr, size, mean);
-    return sqrt(var / (size));
+    c_array_var_process(arr, size, mean)
+    return sqrt(var / size);
 }
 
 std_t c_array_std_double(double* arr, int size, mean_t mean) {
-    c_array_var_process(arr, size, mean);
-    return sqrt(var / (size));
+    c_array_var_process(arr, size, mean)
+    return sqrt(var / size);
 }
 
 // -----------------------------------------------------------------------
 /*                          Array mean value                            */
 
 mean_t c_array_mean_int(int* arr, int size, int sum) {
-    c_array_mean_process(arr, size, sum);
+    c_array_mean_process(arr, size, sum)
 }
 
 mean_t c_array_mean_long_long(long long* arr, int size, long long sum) {
-    c_array_mean_process(arr, size, sum);
+    c_array_mean_process(arr, size, sum)
 }
 
 mean_t c_array_mean_float(float* arr, int size, float sum) {
-    c_array_mean_process(arr, size, sum);
+    c_array_mean_process(arr, size, sum)
 }
 
 mean_t c_array_mean_double(double* arr, int size, double sum) {
-    c_array_mean_process(arr, size, sum);
+    c_array_mean_process(arr, size, sum)
 }
 
 // -----------------------------------------------------------------------
 /*                              Array Sum                               */
 
 int c_array_sum_int(int* arr, int size) {
-    c_array_sum_process(arr, size);
+    c_array_sum_process(arr, size)
 }
 
 long long c_array_sum_long(long long* arr, int size) {
-    c_array_sum_process(arr, size);
+    c_array_sum_process(arr, size)
 }
 
 float c_array_sum_float(float* arr, int size) {
-    c_array_sum_process(arr, size);
+    c_array_sum_process(arr, size)
 }
 
 double c_array_sum_double(double* arr, int size) {
-    c_array_sum_process(arr, size);
+    c_array_sum_process(arr, size)
 }
 
 // -----------------------------------------------------------------------
