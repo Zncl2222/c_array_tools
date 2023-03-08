@@ -5,6 +5,12 @@
 [![build](https://github.com/Zncl2222/c_array_tools/actions/workflows/cmake.yml/badge.svg)](https://github.com/Zncl2222/c_array_tools/actions/workflows/cmake.yml)
 [![build](https://github.com/Zncl2222/c_array_tools/actions/workflows/codeql.yml/badge.svg)](https://github.com/Zncl2222/c_array_tools/actions/workflows/codeql.yml)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Zncl2222_c_array_tools&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Zncl2222_c_array_tools)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Zncl2222_c_array_tools&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=Zncl2222_c_array_tools)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Zncl2222_c_array_tools&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Zncl2222_c_array_tools)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Zncl2222_c_array_tools&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Zncl2222_c_array_tools)
+
+
 # c_array_tools
 This is a simple dynamic array tools similary to C++ **```std::vector```** implemented by C. It coded by macro to simulate the **```template```** function like in C++ or other languages. Thus user can use array in C more easily without declare the type again and again.
 
