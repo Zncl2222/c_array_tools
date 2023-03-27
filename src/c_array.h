@@ -15,6 +15,7 @@
 # include <stdio.h>
 # include <math.h>
 # include <stdlib.h>
+# include <stdint.h>
 # include <string.h>
 # include <assert.h>
 
@@ -27,24 +28,31 @@ typedef double var_t;
 
 # define c_array(T) struct { T* data; size_t size; size_t capacity; }
 
-# define c_array_init(arr, c)                                       \
-    do {                                                            \
-        typeof(*((arr)->data)) x;                                   \
-        (arr)->size = (c);                                          \
-        (arr)->capacity = (c);                                      \
-        (arr)->data = calloc((c), sizeof(x));                       \
+# define c_array_init(arr, c)                                            \
+    do {                                                                 \
+        typeof(*((arr)->data)) x;                                        \
+        (arr)->size = (c);                                               \
+        if ((SIZE_MAX / sizeof(x)) < (arr)->size) {                      \
+            c_array_error("Integer overflow in c_array_init");           \
+        }                                                                \
+        (arr)->capacity = (c);                                           \
+        (arr)->data = calloc((c), sizeof(x));                            \
     } while(0)
 
-# define c_array_copy(arr1, arr2)                                                               \
-    do {                                                                                        \
-        char* dtype_arr1 = c_array_dtype(arr1);                                                 \
-        char* dtype_arr2 = c_array_dtype(arr2);                                                 \
-        char* err_msg = "The dtype of two arrays are different";                                \
-        c_array_assert((dtype_arr1 == dtype_arr2), err_msg);                                    \
-        (arr2)->size = (arr1)->size;                                                            \
-        (arr2)->capacity = (arr1)->capacity;                                                    \
-        (arr2)->data = malloc((arr2)->capacity * sizeof(typeof(*(arr2)->data)));                \
-        memcpy((arr2)->data, (arr1)->data, (arr2)->capacity * sizeof(typeof(*(arr2)->data)));   \
+# define c_array_copy(arr1, arr2)                                                                \
+    do {                                                                                         \
+        char* dtype_arr1 = c_array_dtype(arr1);                                                  \
+        char* dtype_arr2 = c_array_dtype(arr2);                                                  \
+        if (dtype_arr1 != dtype_arr2) {                                                          \
+            c_array_error("dtype of two arrays are different");                                  \
+        }                                                                                        \
+        (arr2)->size = (arr1)->size;                                                             \
+        (arr2)->capacity = (arr1)->capacity;                                                     \
+        (arr2)->data = malloc((arr2)->capacity * sizeof(typeof(*(arr2)->data)));                 \
+        if((arr2)->data == NULL) {                                                               \
+            c_array_error("failed to allocate memory in c_array_copy");                          \
+        }                                                                                        \
+        memcpy((arr2)->data, (arr1)->data, (arr2)->capacity * sizeof(typeof(*(arr2)->data)));    \
     } while(0)
 
 /* c_array_mt.c is necessary for c_array_randnormal & c_array_rand_range */
@@ -83,8 +91,9 @@ typedef c_array(double) c_array_double;
 
 # define c_array_assign(arr, idx, val)                                   \
     do {                                                                 \
-        char* err_msg = "Index out of range (size)";                     \
-        c_array_assert((idx < (arr)->size), err_msg);                    \
+        if ((idx) > (arr)->size) {                                       \
+            c_array_error("Index out of range (size)");                  \
+        }                                                                \
         (arr)->data[(idx)] = (val);                                      \
     } while(0)
 
@@ -100,28 +109,31 @@ typedef c_array(double) c_array_double;
         }                                                                           \
         (arr)->capacity *= 2;                                                       \
         void* ptr = realloc((arr)->data, (arr)->capacity * c_array_byte((arr)));    \
-        char* err_msg = "Realloc Failed";                                           \
-        c_array_assert((ptr != NULL), err_msg);                                     \
+        if (ptr == NULL) {                                                          \
+            c_array_error("Realloc Failed");                                        \
+        }                                                                           \
         (arr)->data = ptr;                                                          \
     } while(0)
 
 # define c_array_resize(arr, c)                                             \
     do {                                                                    \
         void* ptr = realloc((arr)->data, (c) * c_array_byte((arr)));        \
-        char* err_msg = "Realloc Failed";                                   \
-        c_array_assert((ptr != NULL), err_msg);                             \
+        if (ptr == NULL) {                                                  \
+            c_array_error("Realloc Failed");                                \
+        }                                                                   \
         (arr)->capacity = (c);                                              \
         (arr)->data = ptr;                                                  \
     } while(0)
 
-# define c_array_set_size(arr, l)                                       \
-    do {                                                                \
-        char* err_msg = "Size should less than or equal to capacity";   \
-        c_array_assert((l <= (arr)->capacity), err_msg);                \
-        for (int i = (arr)->size; i < (arr)->capacity; i++) {           \
-            (arr)->data[i] = 0;                                         \
-        }                                                               \
-        (arr)->size = (l);                                              \
+# define c_array_set_size(arr, l)                                           \
+    do {                                                                    \
+        if ((l) > (arr)->capacity) {                                        \
+            c_array_error("Size should less than or equal to capacity");    \
+        }                                                                   \
+        for (int i = (arr)->size; i < (arr)->capacity; i++) {               \
+            (arr)->data[i] = 0;                                             \
+        }                                                                   \
+        (arr)->size = (l);                                                  \
     } while(0)
 
 // -----------------------------------------------------------------------
@@ -136,12 +148,13 @@ typedef c_array(double) c_array_double;
         (arr)->size++;                                           \
     } while(0)
 
-# define c_array_pop_back(arr)                          \
-    do {                                                \
-        char* err_msg = "Size should greater than 0";   \
-        c_array_assert(((arr)->size > 0), err_msg);     \
-        (arr)->data[(arr)->size - 1] = 0;               \
-        (arr)->size--;                                  \
+# define c_array_pop_back(arr)                              \
+    do {                                                    \
+        if ((arr)->size <= 0) {                             \
+            c_array_error("Size should greater than 0");    \
+        }                                                   \
+        (arr)->data[(arr)->size - 1] = 0;                   \
+        (arr)->size--;                                      \
     } while(0)
 
 // -----------------------------------------------------------------------
@@ -173,14 +186,16 @@ typedef c_array(double) c_array_double;
         }                                               \
     } while(0)
 
-# define c_array_remove(arr, idx)                       \
-    do {                                                \
-        char* err_msg = "Size should greater than 0";   \
-        c_array_assert(((arr)->size > 0), err_msg);     \
-        char* err_msg2 = "Index out of range (size)";   \
-        c_array_assert(((arr)->size > idx), err_msg);   \
-        c_array_moveleft(arr, idx);                     \
-        (arr)->size--;                                  \
+# define c_array_remove(arr, idx)                           \
+    do {                                                    \
+        if ((arr)-> size <= 0) {                            \
+            c_array_error("Size should greater than 0");    \
+        }                                                   \
+        if ((arr)->size <= idx) {                           \
+            c_array_error("Index out of range (size)");     \
+        }                                                   \
+        c_array_moveleft(arr, idx);                         \
+        (arr)->size--;                                      \
     } while(0)
 
 // -----------------------------------------------------------------------
@@ -188,8 +203,9 @@ typedef c_array(double) c_array_double;
 
 # define c_array_concat(arr1, arr2)                                                 \
     do {                                                                            \
-        char* err_msg = "The data type of two arrays should be the same";           \
-        c_array_assert((c_array_dtype((arr1)) == c_array_dtype((arr2))), err_msg);  \
+        if (c_array_dtype((arr1)) != c_array_dtype((arr2))) {                       \
+            c_array_error("data type of two arrays should be the same");            \
+        }                                                                           \
         size_t new_capacity = (arr1)->capacity + (arr2)->capacity;                  \
         size_t new_size = (arr1)->size + (arr2)->size;                              \
         if ((arr1)->capacity < new_size) {                                          \
@@ -485,8 +501,9 @@ double c_array_min_double(double* arr, int size);
 
 # define c_array_swap(arr, idx1, idx2)                                              \
     do {                                                                            \
-        char* err_msg = "Index out of range (size)";                                \
-        c_array_assert(((idx1) < (arr)->size && (idx2) < (arr)->size), err_msg);    \
+        if((idx1) >= (arr)->size || (idx2) >= (arr)->size) {                        \
+            c_array_error("Index out of range (size)");                             \
+        }                                                                           \
         typeof(*((arr)->data)) x;                                                   \
         x = (arr)->data[idx2];                                                      \
         (arr)->data[idx2] = (arr)->data[idx1];                                      \
@@ -505,12 +522,11 @@ double c_array_min_double(double* arr, int size);
 
 # define c_array_free(arr) (free((arr)->data))
 
-# define c_array_assert(expr, msg)          \
-    do {                                    \
-        if (!(expr)) {                      \
-            printf("Error: %s\n", (msg));   \
-            assert((expr));                 \
-        }                                   \
+# define c_array_error(msg)                           \
+    do {                                              \
+        fprintf(stderr, "Error in %s:%d: %s\n",       \
+                __FILE__, __LINE__, (msg));           \
+        exit(EXIT_FAILURE);                           \
     } while(0)
 
 // -----------------------------------------------------------------------
@@ -544,10 +560,12 @@ typedef c_matrix(double) c_matrix_double;
 
 # define c_matrix_assign(mat, row, col, val)                \
     do {                                                    \
-        char* err_msg = "Index out of range (row)";         \
-        c_array_assert((row < (mat)->rows), err_msg);       \
-        char* err_msg2 = "Index out of range(col)";         \
-        c_array_assert((col < (mat)->cols), err_msg2);      \
+        if ((row) > (mat)->rows) {                          \
+            c_array_error("Index out of range (row)");      \
+        }                                                   \
+        if ((col) > (mat)->cols) {                          \
+            c_array_error("Index out of range(col)");       \
+        }                                                   \
         (mat)->data[row][col] = val;                        \
     } while(0)
 
