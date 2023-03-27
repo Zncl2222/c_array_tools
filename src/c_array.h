@@ -572,7 +572,31 @@ typedef c_matrix(double) c_matrix_double;
 // -----------------------------------------------------------------------
 /*                            Matrix utils                               */
 
-# define c_matrix_print(mat, format)                        \
+# define c_matrix_print(mat)                                                \
+    do {                                                                    \
+        printf(#mat);                                                       \
+        printf(" =\n   [ ");                                                \
+        for (int i = 0; i < (mat).rows; i++) {                              \
+            if (i != 0)                                                     \
+                printf("     ");                                            \
+            printf("[ ");                                                   \
+            for(int j = 0; j < (mat).cols; j++) {                           \
+                if (j < (mat).cols) {                                       \
+                    printf(c_array_autoformat((arr)), (mat).data[i][j]);    \
+                    printf(", ");                                           \
+                } else {                                                    \
+                    printf(c_array_autoformat((arr)), (mat).data[i][j]);    \
+                }                                                           \
+            }                                                               \
+            printf("]");                                                    \
+            if (i < (mat).rows - 1){                                        \
+                printf("\n");                                               \
+            }                                                               \
+        }                                                                   \
+        printf(" ]\n");                                                     \
+    } while(0)
+
+# define c_matrix_printf(mat, format)                       \
     do {                                                    \
         printf(#mat);                                       \
         printf(" =\n   [ ");                                \
