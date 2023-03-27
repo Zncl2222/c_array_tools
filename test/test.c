@@ -781,4 +781,44 @@ UTEST(test, c_matrix_init) {
     c_matrix_free(&f_mat);
 }
 
+UTEST (test, c_matrix_print_and_printf) {
+    c_matrix_int mat;
+    c_matrix_long_long mat_l;
+    c_matrix_float mat_f;
+    c_matrix_double mat_d;
+
+    c_matrix_init(&mat, 5, 1);
+    c_matrix_init(&mat_l, 5, 2);
+    c_matrix_init(&mat_f, 5, 3);
+    c_matrix_init(&mat_d, 5, 4);
+
+    for (int i = 0; i < 5; i++) {
+        mat.data[i][0] = 10;
+
+        for (int j = 0; j < 2; j++) {
+            mat_l.data[i][j] = i + j;
+        }
+        for (int j = 0; j < 3; j++) {
+            mat_f.data[i][j] = i + 0.5 * j;
+        }
+        for (int j = 0; j < 4; j++) {
+            mat_d.data[i][j] = i + 0.65 * j;
+        }
+    }
+
+    c_matrix_print(mat);
+    c_matrix_print(mat_l);
+    c_matrix_print(mat_f);
+    c_matrix_print(mat_d);
+    c_matrix_printf(mat, "%d");
+    c_matrix_printf(mat_l, "%lld");
+    c_matrix_printf(mat_f, "%f");
+    c_matrix_printf(mat_d, "%lf");
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_l);
+    c_matrix_free(&mat_f);
+    c_matrix_free(&mat_d);
+}
+
 UTEST_MAIN();

@@ -32,9 +32,6 @@ typedef double var_t;
     do {                                                                 \
         typeof(*((arr)->data)) x;                                        \
         (arr)->size = (c);                                               \
-        if ((SIZE_MAX / sizeof(x)) < (arr)->size) {                      \
-            c_array_error("Integer overflow in c_array_init");           \
-        }                                                                \
         (arr)->capacity = (c);                                           \
         (arr)->data = calloc((c), sizeof(x));                            \
     } while(0)
@@ -451,12 +448,16 @@ double c_array_min_double(double* arr, int size);
 // -----------------------------------------------------------------------
 /*                            Arrary utils                              */
 
-# define c_array_autoformat(arr)   \
-    _Generic((arr).data,           \
-        int*: "%d",                \
-        long long*: "%lld",        \
-        float*: "%f",              \
-        double*: "%lf"             \
+# define c_array_autoformat(arr)    \
+    _Generic((arr).data,            \
+        int*: "%d",                 \
+        long long*: "%lld",         \
+        float*: "%f",               \
+        double*: "%lf",             \
+        int**: "%d",                \
+        long long**: "%lld",        \
+        float**: "%f",              \
+        double**: "%lf"             \
     )
 
 # define c_array_dtype(arr)        \
@@ -534,16 +535,24 @@ double c_array_min_double(double* arr, int size);
 
 # define c_matrix(T) struct { T** data; size_t rows; size_t cols; }
 
-# define c_matrix_init(mat, r, c)                   \
-    do{                                             \
-        typeof(**((mat)->data)) m;                  \
-        typeof(*((mat)->data)) n;                   \
-        (mat)->rows = (r);                          \
-        (mat)->cols = (c);                          \
-        (mat)->data = malloc(r * sizeof(n));        \
-        for (int i = 0; i < (r); i++) {             \
-            (mat)->data[i] = malloc(c * sizeof(m)); \
-        }\
+# define c_matrix_init(mat, r, c)                                           \
+    do{                                                                     \
+        typeof(**((mat)->data)) m;                                          \
+        typeof(*((mat)->data)) n;                                           \
+        (mat)->rows = (r);                                                  \
+        (mat)->cols = (c);                                                  \
+        (mat)->data = malloc(r * sizeof(n));                                \
+        if ((mat)->data == NULL) {                                          \
+            c_array_error(                                                  \
+                "Failed to allocate memory for matrix data (row)");         \
+        }                                                                   \
+        for (int i = 0; i < (r); i++) {                                     \
+            (mat)->data[i] = malloc(c * sizeof(m));                         \
+            if ((mat)->data[i] == NULL) {                                   \
+                c_array_error(                                              \
+                    "Failed to allocate memory for matrix data (col)");     \
+            }                                                               \
+        }                                                                   \
     } while(0)
 
 typedef c_matrix(int) c_matrix_int;
@@ -572,7 +581,31 @@ typedef c_matrix(double) c_matrix_double;
 // -----------------------------------------------------------------------
 /*                            Matrix utils                               */
 
-# define c_matrix_print(mat, format)                        \
+# define c_matrix_print(mat)                                                \
+    do {                                                                    \
+        printf(#mat);                                                       \
+        printf(" =\n   [ ");                                                \
+        for (int i = 0; i < (mat).rows; i++) {                              \
+            if (i != 0)                                                     \
+                printf("     ");                                            \
+            printf("[ ");                                                   \
+            for(int j = 0; j < (mat).cols; j++) {                           \
+                if (j < (mat).cols) {                                       \
+                    printf(c_array_autoformat((mat)), (mat).data[i][j]);    \
+                    printf(", ");                                           \
+                } else {                                                    \
+                    printf(c_array_autoformat((mat)), (mat).data[i][j]);    \
+                }                                                           \
+            }                                                               \
+            printf("]");                                                    \
+            if (i < (mat).rows - 1){                                        \
+                printf("\n");                                               \
+            }                                                               \
+        }                                                                   \
+        printf(" ]\n");                                                     \
+    } while(0)
+
+# define c_matrix_printf(mat, format)                       \
     do {                                                    \
         printf(#mat);                                       \
         printf(" =\n   [ ");                                \
