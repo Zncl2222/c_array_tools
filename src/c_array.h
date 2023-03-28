@@ -74,10 +74,17 @@ typedef double var_t;
         }                                                               \
     } while(0)
 
+typedef c_array(short) c_array_short;
+typedef c_array(unsigned short) c_array_ushort;
 typedef c_array(int) c_array_int;
+typedef c_array(unsigned int) c_array_uint;
+typedef c_array(long) c_array_long;
+typedef c_array(unsigned long) c_array_ulong;
 typedef c_array(long long) c_array_long_long;
 typedef c_array(float) c_array_float;
 typedef c_array(double) c_array_double;
+typedef c_array(long double) c_array_ldouble;
+
 
 // -----------------------------------------------------------------------
 /*                      Array basic operations                          */
@@ -224,19 +231,37 @@ typedef c_array(double) c_array_double;
 
 # define c_array_qsort_cmp(arr)                         \
     _Generic((arr)->data,                               \
+        short*: cmpfunc_short,                          \
+        unsigned short*: cmpfunc_ushort,                \
         int*: cmpfunc_int,                              \
-        long long*: cmpfunc_long,                       \
+        unsigned int*: cmpfunc_uint,                    \
+        long*: cmpfunc_long,                            \
+        unsigned long*: cmpfunc_ulong,                  \
+        long long*: cmpfunc_long_long,                  \
         float*: cmpfunc_float,                          \
-        double*: cmpfunc_double                         \
+        double*: cmpfunc_double,                        \
+        long double*: cmpfunc_long_double               \
     )
 
-int cmpfunc_int(const void * a, const void * b);
+int cmpfunc_short(const void* a, const void* b);
 
-int cmpfunc_long(const void * a, const void * b);
+int cmpfunc_ushort(const void* a, const void* b);
 
-int cmpfunc_float(const void * a, const void * b);
+int cmpfunc_int(const void* a, const void* b);
 
-int cmpfunc_double(const void * a, const void * b);
+int cmpfunc_uint(const void* a, const void* b);
+
+int cmpfunc_long(const void* a, const void* b);
+
+int cmpfunc_ulong(const void* a, const void* b);
+
+int cmpfunc_long_long(const void* a, const void* b);
+
+int cmpfunc_float(const void* a, const void* b);
+
+int cmpfunc_double(const void* a, const void* b);
+
+int cmpfunc_long_double(const void* a, const void* b);
 
 // -----------------------------------------------------------------------
 /*                           Array msort                                */
@@ -285,12 +310,18 @@ int cmpfunc_double(const void * a, const void * b);
 // -----------------------------------------------------------------------
 /*                              Array Sum                               */
 
-# define c_array_sum(arr)               \
-    _Generic((arr)->data,               \
-        int*: c_array_sum_int,          \
-        long long*: c_array_sum_long,   \
-        float*: c_array_sum_float,      \
-        double*: c_array_sum_double     \
+# define c_array_sum(arr)                       \
+    _Generic((arr)->data,                       \
+        short*: c_array_sum_short,              \
+        unsigned short*: c_array_sum_ushort,    \
+        int*: c_array_sum_int,                  \
+        unsigned int*: c_array_sum_uint,        \
+        long*: c_array_sum_long,                \
+        unsigned long*: c_array_sum_ulong,      \
+        long long*: c_array_sum_long_long,      \
+        float*: c_array_sum_float,              \
+        double*: c_array_sum_double,            \
+        long double*: c_array_sum_long_double   \
     )((arr)->data, (arr)->size)
 
 # define c_array_sum_process(arr, size)     \
@@ -300,30 +331,58 @@ int cmpfunc_double(const void * a, const void * b);
     }                                       \
     return sum;                             \
 
+short c_array_sum_short(short* arr, int size);
+
+unsigned short c_array_sum_ushort(unsigned short* arr, int size);
+
 int c_array_sum_int(int* arr, int size);
 
-long long c_array_sum_long(long long* arr, int size);
+unsigned int c_array_sum_uint(unsigned int* arr, int size);
+
+long c_array_sum_long(long* arr, int size);
+
+unsigned long c_array_sum_ulong(unsigned long* arr, int size);
+
+long long c_array_sum_long_long(long long* arr, int size);
 
 float c_array_sum_float(float* arr, int size);
 
 double c_array_sum_double(double* arr, int size);
 
+long double c_array_sum_long_double(long double* arr, int size);
+
 // -----------------------------------------------------------------------
 /*                          Array mean value                            */
 
-# define c_array_mean(arr)                             \
-    _Generic((arr)->data,                              \
-        int*: c_array_mean_int,                        \
-        long long*: c_array_mean_long_long,            \
-        float*: c_array_mean_float,                    \
-        double*: c_array_mean_double                   \
+# define c_array_mean(arr)                              \
+    _Generic((arr)->data,                               \
+        short*: c_array_mean_short,                     \
+        unsigned short*: c_array_mean_ushort,           \
+        int*: c_array_mean_int,                         \
+        unsigned int*: c_array_mean_uint,               \
+        long*: c_array_mean_long,                       \
+        unsigned long*: c_array_mean_ulong,             \
+        long long*: c_array_mean_long_long,             \
+        float*: c_array_mean_float,                     \
+        double*: c_array_mean_double,                   \
+        long double*: c_array_mean_long_double          \
     )((arr)->data, (arr)->size, c_array_sum((arr)))
 
 # define c_array_mean_process(arr, size, sum)   \
     mean_t mean = (mean_t)(sum) / (size);       \
     return mean;
 
+mean_t c_array_mean_short(short* arr, int size, short sum);
+
+mean_t c_array_mean_ushort(unsigned short* arr, int size, unsigned short sum);
+
 mean_t c_array_mean_int(int* arr, int size, int sum);
+
+mean_t c_array_mean_uint(unsigned int* arr, int size, unsigned int sum);
+
+mean_t c_array_mean_long(long* arr, int size, long sum);
+
+mean_t c_array_mean_ulong(unsigned long* arr, int size, unsigned long sum);
 
 mean_t c_array_mean_long_long(long long* arr, int size, long long sum);
 
@@ -331,23 +390,37 @@ mean_t c_array_mean_float(float* arr, int size, float sum);
 
 mean_t c_array_mean_double(double* arr, int size, double sum);
 
+mean_t c_array_mean_long_double(long double* arr, int size, long double sum);
+
 // -----------------------------------------------------------------------
 /*                     Array standard deviation                         */
 
-# define c_array_std(arr)                           \
-    _Generic((arr)->data,                           \
-        int*: c_array_std_int,                      \
-        long long*: c_array_std_long_long,          \
-        float*: c_array_std_float,                  \
-        double*: c_array_std_double                 \
+# define c_array_std(arr)                              \
+    _Generic((arr)->data,                              \
+        short*: c_array_std_short,                     \
+        unsigned short*: c_array_std_ushort,           \
+        int*: c_array_std_int,                         \
+        unsigned int*: c_array_std_uint,               \
+        long*: c_array_std_long,                       \
+        unsigned long*: c_array_std_ulong,             \
+        long long*: c_array_std_long_long,             \
+        float*: c_array_std_float,                     \
+        double*: c_array_std_double,                   \
+        long double*: c_array_std_long_double          \
     )((arr)->data, (arr)->size, c_array_mean((arr)))
 
-# define c_array_var(arr)                           \
-    _Generic((arr)->data,                           \
-        int*: c_array_var_int,                      \
-        long long*: c_array_var_long_long,          \
-        float*: c_array_var_float,                  \
-        double*: c_array_var_double                 \
+# define c_array_var(arr)                              \
+    _Generic((arr)->data,                              \
+        short*: c_array_var_short,                     \
+        unsigned short*: c_array_var_ushort,           \
+        int*: c_array_var_int,                         \
+        unsigned int*: c_array_var_uint,               \
+        long*: c_array_var_long,                       \
+        unsigned long*: c_array_var_ulong,             \
+        long long*: c_array_var_long_long,             \
+        float*: c_array_var_float,                     \
+        double*: c_array_var_double,                   \
+        long double*: c_array_var_long_double          \
     )((arr)->data, (arr)->size, c_array_mean((arr)))
 
 # define c_array_var_process(arr, size, mean)  \
@@ -356,7 +429,17 @@ mean_t c_array_mean_double(double* arr, int size, double sum);
         var += pow((arr)[i] - (mean), 2);      \
     }                                          \
 
+var_t c_array_var_short(short* arr, int size, mean_t mean);
+
+var_t c_array_var_ushort(unsigned short* arr, int size, mean_t mean);
+
 var_t c_array_var_int(int* arr, int size, mean_t mean);
+
+var_t c_array_var_uint(unsigned int* arr, int size, mean_t mean);
+
+var_t c_array_var_long(long* arr, int size, mean_t mean);
+
+var_t c_array_var_ulong(unsigned long* arr, int size, mean_t mean);
 
 var_t c_array_var_long_long(long long* arr, int size, mean_t mean);
 
@@ -364,7 +447,19 @@ var_t c_array_var_float(float* arr, int size, mean_t mean);
 
 var_t c_array_var_double(double* arr, int size, mean_t mean);
 
+var_t c_array_var_long_double(long double* arr, int size, mean_t mean);
+
+std_t c_array_std_short(short* arr, int size, mean_t mean);
+
+std_t c_array_std_ushort(unsigned short* arr, int size, mean_t mean);
+
 std_t c_array_std_int(int* arr, int size, mean_t mean);
+
+std_t c_array_std_uint(unsigned int* arr, int size, mean_t mean);
+
+std_t c_array_std_long(long* arr, int size, mean_t mean);
+
+std_t c_array_std_ulong(unsigned long* arr, int size, mean_t mean);
 
 std_t c_array_std_long_long(long long* arr, int size, mean_t mean);
 
@@ -372,23 +467,37 @@ std_t c_array_std_float(float* arr, int size, mean_t mean);
 
 std_t c_array_std_double(double* arr, int size, mean_t mean);
 
+std_t c_array_std_long_double(long double* arr, int size, mean_t mean);
+
 // -----------------------------------------------------------------------
 /*                          Array Min and Max                           */
 
-# define c_array_max(arr)                       \
-    _Generic((arr)->data,                       \
-        int*: c_array_max_int,                  \
-        long long*: c_array_max_long_long,      \
-        float*: c_array_max_float,              \
-        double*: c_array_max_double             \
+# define c_array_max(arr)                              \
+    _Generic((arr)->data,                              \
+        short*: c_array_max_short,                     \
+        unsigned short*: c_array_max_ushort,           \
+        int*: c_array_max_int,                         \
+        unsigned int*: c_array_max_uint,               \
+        long*: c_array_max_long,                       \
+        unsigned long*: c_array_max_ulong,             \
+        long long*: c_array_max_long_long,             \
+        float*: c_array_max_float,                     \
+        double*: c_array_max_double,                   \
+        long double*: c_array_max_long_double          \
     )((arr)->data, (arr)->size)
 
-# define c_array_min(arr)                       \
-    _Generic((arr)->data,                       \
-        int*: c_array_min_int,                  \
-        long long*: c_array_min_long_long,      \
-        float*: c_array_min_float,              \
-        double*: c_array_min_double             \
+# define c_array_min(arr)                              \
+    _Generic((arr)->data,                              \
+        short*: c_array_min_short,                     \
+        unsigned short*: c_array_min_ushort,           \
+        int*: c_array_min_int,                         \
+        unsigned int*: c_array_min_uint,               \
+        long*: c_array_min_long,                       \
+        unsigned long*: c_array_min_ulong,             \
+        long long*: c_array_min_long_long,             \
+        float*: c_array_min_float,                     \
+        double*: c_array_min_double,                   \
+        long double*: c_array_min_long_double          \
     )((arr)->data, (arr)->size)
 
 # define c_array_maxmin_process(arr, n, mode)                               \
@@ -429,7 +538,17 @@ std_t c_array_std_double(double* arr, int size, mean_t mean);
         return min;                                                         \
     }                                                                       \
 
+short c_array_max_short(short* arr, int size);
+
+unsigned short c_array_max_ushort(unsigned short* arr, int size);
+
 int c_array_max_int(int* arr, int size);
+
+unsigned int c_array_max_uint(unsigned int* arr, int size);
+
+long c_array_max_long(long* arr, int size);
+
+unsigned long c_array_max_ulong(unsigned long* arr, int size);
 
 long long c_array_max_long_long(long long* arr, int size);
 
@@ -437,7 +556,19 @@ float c_array_max_float(float* arr, int size);
 
 double c_array_max_double(double* arr, int size);
 
+long double c_array_max_long_double(long double* arr, int size);
+
+short c_array_min_short(short* arr, int size);
+
+unsigned short c_array_min_ushort(unsigned short* arr, int size);
+
 int c_array_min_int(int* arr, int size);
+
+unsigned int c_array_min_uint(unsigned int* arr, int size);
+
+long c_array_min_long(long* arr, int size);
+
+unsigned long c_array_min_ulong(unsigned long* arr, int size);
 
 long long c_array_min_long_long(long long* arr, int size);
 
@@ -445,27 +576,47 @@ float c_array_min_float(float* arr, int size);
 
 double c_array_min_double(double* arr, int size);
 
+long double c_array_min_long_double(long double* arr, int size);
+
 // -----------------------------------------------------------------------
 /*                            Arrary utils                              */
 
 # define c_array_autoformat(arr)    \
     _Generic((arr).data,            \
+        short*: "%hd",              \
+        unsigned short*: "%hu",     \
         int*: "%d",                 \
+        unsigned int*: "%u",        \
+        long*: "%ld",               \
+        unsigned long: "%lu",       \
         long long*: "%lld",         \
         float*: "%f",               \
         double*: "%lf",             \
+        long double*: "%Lf",        \
+        short**: "%hd",             \
+        unsigned short**: "%hu",    \
         int**: "%d",                \
+        unsigned int**: "%u",       \
+        long**: "%ld",              \
+        unsigned long**: "%lu",     \
         long long**: "%lld",        \
         float**: "%f",              \
-        double**: "%lf"             \
+        double**: "%lf",            \
+        long double**: "%Lf"        \
     )
 
-# define c_array_dtype(arr)        \
-    _Generic((arr)->data,          \
-        int*: "int",               \
-        long long*: "long long",   \
-        float*: "float",           \
-        double*: "double"          \
+# define c_array_dtype(arr)                 \
+    _Generic((arr)->data,                   \
+        short*: "short",                    \
+        unsigned short*: "unsigned short",  \
+        int*: "int",                        \
+        unsigned int*: "unsigned int",      \
+        long*: "long",                      \
+        unsigned long*: "unsigned long",    \
+        long long*: "long long",            \
+        float*: "float",                    \
+        double*: "double",                  \
+        long double*: "long double"         \
     )
 
 # define c_array_print(arr)                                         \
@@ -555,10 +706,16 @@ double c_array_min_double(double* arr, int size);
         }                                                                   \
     } while(0)
 
+typedef c_matrix(short) c_matrix_short;
+typedef c_matrix(unsigned short) c_matrix_ushort;
 typedef c_matrix(int) c_matrix_int;
+typedef c_matrix(unsigned int) c_matrix_uint;
+typedef c_matrix(long) c_matrix_long;
+typedef c_matrix(unsigned long) c_matrix_ulong;
 typedef c_matrix(long long) c_matrix_long_long;
 typedef c_matrix(float) c_matrix_float;
 typedef c_matrix(double) c_matrix_double;
+typedef c_matrix(long double) c_matrix_ldouble;
 
 // -----------------------------------------------------------------------
 /*                       Matrix basic operations                        */

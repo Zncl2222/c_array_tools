@@ -32,19 +32,43 @@ add_test(
 project(unittest)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test)
 
-add_executable(unittest ${CMAKE_CURRENT_SOURCE_DIR}/src/c_array.c ./test/test.c)
+set(TEST_FILES
+    ./test/test_short.c
+    ./test/test_int.c
+    ./test/test_long.c
+    ./test/test_float.c
+    ./test/test_double.c
+)
+
+set(TEST_LABELS
+  unittest_short
+  unittest_int
+  unittest_long
+  unittest_float
+  unittest_double
+)
+
+list(LENGTH TEST_FILES NUM_TESTS)
+math(EXPR NUM_TESTS "${NUM_TESTS}-1")
+
+foreach(TEST_INDEX RANGE ${NUM_TESTS})
+    list(GET TEST_FILES ${TEST_INDEX} TEST_FILE)
+    list(GET TEST_LABELS ${TEST_INDEX} TEST_LABEL)
+    add_executable(${TEST_LABEL} ${CMAKE_CURRENT_SOURCE_DIR}/src/c_array.c ${TEST_FILE})
+    add_test(
+        ${TEST_LABEL}
+        ${CMAKE_COMMAND}
+        --build ${CMAKE_BINARY_DIR}
+        --target ${TEST_LABEL}
+    )
+    target_link_libraries(${TEST_LABEL} PRIVATE m)
+endforeach()
+
 add_executable(
     unittest_mt
     ${CMAKE_CURRENT_SOURCE_DIR}/src/c_array_mt.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/c_array.c
     ./test/test_mt.c
-)
-
-add_test(
-    unittest
-    ${CMAKE_COMMAND}
-    --build ${CMAKE_BINARY_DIR}
-    --target unittest
 )
 
 add_test(
@@ -55,7 +79,6 @@ add_test(
 )
 
 if(UNIX)
-    target_link_libraries(unittest PRIVATE m)
     target_link_libraries(unittest_mt PRIVATE m)
 endif()
 
@@ -85,7 +108,31 @@ if(VALGRIND)
         --leak-check=full
         --show-reachable=yes
         --error-exitcode=1
-        $<TARGET_FILE:unittest>
+        $<TARGET_FILE:unittest_int>
+        COMMAND ${VALGRIND}
+        --tool=memcheck
+        --leak-check=full
+        --show-reachable=yes
+        --error-exitcode=1
+        $<TARGET_FILE:unittest_short>
+        COMMAND ${VALGRIND}
+        --tool=memcheck
+        --leak-check=full
+        --show-reachable=yes
+        --error-exitcode=1
+        $<TARGET_FILE:unittest_long>
+        COMMAND ${VALGRIND}
+        --tool=memcheck
+        --leak-check=full
+        --show-reachable=yes
+        --error-exitcode=1
+        $<TARGET_FILE:unittest_float>
+        COMMAND ${VALGRIND}
+        --tool=memcheck
+        --leak-check=full
+        --show-reachable=yes
+        --error-exitcode=1
+        $<TARGET_FILE:unittest_double>
         COMMAND ${VALGRIND}
         --tool=memcheck
         --leak-check=full
