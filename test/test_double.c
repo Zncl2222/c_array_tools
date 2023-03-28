@@ -1,7 +1,6 @@
 /*
     Copyright (c) 2022 Jian Yu, Chen
     License: MIT License
-    Version: v1.3.1
     file   : test.c
 
     The latest version is avaliable at:

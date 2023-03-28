@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2022 Jian Yu, Chen
     License: MIT License
-    Version: v1.3.2
+    Version: v1.3.3
     file   : c_array.c
 
     The latest version is avaliable at:
@@ -11,7 +11,7 @@
 # include "c_array.h"
 
 /*            This is an implementation of c_array extension            */
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                          Array Min and Max                           */
 
 short c_array_max_short(short* arr, int size) {
@@ -94,7 +94,7 @@ long double c_array_min_long_double(long double* arr, int size) {
     c_array_maxmin_process(arr, size, "min")
 }
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                     Array standard deviation                         */
 
 var_t c_array_var_short(short* arr, int size, mean_t mean) {
@@ -197,7 +197,7 @@ std_t c_array_std_long_double(long double* arr, int size, mean_t mean) {
     return sqrt(var / size);
 }
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                          Array mean value                            */
 
 mean_t c_array_mean_short(short* arr, int size, short sum) {
@@ -240,7 +240,7 @@ mean_t c_array_mean_long_double(long double* arr, int size, long double sum) {
     c_array_mean_process(arr, size, sum)
 }
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                              Array Sum                               */
 
 short c_array_sum_short(short* arr, int size) {
@@ -283,7 +283,7 @@ long double c_array_sum_long_double(long double* arr, int size) {
     c_array_sum_process(arr, size)
 }
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                           Array qsort                                */
 
 int cmpfunc_short(const void* a, const void* b) {
