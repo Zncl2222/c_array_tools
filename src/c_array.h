@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2022 Jian Yu, Chen
     License: MIT License
-    Version: v1.3.2
+    Version: v1.3.3
     file   : c_array.h
 
     The latest version is avaliable at:
@@ -23,8 +23,8 @@ typedef double mean_t;
 typedef double std_t;
 typedef double var_t;
 
-// -----------------------------------------------------------------------
-/*                     Array structure and initialize                   */
+/* ----------------------------------------------------------------------- */
+/*                     Array structure and initialize                      */
 
 # define c_array(T) struct { T* data; size_t size; size_t capacity; }
 
@@ -86,7 +86,7 @@ typedef c_array(double) c_array_double;
 typedef c_array(long double) c_array_ldouble;
 
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                      Array basic operations                          */
 
 # define c_array_capacity(arr) ((arr) ? (arr)->capacity : 0)
@@ -101,7 +101,7 @@ typedef c_array(long double) c_array_ldouble;
         (arr)->data[(idx)] = (val);                                      \
     } while(0)
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                  Arrary size and attributes settings                 */
 
 # define c_array_byte(arr) (sizeof((arr)->data[0]))
@@ -140,7 +140,7 @@ typedef c_array(long double) c_array_ldouble;
         (arr)->size = (l);                                                  \
     } while(0)
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                  Arrary push_back and pop_back                       */
 
 # define c_array_push_back(arr, val)                             \
@@ -161,7 +161,7 @@ typedef c_array(long double) c_array_ldouble;
         (arr)->size--;                                      \
     } while(0)
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                      Arrary insert and remove                        */
 
 # define c_array_moveright(arr, idx)                  \
@@ -202,7 +202,7 @@ typedef c_array(long double) c_array_ldouble;
         (arr)->size--;                                      \
     } while(0)
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                       Arrary concatenation                           */
 
 # define c_array_concat(arr1, arr2)                                                 \
@@ -221,7 +221,7 @@ typedef c_array(long double) c_array_ldouble;
         (arr1)->size = new_size;                                                    \
     } while(0)
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                           Array qsort                                */
 
 # define c_array_qsort(arr)                                                                       \
@@ -263,7 +263,7 @@ int cmpfunc_double(const void* a, const void* b);
 
 int cmpfunc_long_double(const void* a, const void* b);
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                           Array msort                                */
 
 # define c_array_msort(arr)                                                 \
@@ -307,7 +307,7 @@ int cmpfunc_long_double(const void* a, const void* b);
         }                                                                   \
     } while(0)
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                              Array Sum                               */
 
 # define c_array_sum(arr)                       \
@@ -351,7 +351,7 @@ double c_array_sum_double(double* arr, int size);
 
 long double c_array_sum_long_double(long double* arr, int size);
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                          Array mean value                            */
 
 # define c_array_mean(arr)                              \
@@ -392,7 +392,7 @@ mean_t c_array_mean_double(double* arr, int size, double sum);
 
 mean_t c_array_mean_long_double(long double* arr, int size, long double sum);
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                     Array standard deviation                         */
 
 # define c_array_std(arr)                              \
@@ -469,7 +469,7 @@ std_t c_array_std_double(double* arr, int size, mean_t mean);
 
 std_t c_array_std_long_double(long double* arr, int size, mean_t mean);
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                          Array Min and Max                           */
 
 # define c_array_max(arr)                              \
@@ -578,7 +578,7 @@ double c_array_min_double(double* arr, int size);
 
 long double c_array_min_long_double(long double* arr, int size);
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                            Arrary utils                              */
 
 # define c_array_autoformat(arr)    \
@@ -681,7 +681,7 @@ long double c_array_min_long_double(long double* arr, int size);
         exit(EXIT_FAILURE);                           \
     } while(0)
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                  Matrix structure and initialize                     */
 
 # define c_matrix(T) struct { T** data; size_t rows; size_t cols; }
@@ -717,7 +717,7 @@ typedef c_matrix(float) c_matrix_float;
 typedef c_matrix(double) c_matrix_double;
 typedef c_matrix(long double) c_matrix_ldouble;
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                       Matrix basic operations                        */
 
 # define c_matrix_rows(mat) ((mat) ? (mat)->rows : 0)
@@ -735,7 +735,7 @@ typedef c_matrix(long double) c_matrix_ldouble;
         (mat)->data[row][col] = val;                        \
     } while(0)
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                            Matrix utils                               */
 
 # define c_matrix_print(mat)                                                \
@@ -794,7 +794,7 @@ typedef c_matrix(long double) c_matrix_ldouble;
         free((mat)->data);                          \
     } while(0)
 
-// -----------------------------------------------------------------------
+/* -------------------------------------------------------------------- */
 /*                       Random number generator                        */
 
 /*  mt19937 license is declared in c_array_mt.c  */
