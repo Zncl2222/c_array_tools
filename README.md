@@ -51,9 +51,9 @@ Due to the `typeof` and `_Generic` features in the code, now the project was onl
 <div align='center'>
 
 | Compiler                      | Windows            | Ubuntu             | Mac                 |
-| ----------------------------- | ------------------ | ------------------ | ------------------  |
-| GNU Compiler Collection (gcc) | :x:                | :white_check_mark: | Not  yet tested     |
-| x86_64 mingw series (gcc)     | :white_check_mark: | :x:                | Not  yet tested     |
+| ----------------------------- | :----------------: | :----------------: | ------------------  |
+| GNU Compiler Collection (gcc) | -                  | :white_check_mark: | Not  yet tested     |
+| x86_64 mingw series (gcc)     | :white_check_mark: | -                  | Not  yet tested     |
 | Visual Studio Build Tools     | :x:                | :x:                | Not  yet tested     |
 
 </div>
