@@ -430,29 +430,63 @@ UTEST(test, c_array_min_max) {
     c_array_init(&arr, 0);
     c_array_init(&arr_u, 0);
 
-    c_array_push_back(&arr, 51);
-    c_array_push_back(&arr, 99);
+    int test_arr[] = {3, 7, 1, 9, 2, 8, 6};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+        c_array_push_back(&arr_u, (unsigned int)test_arr[i]);
+    }
     int max_int = c_array_max(&arr);
     int min_int = c_array_min(&arr);
-    ASSERT_EQ(max_int, 99);
-    ASSERT_EQ(min_int, 51);
-
-    c_array_push_back(&arr_u, 51);
-    c_array_push_back(&arr_u, 99);
     unsigned int max_uint = c_array_max(&arr_u);
     unsigned int min_uint = c_array_min(&arr_u);
-    ASSERT_EQ(max_uint, 99);
-    ASSERT_EQ(min_uint, 51);
+    ASSERT_EQ(max_int, 9);
+    ASSERT_EQ(min_int, 1);
+    ASSERT_EQ(max_uint, 9);
+    ASSERT_EQ(min_uint, 1);
 
-    c_array_push_back(&arr, -59999);
-    max_int = c_array_max(&arr);
-    min_int = c_array_min(&arr);
-    ASSERT_EQ(max_int, 99);
-    ASSERT_EQ(min_int, -59999);
+    c_array_push_back(&arr, 4);
+    c_array_push_back(&arr_u, 4);
+    ASSERT_EQ(max_int, 9);
+    ASSERT_EQ(min_int, 1);
+    ASSERT_EQ(max_uint, 9);
+    ASSERT_EQ(min_uint, 1);
 
     c_array_free(&arr);
     c_array_free(&arr_u);
 }
+
+UTEST(test, c_array_min_max_2) {
+    c_array_int arr;
+    c_array_uint arr_u;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_u, 0);
+
+    int test_arr[] = {3, 7, 1, 9, 2, 8, 60};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+        c_array_push_back(&arr_u, (unsigned int)test_arr[i]);
+    }
+    int max_int = c_array_max(&arr);
+    int min_int = c_array_min(&arr);
+    unsigned int max_uint = c_array_max(&arr_u);
+    unsigned int min_uint = c_array_min(&arr_u);
+    ASSERT_EQ(max_int, 60);
+    ASSERT_EQ(min_int, 1);
+    ASSERT_EQ(max_uint, 60);
+    ASSERT_EQ(min_uint, 1);
+
+    c_array_push_back(&arr, 4);
+    c_array_push_back(&arr_u, 4);
+    ASSERT_EQ(max_int, 60);
+    ASSERT_EQ(min_int, 1);
+    ASSERT_EQ(max_uint, 60);
+    ASSERT_EQ(min_uint, 1);
+
+    c_array_free(&arr);
+    c_array_free(&arr_u);
+}
+
 
 UTEST(test, c_array_statistic_original_func) {
     c_array_int arr;

@@ -431,25 +431,68 @@ UTEST(test, c_array_min_max) {
     c_array_init(&arr, 0);
     c_array_init(&arr_ld, 0);
 
-    c_array_push_back(&arr, 51);
-    c_array_push_back(&arr, 99);
+    double test_arr[] = {3.2, 7.1, 1, 9.6, 2.5, 8.44, 6};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+        c_array_push_back(&arr_ld, (long double)test_arr[i]);
+    }
+
     double max_double = c_array_max(&arr);
     double min_double = c_array_min(&arr);
-    ASSERT_EQ(max_double, 99);
-    ASSERT_EQ(min_double, 51);
-
-    c_array_push_back(&arr_ld, 51);
-    c_array_push_back(&arr_ld, 99);
     long double max_ldouble = c_array_max(&arr_ld);
     long double min_ldouble = c_array_min(&arr_ld);
-    ASSERT_EQ(max_ldouble, 99);
-    ASSERT_EQ(min_ldouble, 51);
+    ASSERT_NEAR(max_double, 9.6, 0.01f);
+    ASSERT_NEAR(min_double, 1, 0.01f);
+    ASSERT_NEAR(max_ldouble, 9.6, 0.01f);
+    ASSERT_NEAR(min_ldouble, 1, 0.01f);
 
-    c_array_push_back(&arr, -59999);
+    c_array_push_back(&arr, -5999.11);
+    c_array_push_back(&arr_ld, -5999.11);
     max_double = c_array_max(&arr);
     min_double = c_array_min(&arr);
-    ASSERT_EQ(max_double, 99);
-    ASSERT_EQ(min_double, -59999);
+    max_ldouble = c_array_max(&arr_ld);
+    min_ldouble = c_array_min(&arr_ld);
+    ASSERT_NEAR(max_double, 9.6, 0.01f);
+    ASSERT_NEAR(min_double, -5999.11, 0.01f);
+    ASSERT_NEAR(max_ldouble, 9.6, 0.01f);
+    ASSERT_NEAR(min_ldouble, -5999.11, 0.01f);
+
+    c_array_free(&arr);
+    c_array_free(&arr_ld);
+}
+
+UTEST(test, c_array_min_max_2) {
+    c_array_double arr;
+    c_array_ldouble arr_ld;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_ld, 0);
+
+    double test_arr[] = {3.2, 7.1, 1, 9.6, 2.5, 8.44, 69778.1};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+        c_array_push_back(&arr_ld, (long double)test_arr[i]);
+    }
+
+    double max_double = c_array_max(&arr);
+    double min_double = c_array_min(&arr);
+    long double max_ldouble = c_array_max(&arr_ld);
+    long double min_ldouble = c_array_min(&arr_ld);
+    ASSERT_NEAR(max_double, 69778.1, 0.01f);
+    ASSERT_NEAR(min_double, 1, 0.01f);
+    ASSERT_NEAR(max_ldouble, 69778.1, 0.01f);
+    ASSERT_NEAR(min_ldouble, 1, 0.01f);
+
+    c_array_push_back(&arr, -5999.11);
+    c_array_push_back(&arr_ld, -5999.11);
+    max_double = c_array_max(&arr);
+    min_double = c_array_min(&arr);
+    max_ldouble = c_array_max(&arr_ld);
+    min_ldouble = c_array_min(&arr_ld);
+    ASSERT_NEAR(max_double, 69778.1, 0.01f);
+    ASSERT_NEAR(min_double, -5999.11, 0.01f);
+    ASSERT_NEAR(max_ldouble, 69778.1, 0.01f);
+    ASSERT_NEAR(min_ldouble, -5999.11, 0.01f);
 
     c_array_free(&arr);
     c_array_free(&arr_ld);
