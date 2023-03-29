@@ -33,11 +33,11 @@ project(unittest)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test)
 
 set(TEST_FILES
-    ./test/test_short.c
-    ./test/test_int.c
-    ./test/test_long.c
-    ./test/test_float.c
-    ./test/test_double.c
+    ./tests/test_short.c
+    ./tests/test_int.c
+    ./tests/test_long.c
+    ./tests/test_float.c
+    ./tests/test_double.c
 )
 
 set(TEST_LABELS
@@ -68,7 +68,7 @@ add_executable(
     unittest_mt
     ${CMAKE_CURRENT_SOURCE_DIR}/src/c_array_mt.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/c_array.c
-    ./test/test_mt.c
+    ./tests/test_mt.c
 )
 
 add_test(
@@ -84,7 +84,7 @@ endif()
 
 set(CTEST_COVERAGE_EXCLUDE
   '/usr/include/*' # Exclude system headers
-  '${CMAKE_CURRENT_SOURCE_DIR}/test/utest.h' # Exclude a specific file
+  '${CMAKE_CURRENT_SOURCE_DIR}/tests/utest.h' # Exclude a specific file
 )
 add_custom_target(
     coverage
