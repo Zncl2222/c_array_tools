@@ -32,7 +32,11 @@ jobs:
         run: |
           cd build
           ./bin/example.out
-          ./test/unittest
+          ./test/unittest_int
+          ./test/unittest_short
+          ./test/unittest_long
+          ./test/unittest_float
+          ./test/unittest_double
           ./test/unittest_mt
           cd ..
       - name: Collect coverage into one XML report
