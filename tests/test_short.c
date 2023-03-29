@@ -431,25 +431,60 @@ UTEST(test, c_array_min_max) {
     c_array_init(&arr, 0);
     c_array_init(&arr_u, 0);
 
-    c_array_push_back(&arr, 51);
-    c_array_push_back(&arr, 99);
-    c_array_push_back(&arr_u, 511);
-    c_array_push_back(&arr_u, 991);
+    short test_arr[] = {3, 7, 1, 9, 2, 8, 6};
+    int test_arr_len = sizeof(test_arr) / sizeof(test_arr[0]);
+    for (int i = 0; i < test_arr_len; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+        c_array_push_back(&arr_u, (unsigned short)test_arr[i]);
+    }
     short max_short = c_array_max(&arr);
     short min_short = c_array_min(&arr);
-    ASSERT_EQ(max_short, 99);
-    ASSERT_EQ(min_short, 51);
-
     unsigned short max_ushort = c_array_max(&arr_u);
     unsigned short min_ushort = c_array_min(&arr_u);
-    ASSERT_EQ(max_ushort, 991);
-    ASSERT_EQ(min_ushort, 255);
+    ASSERT_EQ(max_short, 9);
+    ASSERT_EQ(min_short, 1);
+    ASSERT_EQ(max_ushort, 9);
+    ASSERT_EQ(min_ushort, 1);
 
-    c_array_push_back(&arr, -599);
-    max_short = c_array_max(&arr);
-    min_short = c_array_min(&arr);
-    ASSERT_EQ(max_short, 99);
-    ASSERT_EQ(min_short, -599);
+    c_array_push_back(&arr, 4);
+    c_array_push_back(&arr_u, 4);
+    ASSERT_EQ(max_short, 9);
+    ASSERT_EQ(min_short, 1);
+    ASSERT_EQ(max_ushort, 9);
+    ASSERT_EQ(min_ushort, 1);
+
+    c_array_free(&arr);
+    c_array_free(&arr_u);
+}
+
+UTEST(test, c_array_min_max_2) {
+    c_array_short arr;
+    c_array_ushort arr_u;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_u, 0);
+
+    short test_arr[] = {3, 7, 1, 9, 2, 8, 66};
+    int test_arr_len = sizeof(test_arr) / sizeof(test_arr[0]);
+    for (int i = 0; i < test_arr_len; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+        c_array_push_back(&arr_u, (unsigned short)test_arr[i]);
+    }
+    short max_short = c_array_max(&arr);
+    short min_short = c_array_min(&arr);
+    unsigned short max_ushort = c_array_max(&arr_u);
+    unsigned short min_ushort = c_array_min(&arr_u);
+    ASSERT_EQ(max_short, 66);
+    ASSERT_EQ(min_short, 1);
+    ASSERT_EQ(max_ushort, 66);
+    ASSERT_EQ(min_ushort, 1);
+
+    c_array_push_back(&arr, 4);
+    c_array_push_back(&arr_u, 4);
+    ASSERT_EQ(max_short, 66);
+    ASSERT_EQ(min_short, 1);
+    ASSERT_EQ(max_ushort, 66);
+    ASSERT_EQ(min_ushort, 1);
 
     c_array_free(&arr);
     c_array_free(&arr_u);
