@@ -414,21 +414,49 @@ UTEST(test, c_array_min_max) {
 
     c_array_init(&arr, 0);
 
-    c_array_push_back(&arr, 51);
-    c_array_push_back(&arr, 99);
-    int max_float = c_array_max(&arr);
-    int min_float = c_array_min(&arr);
-    ASSERT_EQ(max_float, 99);
-    ASSERT_EQ(min_float, 51);
+    float test_arr[] = {3.2, 7.1, 1, 9.6, 2.5, 8.44, 6};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+    }
+    float max_float = c_array_max(&arr);
+    float min_float = c_array_min(&arr);
+    ASSERT_NEAR(max_float, 9.6, 0.01f);
+    ASSERT_NEAR(min_float, 1, 0.01f);
+
 
     c_array_push_back(&arr, -59999);
     max_float = c_array_max(&arr);
     min_float = c_array_min(&arr);
-    ASSERT_EQ(max_float, 99);
-    ASSERT_EQ(min_float, -59999);
+    ASSERT_NEAR(max_float, 9.6, 0.01f);
+    ASSERT_NEAR(min_float, -59999, 0.01f);
 
     c_array_free(&arr);
 }
+
+UTEST(test, c_array_min_max_2) {
+    c_array_float arr;
+
+    c_array_init(&arr, 0);
+
+    float test_arr[] = {3.2, 7.1, 1, 9.6, 2.5, 8.44, 695.2};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+    }
+    float max_float = c_array_max(&arr);
+    float min_float = c_array_min(&arr);
+    ASSERT_NEAR(max_float, 695.2, 0.01f);
+    ASSERT_NEAR(min_float, 1, 0.01f);
+
+
+    c_array_push_back(&arr, -59999);
+    max_float = c_array_max(&arr);
+    min_float = c_array_min(&arr);
+    ASSERT_NEAR(max_float, 695.2, 0.01f);
+    ASSERT_NEAR(min_float, -59999, 0.01f);
+
+    c_array_free(&arr);
+}
+
 
 UTEST(test, c_array_statistic_original_func) {
     c_array_float arr;
