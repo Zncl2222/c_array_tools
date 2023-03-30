@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <string.h>
-# include <assert.h>
+# include <limits.h>
 
 typedef double mean_t;
 typedef double std_t;
@@ -736,7 +736,62 @@ typedef c_matrix(long double) c_matrix_ldouble;
     } while(0)
 
 /* -------------------------------------------------------------------- */
-/*                            Matrix utils                               */
+/*                          Matrix Flatten                              */
+
+# define c_matrix_flatten(mat)                      \
+    _Generic((mat)->data,                           \
+        short**: c_matrix_flatten_short,            \
+        unsigned short**: c_matrix_flatten_ushort,  \
+        int**: c_matrix_flatten_int,                \
+        unsigned int**: c_matrix_flatten_uint,      \
+        long**: c_matrix_flatten_long,              \
+        unsigned long**: c_matrix_flatten_ulong,    \
+        long long**: c_matrix_flatten_long_long,    \
+        float**: c_matrix_flatten_float,            \
+        double**: c_matrix_flatten_double,          \
+        long double**: c_matrix_flatten_ldouble     \
+    )((mat))
+
+# define c_matrix_flatten_init(mat, arr)                    \
+    do {                                                    \
+        if ((mat)->rows * (mat)->cols >= INT_MAX) {         \
+            c_array_error("Size(int) overflow");            \
+        }                                                   \
+        int arr_size = (mat)->rows * (mat)->cols;           \
+        c_array_init(arr, arr_size);                        \
+    } while(0)
+
+# define c_matrix_flatten_process(mat, arr)                             \
+    do {                                                                \
+        for (int i = 0; i < (mat)->rows; i++) {                         \
+            for (int j = 0; j < (mat)->cols; j++) {                     \
+                (arr)->data[i * (mat)->cols + j] = (mat)->data[i][j];   \
+            }                                                           \
+        }                                                               \
+    } while(0)
+
+c_array_short c_matrix_flatten_short(c_matrix_short* mat);
+
+c_array_ushort c_matrix_flatten_ushort(c_matrix_ushort* mat);
+
+c_array_int c_matrix_flatten_int(c_matrix_int* mat);
+
+c_array_uint c_matrix_flatten_uint(c_matrix_uint* mat);
+
+c_array_long c_matrix_flatten_long(c_matrix_long* mat);
+
+c_array_long_long c_matrix_flatten_long_long(c_matrix_long_long* mat);
+
+c_array_ulong c_matrix_flatten_ulong(c_matrix_ulong* mat);
+
+c_array_float c_matrix_flatten_float(c_matrix_float* mat);
+
+c_array_double c_matrix_flatten_double(c_matrix_double* mat);
+
+c_array_ldouble c_matrix_flatten_ldouble(c_matrix_ldouble* mat);
+
+/* -------------------------------------------------------------------- */
+/*                            Matrix utils                              */
 
 # define c_matrix_print(mat)                                                \
     do {                                                                    \
