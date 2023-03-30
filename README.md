@@ -66,6 +66,7 @@ Due to the `typeof` and `_Generic` features in the code, now the project was onl
 - [c_array_max](#c_array_maxarr--c_array_minarr)
 - [c_array_min](#c_array_maxarr--c_array_minarr)
 - [c_array_qsort](#c_array_qsortarr--c_array_msortarr)
+- [c_matrix_flatten]()
 
 ### Extension in c_array_mt.c
 - [mt19937_init](#void-mt19937_initmt19937_state-state-unsigned-int-seed)
@@ -729,6 +730,27 @@ int main() {
     c_array_double array;
     double num = random_normal(&state);
     c_array_rand_range(&arr, c, mt19937_get_int32_range(&state, -5, 20))
+    return 0;
+}
+```
+
+----
+### `c_matrix_flatten(mat)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+- return: `c_array` -> (**c_array**)<br>
+
+Flatten c_matrix and return c_array
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i + j;
+        }
+    }
+    c_array_int arr = c_matrix_flatten(&mat);
     return 0;
 }
 ```
