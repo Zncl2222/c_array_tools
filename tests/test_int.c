@@ -575,6 +575,34 @@ UTEST(test, c_matrix_init) {
     c_matrix_free(&mat);
 }
 
+UTEST(test, c_matrix_flatten) {
+    c_matrix_int mat;
+    c_matrix_uint mat_u;
+    c_matrix_init(&mat, 10, 6);
+    c_matrix_init(&mat_u, 10, 6);
+    ASSERT_EQ(mat.rows, 10);
+    ASSERT_EQ(mat.cols, 6);
+    ASSERT_EQ(mat_u.rows, 10);
+    ASSERT_EQ(mat_u.cols, 6);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i * mat.cols + j;
+            mat_u.data[i][j] = i * mat.cols + j;
+        }
+    }
+    c_array_int arr = c_matrix_flatten(&mat);
+    c_array_uint arr_u = c_matrix_flatten(&mat_u);
+    for (int i = 0; i < mat.rows * mat.cols; i++) {
+        ASSERT_EQ(arr.data[i], i);
+        ASSERT_EQ(arr_u.data[i], i);
+    }
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_u);
+    c_array_free(&arr);
+    c_array_free(&arr_u);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_int mat;
 

@@ -603,6 +603,33 @@ UTEST(test, c_matrix_init) {
     c_matrix_free(&f_mat);
 }
 
+UTEST(test, c_matrix_flatten) {
+    c_matrix_double mat;
+    c_matrix_ldouble mat_l;
+    c_matrix_init(&mat, 10, 6);
+    c_matrix_init(&mat_l, 10, 6);
+    ASSERT_EQ(mat.rows, 10);
+    ASSERT_EQ(mat.cols, 6);
+
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i * mat.cols + j;
+            mat_l.data[i][j] = i * mat.cols + j;
+        }
+    }
+    c_array_double arr = c_matrix_flatten(&mat);
+    c_array_ldouble arr_l = c_matrix_flatten(&mat_l);
+    for (int i = 0; i < mat.rows * mat.cols; i++) {
+        ASSERT_EQ(arr.data[i], i);
+        ASSERT_EQ(arr_l.data[i], i);
+    }
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_l);
+    c_array_free(&arr);
+    c_array_free(&arr_l);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_double mat;
 
