@@ -27,7 +27,6 @@ UTEST(test, c_array_init) {
     c_array_free(&arr2);
 }
 
-
 UTEST(test, c_array_assign) {
     c_array_int arr;
     c_array_init(&arr, 3);
@@ -64,7 +63,6 @@ UTEST(test, c_array_copy) {
     c_array_free(&arr);
     c_array_free(&arr_copy);
 }
-
 
 UTEST(test, c_array_resize) {
     c_array_int arr;

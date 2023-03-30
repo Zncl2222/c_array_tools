@@ -287,36 +287,36 @@ long double c_array_sum_long_double(long double* arr, int size) {
 /*                           Array qsort                                */
 
 int cmpfunc_short(const void* a, const void* b) {
-    return ( *(const short*)a - *(const short*)b );
+    return (*(const short*)a - *(const short*)b);
 }
 
 int cmpfunc_ushort(const void* a, const void* b) {
-    return ( *(const unsigned short*)a - *(const unsigned short*)b );
+    return (*(const unsigned short*)a - *(const unsigned short*)b);
 }
 
 int cmpfunc_int(const void* a, const void* b) {
-    return ( *(const int*)a - *(const int*)b );
+    return (*(const int*)a - *(const int*)b);
 }
 
 int cmpfunc_uint(const void* a, const void* b) {
-    return ( *(const unsigned int*)a - *(const unsigned int*)b );
+    return (*(const unsigned int*)a - *(const unsigned int*)b);
 }
 
 int cmpfunc_long(const void* a, const void* b) {
-    return ( *(const long*)a - *(const long*)b );
+    return (*(const long*)a - *(const long*)b);
 }
 
 int cmpfunc_ulong(const void* a, const void* b) {
-    return ( *(const unsigned long*)a - *(const unsigned long*)b );
+    return (*(const unsigned long*)a - *(const unsigned long*)b);
 }
 
 int cmpfunc_long_long(const void* a, const void* b) {
-    return ( *(const long long*)a - *(const long long*)b );
+    return (*(const long long*)a - *(const long long*)b);
 }
 
 int cmpfunc_float(const void* a, const void* b) {
     float ret = *(const float*)a - *(const float*)b;
-    if(ret > 0){
+    if (ret > 0) {
         return 1;
     } else if (ret < 0) {
         return -1;
@@ -326,7 +326,7 @@ int cmpfunc_float(const void* a, const void* b) {
 
 int cmpfunc_double(const void* a, const void* b) {
     double ret = *(const double*)a - *(const double*)b;
-    if(ret > 0){
+    if (ret > 0) {
         return 1;
     } else if (ret < 0) {
         return -1;
@@ -336,7 +336,7 @@ int cmpfunc_double(const void* a, const void* b) {
 
 int cmpfunc_long_double(const void* a, const void* b) {
     long double ret = *(const long double*)a - *(const long double*)b;
-    if(ret > 0){
+    if (ret > 0) {
         return 1;
     } else if (ret < 0) {
         return -1;

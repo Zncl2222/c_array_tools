@@ -57,7 +57,6 @@ UTEST(test, mt19937_get_int32_range) {
     }
 }
 
-
 UTEST(test, mt19937_get_float) {
     mt19937_state state;
     unsigned int seed = 12345;
@@ -83,7 +82,6 @@ UTEST(test, mt19937_get_float) {
         ASSERT_TRUE((num1 < 9999 & num1 >= 9.15));
     }
 }
-
 
 UTEST(test, mt19937_get_double) {
     mt19937_state state;
