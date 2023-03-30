@@ -541,6 +541,25 @@ UTEST(test, c_matrix_init) {
     c_matrix_free(&f_mat);
 }
 
+UTEST(test, c_matrix_flatten) {
+    c_matrix_float mat;
+    c_matrix_init(&mat, 10, 6);
+    ASSERT_EQ(mat.rows, 10);
+    ASSERT_EQ(mat.cols, 6);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i * mat.cols + j;
+        }
+    }
+    c_array_float arr = c_matrix_flatten(&mat);
+    for (int i = 0; i < mat.rows * mat.cols; i++) {
+        ASSERT_EQ(arr.data[i], i);
+    }
+
+    c_matrix_free(&mat);
+    c_array_free(&arr);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_float mat;
 

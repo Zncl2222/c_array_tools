@@ -662,6 +662,40 @@ UTEST(test, c_matrix_init) {
     c_matrix_free(&f_mat);
 }
 
+UTEST(test, c_matrix_flatten) {
+    c_matrix_long mat;
+    c_matrix_long_long mat_ll;
+    c_matrix_ulong mat_ul;
+    c_matrix_init(&mat, 10, 6);
+    c_matrix_init(&mat_ll, 10, 6);
+    c_matrix_init(&mat_ul, 10, 6);
+    ASSERT_EQ(mat.rows, 10);
+    ASSERT_EQ(mat.cols, 6);
+
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i * mat.cols + j;
+            mat_ll.data[i][j] = i * mat.cols + j;
+            mat_ul.data[i][j] = i * mat.cols + j;
+        }
+    }
+    c_array_long arr = c_matrix_flatten(&mat);
+    c_array_long_long arr_ll = c_matrix_flatten(&mat_ll);
+    c_array_ulong arr_ul = c_matrix_flatten(&mat_ul);
+    for (int i = 0; i < mat.rows * mat.cols; i++) {
+        ASSERT_EQ(arr.data[i], i);
+        ASSERT_EQ(arr_ll.data[i], i);
+        ASSERT_EQ(arr_ul.data[i], i);
+    }
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_ll);
+    c_matrix_free(&mat_ul);
+    c_array_free(&arr);
+    c_array_free(&arr_ll);
+    c_array_free(&arr_ul);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_long mat;
 

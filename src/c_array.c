@@ -343,3 +343,76 @@ int cmpfunc_long_double(const void* a, const void* b) {
     }
     return 0;
 }
+
+/* -------------------------------------------------------------------- */
+/*                         Matrix Flatten                               */
+
+c_array_short c_matrix_flatten_short(c_matrix_short* mat) {
+    c_array_short arr;
+    c_matrix_flatten_init(mat, &arr);
+    c_matrix_flatten_process(mat, &arr);
+    return arr;
+}
+
+c_array_ushort c_matrix_flatten_ushort(c_matrix_ushort* mat) {
+    c_array_ushort arr;
+    c_matrix_flatten_init(mat, &arr);
+    c_matrix_flatten_process(mat, &arr);
+    return arr;
+}
+
+c_array_int c_matrix_flatten_int(c_matrix_int* mat) {
+    c_array_int arr;
+    c_matrix_flatten_init(mat, &arr);
+    c_matrix_flatten_process(mat, &arr);
+    return arr;
+}
+
+c_array_uint c_matrix_flatten_uint(c_matrix_uint* mat) {
+    c_array_uint arr;
+    c_matrix_flatten_init(mat, &arr);
+    c_matrix_flatten_process(mat, &arr);
+    return arr;
+}
+
+c_array_long c_matrix_flatten_long(c_matrix_long* mat) {
+    c_array_long arr;
+    c_matrix_flatten_init(mat, &arr);
+    c_matrix_flatten_process(mat, &arr);
+    return arr;
+}
+
+c_array_long_long c_matrix_flatten_long_long(c_matrix_long_long* mat) {
+    c_array_long_long arr;
+    c_matrix_flatten_init(mat, &arr);
+    c_matrix_flatten_process(mat, &arr);
+    return arr;
+}
+
+c_array_ulong c_matrix_flatten_ulong(c_matrix_ulong* mat) {
+    c_array_ulong arr;
+    c_matrix_flatten_init(mat, &arr);
+    c_matrix_flatten_process(mat, &arr);
+    return arr;
+}
+
+c_array_float c_matrix_flatten_float(c_matrix_float* mat) {
+    c_array_float arr;
+    c_matrix_flatten_init(mat, &arr);
+    c_matrix_flatten_process(mat, &arr);
+    return arr;
+}
+
+c_array_double c_matrix_flatten_double(c_matrix_double* mat) {
+    c_array_double arr;
+    c_matrix_flatten_init(mat, &arr);
+    c_matrix_flatten_process(mat, &arr);
+    return arr;
+}
+
+c_array_ldouble c_matrix_flatten_ldouble(c_matrix_ldouble* mat) {
+    c_array_ldouble arr;
+    c_matrix_flatten_init(mat, &arr);
+    c_matrix_flatten_process(mat, &arr);
+    return arr;
+}
