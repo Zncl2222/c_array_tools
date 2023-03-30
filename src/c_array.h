@@ -34,7 +34,7 @@ typedef double var_t;
         (arr)->size = (c);                                               \
         (arr)->capacity = (c);                                           \
         (arr)->data = calloc((c), sizeof(x));                            \
-    } while(0)
+    } while (0)
 
 # define c_array_copy(arr1, arr2)                                                                \
     do {                                                                                         \
@@ -46,11 +46,11 @@ typedef double var_t;
         (arr2)->size = (arr1)->size;                                                             \
         (arr2)->capacity = (arr1)->capacity;                                                     \
         (arr2)->data = malloc((arr2)->capacity * sizeof(typeof(*(arr2)->data)));                 \
-        if((arr2)->data == NULL) {                                                               \
+        if ((arr2)->data == NULL) {                                                              \
             c_array_error("failed to allocate memory in c_array_copy");                          \
         }                                                                                        \
         memcpy((arr2)->data, (arr1)->data, (arr2)->capacity * sizeof(typeof(*(arr2)->data)));    \
-    } while(0)
+    } while (0)
 
 /* c_array_mt.c is necessary for c_array_randnormal & c_array_rand_range */
 
@@ -62,7 +62,7 @@ typedef double var_t;
         for (int i = 0; i < (arr)->size; i++) {                         \
             (arr)->data[i] = random_normal(rng_state);                  \
         }                                                               \
-    } while(0)
+    } while (0)
 
 # define c_array_rand_range(arr, c, rng_function)                       \
     do {                                                                \
@@ -72,7 +72,7 @@ typedef double var_t;
         for (int i = 0; i < (arr)->size; i++) {                         \
             (arr)->data[i] = rng_function;                              \
         }                                                               \
-    } while(0)
+    } while (0)
 
 typedef c_array(short) c_array_short;
 typedef c_array(unsigned short) c_array_ushort;
@@ -84,7 +84,6 @@ typedef c_array(long long) c_array_long_long;
 typedef c_array(float) c_array_float;
 typedef c_array(double) c_array_double;
 typedef c_array(long double) c_array_ldouble;
-
 
 /* -------------------------------------------------------------------- */
 /*                      Array basic operations                          */
@@ -99,7 +98,7 @@ typedef c_array(long double) c_array_ldouble;
             c_array_error("Index out of range (size)");                  \
         }                                                                \
         (arr)->data[(idx)] = (val);                                      \
-    } while(0)
+    } while (0)
 
 /* -------------------------------------------------------------------- */
 /*                  Arrary size and attributes settings                 */
@@ -108,7 +107,7 @@ typedef c_array(long double) c_array_ldouble;
 
 # define c_array_grow(arr)                                                          \
     do {                                                                            \
-        if((arr)->capacity == 0) {                                                  \
+        if ((arr)->capacity == 0) {                                                 \
             (arr)->capacity = 1;                                                    \
         }                                                                           \
         (arr)->capacity *= 2;                                                       \
@@ -117,7 +116,7 @@ typedef c_array(long double) c_array_ldouble;
             c_array_error("Realloc Failed");                                        \
         }                                                                           \
         (arr)->data = ptr;                                                          \
-    } while(0)
+    } while (0)
 
 # define c_array_resize(arr, c)                                             \
     do {                                                                    \
@@ -127,7 +126,7 @@ typedef c_array(long double) c_array_ldouble;
         }                                                                   \
         (arr)->capacity = (c);                                              \
         (arr)->data = ptr;                                                  \
-    } while(0)
+    } while (0)
 
 # define c_array_set_size(arr, l)                                           \
     do {                                                                    \
@@ -138,7 +137,7 @@ typedef c_array(long double) c_array_ldouble;
             (arr)->data[i] = 0;                                             \
         }                                                                   \
         (arr)->size = (l);                                                  \
-    } while(0)
+    } while (0)
 
 /* -------------------------------------------------------------------- */
 /*                  Arrary push_back and pop_back                       */
@@ -150,7 +149,7 @@ typedef c_array(long double) c_array_ldouble;
         }                                                        \
         (arr)->data[(arr)->size] = val;                          \
         (arr)->size++;                                           \
-    } while(0)
+    } while (0)
 
 # define c_array_pop_back(arr)                              \
     do {                                                    \
@@ -159,7 +158,7 @@ typedef c_array(long double) c_array_ldouble;
         }                                                   \
         (arr)->data[(arr)->size - 1] = 0;                   \
         (arr)->size--;                                      \
-    } while(0)
+    } while (0)
 
 /* -------------------------------------------------------------------- */
 /*                      Arrary insert and remove                        */
@@ -169,17 +168,17 @@ typedef c_array(long double) c_array_ldouble;
         if ((arr)->capacity <= (arr)->size) {         \
             c_array_grow(arr);                        \
         }                                             \
-        for(int i = (arr)->size; i > idx; i--) {      \
+        for (int i = (arr)->size; i > idx; i--) {     \
             (arr)->data[i] = (arr)->data[i - 1];      \
         }                                             \
-    } while(0)
+    } while (0)
 
 # define c_array_moveleft(arr, idx)                         \
     do {                                                    \
-        for(int i = idx; i < (arr)->size - 1; i++) {        \
+        for (int i = idx; i < (arr)->size - 1; i++) {       \
             (arr)->data[i] = (arr)->data[i + 1];            \
         }                                                   \
-    } while(0)                                              \
+    } while (0)                                             \
 
 # define c_array_insert(arr, idx, val)                  \
     do {                                                \
@@ -188,7 +187,7 @@ typedef c_array(long double) c_array_ldouble;
             (arr)->data[(idx)] = (val);                 \
             (arr)->size++;                              \
         }                                               \
-    } while(0)
+    } while (0)
 
 # define c_array_remove(arr, idx)                           \
     do {                                                    \
@@ -200,7 +199,7 @@ typedef c_array(long double) c_array_ldouble;
         }                                                   \
         c_array_moveleft(arr, idx);                         \
         (arr)->size--;                                      \
-    } while(0)
+    } while (0)
 
 /* -------------------------------------------------------------------- */
 /*                       Arrary concatenation                           */
@@ -219,7 +218,7 @@ typedef c_array(long double) c_array_ldouble;
             (arr1)->data[i + (arr1)->size] = (arr2)->data[i];                       \
         }                                                                           \
         (arr1)->size = new_size;                                                    \
-    } while(0)
+    } while (0)
 
 /* -------------------------------------------------------------------- */
 /*                           Array qsort                                */
@@ -227,7 +226,7 @@ typedef c_array(long double) c_array_ldouble;
 # define c_array_qsort(arr)                                                                       \
     do {                                                                                          \
         qsort((arr)->data, (arr)->size, sizeof(typeof((*(arr)->data))), c_array_qsort_cmp((arr)));\
-    } while(0)
+    } while (0)
 
 # define c_array_qsort_cmp(arr)                         \
     _Generic((arr)->data,                               \
@@ -278,7 +277,7 @@ int cmpfunc_long_double(const void* a, const void* b);
                 r1 = l1 + curr_size - 1;                                    \
                 l2 = r1 + 1;                                                \
                 r2 = l2 + curr_size - 1;                                    \
-                if(r2 >= (arr)->size) {                                     \
+                if (r2 >= (arr)->size) {                                    \
                     r2 = (arr)->size - 1;                                   \
                 }                                                           \
                 i = l1;                                                     \
@@ -305,7 +304,7 @@ int cmpfunc_long_double(const void* a, const void* b);
                 (arr)->data[i] = temp[i];                                   \
             }                                                               \
         }                                                                   \
-    } while(0)
+    } while (0)
 
 /* -------------------------------------------------------------------- */
 /*                              Array Sum                               */
@@ -632,13 +631,13 @@ long double c_array_min_long_double(long double* arr, int size);
             }                                                       \
         }                                                           \
         printf("]\n");                                              \
-    } while(0)
+    } while (0)
 
 # define c_array_printf(arr, format)                    \
     do {                                                \
         printf(#arr);                                   \
         printf(" = [");                                 \
-        for(int i = 0; i < (arr).size; i++) {           \
+        for (int i = 0; i < (arr).size; i++) {          \
             if (i < (arr).size - 1) {                   \
                 printf((format), arr.data[i]);          \
                 printf(", ");                           \
@@ -647,20 +646,20 @@ long double c_array_min_long_double(long double* arr, int size);
             }                                           \
         }                                               \
         printf("]\n");                                  \
-    } while(0)
+    } while (0)
 
 # define c_array_empty(arr) ((arr)->size == 0)
 
 # define c_array_swap(arr, idx1, idx2)                                              \
     do {                                                                            \
-        if((idx1) >= (arr)->size || (idx2) >= (arr)->size) {                        \
+        if ((idx1) >= (arr)->size || (idx2) >= (arr)->size) {                       \
             c_array_error("Index out of range (size)");                             \
         }                                                                           \
         typeof(*((arr)->data)) x;                                                   \
         x = (arr)->data[idx2];                                                      \
         (arr)->data[idx2] = (arr)->data[idx1];                                      \
         (arr)->data[idx1] = x;                                                      \
-    } while(0)                                                                      \
+    } while (0)                                                                     \
 
 # define c_array_reverse(arr)                                                       \
     do {                                                                            \
@@ -670,7 +669,7 @@ long double c_array_min_long_double(long double* arr, int size);
             (arr)->data[i] = (arr)->data[(arr)->size - 1 - i];                      \
             (arr)->data[(arr)->size - 1 - i] = x;                                   \
         }                                                                           \
-    } while(0)
+    } while (0)
 
 # define c_array_free(arr) (free((arr)->data))
 
@@ -679,7 +678,7 @@ long double c_array_min_long_double(long double* arr, int size);
         fprintf(stderr, "Error in %s:%d: %s\n",       \
                 __FILE__, __LINE__, (msg));           \
         exit(EXIT_FAILURE);                           \
-    } while(0)
+    } while (0)
 
 /* -------------------------------------------------------------------- */
 /*                  Matrix structure and initialize                     */
@@ -704,7 +703,7 @@ long double c_array_min_long_double(long double* arr, int size);
                     "Failed to allocate memory for matrix data (col)");     \
             }                                                               \
         }                                                                   \
-    } while(0)
+    } while (0)
 
 typedef c_matrix(short) c_matrix_short;
 typedef c_matrix(unsigned short) c_matrix_ushort;
@@ -733,7 +732,7 @@ typedef c_matrix(long double) c_matrix_ldouble;
             c_array_error("Index out of range(col)");       \
         }                                                   \
         (mat)->data[row][col] = val;                        \
-    } while(0)
+    } while (0)
 
 /* -------------------------------------------------------------------- */
 /*                          Matrix Flatten                              */
@@ -759,7 +758,7 @@ typedef c_matrix(long double) c_matrix_ldouble;
         }                                                   \
         int arr_size = (mat)->rows * (mat)->cols;           \
         c_array_init(arr, arr_size);                        \
-    } while(0)
+    } while (0)
 
 # define c_matrix_flatten_process(mat, arr)                             \
     do {                                                                \
@@ -768,7 +767,7 @@ typedef c_matrix(long double) c_matrix_ldouble;
                 (arr)->data[i * (mat)->cols + j] = (mat)->data[i][j];   \
             }                                                           \
         }                                                               \
-    } while(0)
+    } while (0)
 
 c_array_short c_matrix_flatten_short(const c_matrix_short* mat);
 
@@ -801,7 +800,7 @@ c_array_ldouble c_matrix_flatten_ldouble(const c_matrix_ldouble* mat);
             if (i != 0)                                                     \
                 printf("     ");                                            \
             printf("[ ");                                                   \
-            for(int j = 0; j < (mat).cols; j++) {                           \
+            for (int j = 0; j < (mat).cols; j++) {                          \
                 if (j < (mat).cols) {                                       \
                     printf(c_array_autoformat((mat)), (mat).data[i][j]);    \
                     printf(", ");                                           \
@@ -810,12 +809,12 @@ c_array_ldouble c_matrix_flatten_ldouble(const c_matrix_ldouble* mat);
                 }                                                           \
             }                                                               \
             printf("]");                                                    \
-            if (i < (mat).rows - 1){                                        \
+            if (i < (mat).rows - 1) {                                       \
                 printf("\n");                                               \
             }                                                               \
         }                                                                   \
         printf(" ]\n");                                                     \
-    } while(0)
+    } while (0)
 
 # define c_matrix_printf(mat, format)                       \
     do {                                                    \
@@ -825,7 +824,7 @@ c_array_ldouble c_matrix_flatten_ldouble(const c_matrix_ldouble* mat);
             if (i != 0)                                     \
                 printf("     ");                            \
             printf("[ ");                                   \
-            for(int j = 0; j < (mat).cols; j++) {           \
+            for (int j = 0; j < (mat).cols; j++) {          \
                 if (j < (mat).cols) {                       \
                     printf((format), (mat).data[i][j]);     \
                     printf(", ");                           \
@@ -834,12 +833,12 @@ c_array_ldouble c_matrix_flatten_ldouble(const c_matrix_ldouble* mat);
                 }                                           \
             }                                               \
             printf("]");                                    \
-            if (i < (mat).rows - 1){                        \
+            if (i < (mat).rows - 1) {                       \
                 printf("\n");                               \
             }                                               \
         }                                                   \
         printf(" ]\n");                                     \
-    } while(0)
+    } while (0)
 
 # define c_matrix_free(mat)                         \
     do {                                            \
@@ -847,7 +846,7 @@ c_array_ldouble c_matrix_flatten_ldouble(const c_matrix_ldouble* mat);
             free((mat)->data[i]);                   \
         }                                           \
         free((mat)->data);                          \
-    } while(0)
+    } while (0)
 
 /* -------------------------------------------------------------------- */
 /*                       Random number generator                        */
