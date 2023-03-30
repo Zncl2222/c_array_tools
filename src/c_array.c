@@ -97,102 +97,102 @@ long double c_array_min_long_double(long double* arr, int size) {
 /* -------------------------------------------------------------------- */
 /*                     Array standard deviation                         */
 
-var_t c_array_var_short(short* arr, int size, mean_t mean) {
+var_t c_array_var_short(const short* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return (var / size);
 }
 
-var_t c_array_var_ushort(unsigned short* arr, int size, mean_t mean) {
+var_t c_array_var_ushort(const unsigned short* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return (var / size);
 }
 
-var_t c_array_var_int(int* arr, int size, mean_t mean) {
+var_t c_array_var_int(const int* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return (var / size);
 }
 
-var_t c_array_var_uint(unsigned int* arr, int size, mean_t mean) {
+var_t c_array_var_uint(const unsigned int* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return (var / size);
 }
 
-var_t c_array_var_long(long* arr, int size, mean_t mean) {
+var_t c_array_var_long(const long* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return (var / size);
 }
 
-var_t c_array_var_ulong(unsigned long* arr, int size, mean_t mean) {
+var_t c_array_var_ulong(const unsigned long* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return (var / size);
 }
 
-var_t c_array_var_long_long(long long* arr, int size, mean_t mean) {
+var_t c_array_var_long_long(const long long* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return (var / size);
 }
 
-var_t c_array_var_float(float* arr, int size, mean_t mean) {
+var_t c_array_var_float(const float* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return (var / size);
 }
 
-var_t c_array_var_double(double* arr, int size, mean_t mean) {
+var_t c_array_var_double(const double* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return (var / size);
 }
 
-var_t c_array_var_long_double(long double* arr, int size, mean_t mean) {
+var_t c_array_var_long_double(const long double* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return (var / size);
 }
 
-std_t c_array_std_short(short* arr, int size, mean_t mean) {
+std_t c_array_std_short(const short* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return sqrt(var / size);
 }
 
-std_t c_array_std_ushort(unsigned short* arr, int size, mean_t mean) {
+std_t c_array_std_ushort(const unsigned short* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return sqrt(var / size);
 }
 
-std_t c_array_std_int(int* arr, int size, mean_t mean) {
+std_t c_array_std_int(const int* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return sqrt(var / size);
 }
 
-std_t c_array_std_uint(unsigned int* arr, int size, mean_t mean) {
+std_t c_array_std_uint(const unsigned int* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return sqrt(var / size);
 }
 
-std_t c_array_std_long(long* arr, int size, mean_t mean) {
+std_t c_array_std_long(const long* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return sqrt(var / size);
 }
 
-std_t c_array_std_ulong(unsigned long* arr, int size, mean_t mean) {
+std_t c_array_std_ulong(const unsigned long* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return sqrt(var / size);
 }
 
-std_t c_array_std_long_long(long long* arr, int size, mean_t mean) {
+std_t c_array_std_long_long(const long long* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return sqrt(var / size);
 }
 
-std_t c_array_std_float(float* arr, int size, mean_t mean) {
+std_t c_array_std_float(const float* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return sqrt(var / size);
 }
 
-std_t c_array_std_double(double* arr, int size, mean_t mean) {
+std_t c_array_std_double(const double* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return sqrt(var / size);
 }
 
-std_t c_array_std_long_double(long double* arr, int size, mean_t mean) {
+std_t c_array_std_long_double(const long double* arr, int size, mean_t mean) {
     c_array_var_process(arr, size, mean)
     return sqrt(var / size);
 }
@@ -200,43 +200,43 @@ std_t c_array_std_long_double(long double* arr, int size, mean_t mean) {
 /* -------------------------------------------------------------------- */
 /*                          Array mean value                            */
 
-mean_t c_array_mean_short(short* arr, int size, short sum) {
+mean_t c_array_mean_short(const short* arr, int size, short sum) {
     c_array_mean_process(arr, size, sum)
 }
 
-mean_t c_array_mean_ushort(unsigned short* arr, int size, unsigned short sum) {
+mean_t c_array_mean_ushort(const unsigned short* arr, int size, unsigned short sum) {
     c_array_mean_process(arr, size, sum)
 }
 
-mean_t c_array_mean_int(int* arr, int size, int sum) {
+mean_t c_array_mean_int(const int* arr, int size, int sum) {
     c_array_mean_process(arr, size, sum)
 }
 
-mean_t c_array_mean_uint(unsigned int* arr, int size, unsigned int sum) {
+mean_t c_array_mean_uint(const unsigned int* arr, int size, unsigned int sum) {
     c_array_mean_process(arr, size, sum)
 }
 
-mean_t c_array_mean_long(long* arr, int size, long sum) {
+mean_t c_array_mean_long(const long* arr, int size, long sum) {
     c_array_mean_process(arr, size, sum)
 }
 
-mean_t c_array_mean_ulong(unsigned long* arr, int size, unsigned long sum) {
+mean_t c_array_mean_ulong(const unsigned long* arr, int size, unsigned long sum) {
     c_array_mean_process(arr, size, sum)
 }
 
-mean_t c_array_mean_long_long(long long* arr, int size, long long sum) {
+mean_t c_array_mean_long_long(const long long* arr, int size, long long sum) {
     c_array_mean_process(arr, size, sum)
 }
 
-mean_t c_array_mean_float(float* arr, int size, float sum) {
+mean_t c_array_mean_float(const float* arr, int size, float sum) {
     c_array_mean_process(arr, size, sum)
 }
 
-mean_t c_array_mean_double(double* arr, int size, double sum) {
+mean_t c_array_mean_double(const double* arr, int size, double sum) {
     c_array_mean_process(arr, size, sum)
 }
 
-mean_t c_array_mean_long_double(long double* arr, int size, long double sum) {
+mean_t c_array_mean_long_double(const long double* arr, int size, long double sum) {
     c_array_mean_process(arr, size, sum)
 }
 
@@ -287,35 +287,35 @@ long double c_array_sum_long_double(long double* arr, int size) {
 /*                           Array qsort                                */
 
 int cmpfunc_short(const void* a, const void* b) {
-    return ( *(short*)a - *(short*)b );
+    return ( *(const short*)a - *(const short*)b );
 }
 
 int cmpfunc_ushort(const void* a, const void* b) {
-    return ( *(unsigned short*)a - *(unsigned short*)b );
+    return ( *(const unsigned short*)a - *(const unsigned short*)b );
 }
 
 int cmpfunc_int(const void* a, const void* b) {
-    return ( *(int*)a - *(int*)b );
+    return ( *(const int*)a - *(const int*)b );
 }
 
 int cmpfunc_uint(const void* a, const void* b) {
-    return ( *(unsigned int*)a - *(unsigned int*)b );
+    return ( *(const unsigned int*)a - *(const unsigned int*)b );
 }
 
 int cmpfunc_long(const void* a, const void* b) {
-    return ( *(long*)a - *(long*)b );
+    return ( *(const long*)a - *(const long*)b );
 }
 
 int cmpfunc_ulong(const void* a, const void* b) {
-    return ( *(unsigned long*)a - *(unsigned long*)b );
+    return ( *(const unsigned long*)a - *(const unsigned long*)b );
 }
 
 int cmpfunc_long_long(const void* a, const void* b) {
-    return ( *(long long*)a - *(long long*)b );
+    return ( *(const long long*)a - *(const long long*)b );
 }
 
 int cmpfunc_float(const void* a, const void* b) {
-    float ret = *(float*)a - *(float*)b;
+    float ret = *(const float*)a - *(const float*)b;
     if(ret > 0){
         return 1;
     } else if (ret < 0) {
@@ -325,7 +325,7 @@ int cmpfunc_float(const void* a, const void* b) {
 }
 
 int cmpfunc_double(const void* a, const void* b) {
-    double ret = *(double*)a - *(double*)b;
+    double ret = *(const double*)a - *(const double*)b;
     if(ret > 0){
         return 1;
     } else if (ret < 0) {
@@ -335,7 +335,7 @@ int cmpfunc_double(const void* a, const void* b) {
 }
 
 int cmpfunc_long_double(const void* a, const void* b) {
-    long double ret = *(long double*)a - *(long double*)b;
+    long double ret = *(const long double*)a - *(const long double*)b;
     if(ret > 0){
         return 1;
     } else if (ret < 0) {
@@ -347,70 +347,70 @@ int cmpfunc_long_double(const void* a, const void* b) {
 /* -------------------------------------------------------------------- */
 /*                         Matrix Flatten                               */
 
-c_array_short c_matrix_flatten_short(c_matrix_short* mat) {
+c_array_short c_matrix_flatten_short(const c_matrix_short* mat) {
     c_array_short arr;
     c_matrix_flatten_init(mat, &arr);
     c_matrix_flatten_process(mat, &arr);
     return arr;
 }
 
-c_array_ushort c_matrix_flatten_ushort(c_matrix_ushort* mat) {
+c_array_ushort c_matrix_flatten_ushort(const c_matrix_ushort* mat) {
     c_array_ushort arr;
     c_matrix_flatten_init(mat, &arr);
     c_matrix_flatten_process(mat, &arr);
     return arr;
 }
 
-c_array_int c_matrix_flatten_int(c_matrix_int* mat) {
+c_array_int c_matrix_flatten_int(const c_matrix_int* mat) {
     c_array_int arr;
     c_matrix_flatten_init(mat, &arr);
     c_matrix_flatten_process(mat, &arr);
     return arr;
 }
 
-c_array_uint c_matrix_flatten_uint(c_matrix_uint* mat) {
+c_array_uint c_matrix_flatten_uint(const c_matrix_uint* mat) {
     c_array_uint arr;
     c_matrix_flatten_init(mat, &arr);
     c_matrix_flatten_process(mat, &arr);
     return arr;
 }
 
-c_array_long c_matrix_flatten_long(c_matrix_long* mat) {
+c_array_long c_matrix_flatten_long(const c_matrix_long* mat) {
     c_array_long arr;
     c_matrix_flatten_init(mat, &arr);
     c_matrix_flatten_process(mat, &arr);
     return arr;
 }
 
-c_array_long_long c_matrix_flatten_long_long(c_matrix_long_long* mat) {
+c_array_long_long c_matrix_flatten_long_long(const c_matrix_long_long* mat) {
     c_array_long_long arr;
     c_matrix_flatten_init(mat, &arr);
     c_matrix_flatten_process(mat, &arr);
     return arr;
 }
 
-c_array_ulong c_matrix_flatten_ulong(c_matrix_ulong* mat) {
+c_array_ulong c_matrix_flatten_ulong(const c_matrix_ulong* mat) {
     c_array_ulong arr;
     c_matrix_flatten_init(mat, &arr);
     c_matrix_flatten_process(mat, &arr);
     return arr;
 }
 
-c_array_float c_matrix_flatten_float(c_matrix_float* mat) {
+c_array_float c_matrix_flatten_float(const c_matrix_float* mat) {
     c_array_float arr;
     c_matrix_flatten_init(mat, &arr);
     c_matrix_flatten_process(mat, &arr);
     return arr;
 }
 
-c_array_double c_matrix_flatten_double(c_matrix_double* mat) {
+c_array_double c_matrix_flatten_double(const c_matrix_double* mat) {
     c_array_double arr;
     c_matrix_flatten_init(mat, &arr);
     c_matrix_flatten_process(mat, &arr);
     return arr;
 }
 
-c_array_ldouble c_matrix_flatten_ldouble(c_matrix_ldouble* mat) {
+c_array_ldouble c_matrix_flatten_ldouble(const c_matrix_ldouble* mat) {
     c_array_ldouble arr;
     c_matrix_flatten_init(mat, &arr);
     c_matrix_flatten_process(mat, &arr);

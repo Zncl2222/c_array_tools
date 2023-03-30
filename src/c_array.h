@@ -372,25 +372,25 @@ long double c_array_sum_long_double(long double* arr, int size);
     mean_t mean = (mean_t)(sum) / (size);       \
     return mean;
 
-mean_t c_array_mean_short(short* arr, int size, short sum);
+mean_t c_array_mean_short(const short* arr, int size, short sum);
 
-mean_t c_array_mean_ushort(unsigned short* arr, int size, unsigned short sum);
+mean_t c_array_mean_ushort(const unsigned short* arr, int size, unsigned short sum);
 
-mean_t c_array_mean_int(int* arr, int size, int sum);
+mean_t c_array_mean_int(const int* arr, int size, int sum);
 
-mean_t c_array_mean_uint(unsigned int* arr, int size, unsigned int sum);
+mean_t c_array_mean_uint(const unsigned int* arr, int size, unsigned int sum);
 
-mean_t c_array_mean_long(long* arr, int size, long sum);
+mean_t c_array_mean_long(const long* arr, int size, long sum);
 
-mean_t c_array_mean_ulong(unsigned long* arr, int size, unsigned long sum);
+mean_t c_array_mean_ulong(const unsigned long* arr, int size, unsigned long sum);
 
-mean_t c_array_mean_long_long(long long* arr, int size, long long sum);
+mean_t c_array_mean_long_long(const long long* arr, int size, long long sum);
 
-mean_t c_array_mean_float(float* arr, int size, float sum);
+mean_t c_array_mean_float(const float* arr, int size, float sum);
 
-mean_t c_array_mean_double(double* arr, int size, double sum);
+mean_t c_array_mean_double(const double* arr, int size, double sum);
 
-mean_t c_array_mean_long_double(long double* arr, int size, long double sum);
+mean_t c_array_mean_long_double(const long double* arr, int size, long double sum);
 
 /* -------------------------------------------------------------------- */
 /*                     Array standard deviation                         */
@@ -429,45 +429,45 @@ mean_t c_array_mean_long_double(long double* arr, int size, long double sum);
         var += pow((arr)[i] - (mean), 2);      \
     }                                          \
 
-var_t c_array_var_short(short* arr, int size, mean_t mean);
+var_t c_array_var_short(const short* arr, int size, mean_t mean);
 
-var_t c_array_var_ushort(unsigned short* arr, int size, mean_t mean);
+var_t c_array_var_ushort(const unsigned short* arr, int size, mean_t mean);
 
-var_t c_array_var_int(int* arr, int size, mean_t mean);
+var_t c_array_var_int(const int* arr, int size, mean_t mean);
 
-var_t c_array_var_uint(unsigned int* arr, int size, mean_t mean);
+var_t c_array_var_uint(const unsigned int* arr, int size, mean_t mean);
 
-var_t c_array_var_long(long* arr, int size, mean_t mean);
+var_t c_array_var_long(const long* arr, int size, mean_t mean);
 
-var_t c_array_var_ulong(unsigned long* arr, int size, mean_t mean);
+var_t c_array_var_ulong(const unsigned long* arr, int size, mean_t mean);
 
-var_t c_array_var_long_long(long long* arr, int size, mean_t mean);
+var_t c_array_var_long_long(const long long* arr, int size, mean_t mean);
 
-var_t c_array_var_float(float* arr, int size, mean_t mean);
+var_t c_array_var_float(const float* arr, int size, mean_t mean);
 
-var_t c_array_var_double(double* arr, int size, mean_t mean);
+var_t c_array_var_double(const double* arr, int size, mean_t mean);
 
-var_t c_array_var_long_double(long double* arr, int size, mean_t mean);
+var_t c_array_var_long_double(const long double* arr, int size, mean_t mean);
 
-std_t c_array_std_short(short* arr, int size, mean_t mean);
+std_t c_array_std_short(const short* arr, int size, mean_t mean);
 
-std_t c_array_std_ushort(unsigned short* arr, int size, mean_t mean);
+std_t c_array_std_ushort(const unsigned short* arr, int size, mean_t mean);
 
-std_t c_array_std_int(int* arr, int size, mean_t mean);
+std_t c_array_std_int(const int* arr, int size, mean_t mean);
 
-std_t c_array_std_uint(unsigned int* arr, int size, mean_t mean);
+std_t c_array_std_uint(const unsigned int* arr, int size, mean_t mean);
 
-std_t c_array_std_long(long* arr, int size, mean_t mean);
+std_t c_array_std_long(const long* arr, int size, mean_t mean);
 
-std_t c_array_std_ulong(unsigned long* arr, int size, mean_t mean);
+std_t c_array_std_ulong(const unsigned long* arr, int size, mean_t mean);
 
-std_t c_array_std_long_long(long long* arr, int size, mean_t mean);
+std_t c_array_std_long_long(const long long* arr, int size, mean_t mean);
 
-std_t c_array_std_float(float* arr, int size, mean_t mean);
+std_t c_array_std_float(const float* arr, int size, mean_t mean);
 
-std_t c_array_std_double(double* arr, int size, mean_t mean);
+std_t c_array_std_double(const double* arr, int size, mean_t mean);
 
-std_t c_array_std_long_double(long double* arr, int size, mean_t mean);
+std_t c_array_std_long_double(const long double* arr, int size, mean_t mean);
 
 /* -------------------------------------------------------------------- */
 /*                          Array Min and Max                           */
@@ -770,25 +770,25 @@ typedef c_matrix(long double) c_matrix_ldouble;
         }                                                               \
     } while(0)
 
-c_array_short c_matrix_flatten_short(c_matrix_short* mat);
+c_array_short c_matrix_flatten_short(const c_matrix_short* mat);
 
-c_array_ushort c_matrix_flatten_ushort(c_matrix_ushort* mat);
+c_array_ushort c_matrix_flatten_ushort(const c_matrix_ushort* mat);
 
-c_array_int c_matrix_flatten_int(c_matrix_int* mat);
+c_array_int c_matrix_flatten_int(const c_matrix_int* mat);
 
-c_array_uint c_matrix_flatten_uint(c_matrix_uint* mat);
+c_array_uint c_matrix_flatten_uint(const c_matrix_uint* mat);
 
-c_array_long c_matrix_flatten_long(c_matrix_long* mat);
+c_array_long c_matrix_flatten_long(const c_matrix_long* mat);
 
-c_array_long_long c_matrix_flatten_long_long(c_matrix_long_long* mat);
+c_array_long_long c_matrix_flatten_long_long(const c_matrix_long_long* mat);
 
-c_array_ulong c_matrix_flatten_ulong(c_matrix_ulong* mat);
+c_array_ulong c_matrix_flatten_ulong(const c_matrix_ulong* mat);
 
-c_array_float c_matrix_flatten_float(c_matrix_float* mat);
+c_array_float c_matrix_flatten_float(const c_matrix_float* mat);
 
-c_array_double c_matrix_flatten_double(c_matrix_double* mat);
+c_array_double c_matrix_flatten_double(const c_matrix_double* mat);
 
-c_array_ldouble c_matrix_flatten_ldouble(c_matrix_ldouble* mat);
+c_array_ldouble c_matrix_flatten_ldouble(const c_matrix_ldouble* mat);
 
 /* -------------------------------------------------------------------- */
 /*                            Matrix utils                              */
