@@ -176,6 +176,7 @@ int main() {
     c_array(int) arr;  // You can use this method to declare array, but it can't be used in other function which need to declare the dtype.
     c_array_int array; // This is the dtype of c_array(int). You can use this in any function which need to declare dtype like void foo(c_array_int array, int num);
     c_array_init(&arr, 10); // arr[0] ~ arr[9] will be initialized with 0
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -198,6 +199,7 @@ int main() {
     c_array_int arr_new;  // declare arr_new without initialize.
     c_array_copy(&arr, &arr_new); // copy the memory from arr to arr_new
     c_array_print(arr_new, "%d"); // arr_new = [7, 8, 9], size and capacity are also equals to arr
+    c_array_free(&arr); // free memory
 
     return 0;
 }
@@ -220,6 +222,7 @@ int main() {
     // Get these attributes by struct
     size = arr.size;
     capacity = arr.capacity;
+    c_array_free(&arr);
     return 0;
 }
 ```
@@ -241,6 +244,7 @@ int main() {
 
     // Assign value in struct directly
     arr.data[0] = -150; // warning: this method didn't check if the memory is allocated.
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -263,6 +267,7 @@ int main() {
     c_array_init(&arr, 0); // capacity and size are both 0 now
     c_array_resize(&arr, 10); // capacity become 10 and size remain 0.
     c_array_set_size(&arr, 8); // capacity is 10 and size is 8 (element will initialize with 0)
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -281,6 +286,7 @@ int main() {
     c_array_push_back(&arr, 1); // capacity and size is 1 now
     c_array_push_back(&arr, 2); // capacity and size is 2 now
     c_array_push_back(&arr, 3); // capacity is 4 and size is 3 now
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -299,6 +305,7 @@ int main() {
     c_array_push_back(&arr, 2);
     c_array_push_back(&arr, 3); // arr = [1, 2, 3]
     c_array_pop_back(&arr);     // arr = [1, 2]
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -323,6 +330,7 @@ int main() {
     c_array_push_back(&arr, 2);
     c_array_push_back(&arr, 3);  // arr = [1, 2, 3]
     c_array_insert(&arr, 1, 99); // arr = [1, 99, 2, 3]
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -342,6 +350,7 @@ int main() {
     c_array_push_back(&arr, 2);
     c_array_push_back(&arr, 3); // arr = [1, 2, 3]
     c_array_remove(&arr, 1);    // arr = [1, 3]
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -365,6 +374,8 @@ int main() {
 
     c_array_print(arr_print_test); // Default format like %d %lld %f %lf. You can add more format in c_array_autoformat macro
     // Results shows: arr_print_test = [1, 2, 3]
+
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -381,6 +392,7 @@ int main() {
     c_array_int arr;
     c_array(&arr, 0);
     int e = c_array_empty(&arr); // e = 1
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -401,6 +413,7 @@ int main() {
     c_array_push_back(&arr, 2);
     c_array_push_back(&arr, 3); // arr = [1, 2, 3]
     c_array_swap(&arr, 0, 1);   // arr = [2, 1, 3]
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -419,6 +432,7 @@ int main() {
     c_array_push_back(&arr, 2);
     c_array_push_back(&arr, 3); // arr = [1, 2, 3]
     c_array_reverse(&arr);      // arr = [3, 2, 1]
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -443,6 +457,8 @@ int main() {
 
     c_array_concat(&arr1, &arr2); // arr1 = [1, 2, 9, -45], arr2 = [9, -45]
 
+    c_array_free(&arr); // free memory
+    c_array_free(&arr2); // free memory
     return 0;
 }
 ```
@@ -481,6 +497,7 @@ int main() {
     c_array_push_back(&arr, -91);
     c_array_push_back(&arr, 1); // arr = [-2, 2, 99, -91, 1]
     c_array_msort(&arr); // arr = [-91, -2, 1, 2, 99]
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -500,6 +517,7 @@ int main() {
     c_array_push_back(&arr, 2);
     c_array_push_back(&arr, 3);
     int sum = c_array_sum(&arr); // sum = 6
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -520,6 +538,7 @@ int main() {
     c_array_push_back(&arr, 3);
     int max = c_array_max(&arr); // max = 3
     int min = c_array_min(&arr); // min = 1
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -539,6 +558,7 @@ int main() {
     c_array_push_back(&arr, 2);
     c_array_push_back(&arr, 3);
     mean_t mean = c_arry_mean(&arr); // mean = 2
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -559,6 +579,7 @@ int main() {
     c_array_push_back(&arr, 3);
     std_t std = c_array_std(&arr); // std = 0.8164
     var_t var = c_array_var(&arr); // var =  0.6667
+    c_array_free(&arr); // free memory
     return 0;
 }
 ```
@@ -711,6 +732,7 @@ int main() {
     mt19937_init(&state, 12345);
     c_array_double array;
     c_array_randnormal(&array, 10, &state);
+    c_array_free(&array); // free memory
     return 0;
 }
 ```
@@ -730,6 +752,88 @@ int main() {
     c_array_double array;
     double num = random_normal(&state);
     c_array_rand_range(&arr, c, mt19937_get_int32_range(&state, -5, 20))
+    c_array_free(&array); // free memory
+    return 0;
+}
+```
+
+----
+### `c_matrix_init(mat, rows, cols)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+`rows`: number of rows -> (**int**)<br>
+`cols`: number of cols -> (**int**)<br>
+
+Initialize c_matrix with given rows and cols.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
+
+----
+### `c_matrix_assign(mat, rows, cols, val)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+`rows`: number of rows -> (**int**)<br>
+`cols`: number of cols -> (**int**)<br>
+`val`: value -> (**int, long long, float, double etc..**)<br>
+
+Assign given value at given row and col.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    c_matrix_assign(&mat, 2, 2, 10);
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
+
+----
+### `c_matrix_print(mat)` & `c_matrix_printf(mat, format)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+`format`: format specifier -> (**char\***)<br>
+
+Print matirx with clean style.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i + j;
+        }
+    }
+
+    c_matrix_print(mat);
+    c_matrix_printf(mat, "%d");
+
+    c_array_free(&arr); // free memory
+    return 0;
+}
+```
+
+----
+### `c_matrix_free(mat)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+
+Free memory
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i + j;
+        }
+    }
+    c_matrix_free(&mat); // free memory
     return 0;
 }
 ```
@@ -751,6 +855,7 @@ int main() {
         }
     }
     c_array_int arr = c_matrix_flatten(&mat);
+    c_matrix_free(&mat); // free memory
     return 0;
 }
 ```
