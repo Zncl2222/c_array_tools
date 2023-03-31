@@ -758,6 +758,87 @@ int main() {
 ```
 
 ----
+### `c_matrix_init(mat, rows, cols)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+`rows`: number of rows -> (**int**)<br>
+`cols`: number of cols -> (**int**)<br>
+
+Initialize c_matrix with given rows and cols.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
+
+----
+### `c_matrix_assign(mat, rows, cols, val)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+`rows`: number of rows -> (**int**)<br>
+`cols`: number of cols -> (**int**)<br>
+`val`: value -> (**int, long long, float, double etc..**)<br>
+
+Assign given value at given row and col.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    c_matrix_assign(&mat, 2, 2, 10);
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
+
+----
+### `c_matrix_print(mat)` & `c_matrix_printf(mat, format)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+`format`: format specifier -> (**char\***)<br>
+
+Print matirx with clean style.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i + j;
+        }
+    }
+
+    c_matrix_print(mat);
+    c_matrix_printf(mat, "%d");
+
+    c_array_free(&arr); // free memory
+    return 0;
+}
+```
+
+----
+### `c_matrix_free(mat)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+
+Free memory
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i + j;
+        }
+    }
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
+
+----
 ### `c_matrix_flatten(mat)`
 - params:<br>
 `mat`: c_matrix structure -> (**c_matrix**)<br>
