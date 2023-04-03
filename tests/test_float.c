@@ -539,6 +539,26 @@ UTEST(test, c_matrix_init) {
     c_matrix_free(&f_mat);
 }
 
+UTEST(test, c_array_matrix_form) {
+    c_array_float arr;
+    c_array_init(&arr, 10);
+
+    for (int i = 0; i < arr.size; i++) {
+        arr.data[i] = i;
+    }
+    c_matrix_float mat = c_array_matrix_form(&arr, 2);
+    ASSERT_EQ(mat.rows, 2);
+    ASSERT_EQ(mat.cols, 5);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            ASSERT_NEAR(mat.data[i][j], i * mat.cols + j, 0.01f);
+        }
+    }
+
+    c_matrix_free(&mat);
+    c_array_free(&arr);
+}
+
 UTEST(test, c_matrix_flatten) {
     c_matrix_float mat;
     c_matrix_init(&mat, 10, 6);
