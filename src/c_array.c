@@ -345,6 +345,78 @@ int cmpfunc_long_double(const void* a, const void* b) {
 }
 
 /* -------------------------------------------------------------------- */
+/*                          Matrix Form                                 */
+
+c_matrix_short c_array_matrix_form_short(const c_array_short* arr, int n_row){
+    c_matrix_short mat;
+    c_array_matrix_form_init(arr, &mat, n_row);
+    c_array_matrix_form_process(&mat, arr);
+    return mat;
+}
+
+c_matrix_ushort c_array_matrix_form_ushort(const c_array_ushort* arr, int n_row){
+    c_matrix_ushort mat;
+    c_array_matrix_form_init(arr, &mat, n_row);
+    c_array_matrix_form_process(&mat, arr);
+    return mat;
+}
+
+c_matrix_int c_array_matrix_form_int(const c_array_int* arr, int n_row){
+    c_matrix_int mat;
+    c_array_matrix_form_init(arr, &mat, n_row);
+    return mat;
+}
+
+c_matrix_uint c_array_matrix_form_uint(const c_array_uint* arr, int n_row){
+    c_matrix_uint mat;
+    c_array_matrix_form_init(arr, &mat, n_row);
+    c_array_matrix_form_process(&mat, arr);
+    return mat;
+}
+
+c_matrix_long c_array_matrix_form_long(const c_array_long* arr, int n_row){
+    c_matrix_long mat;
+    c_array_matrix_form_init(arr, &mat, n_row);
+    c_array_matrix_form_process(&mat, arr);
+    return mat;
+}
+
+c_matrix_long_long c_array_matrix_form_long_long(const c_array_long_long* arr, int n_row){
+    c_matrix_long_long mat;
+    c_array_matrix_form_init(arr, &mat, n_row);
+    c_array_matrix_form_process(&mat, arr);
+    return mat;
+}
+
+c_matrix_ulong c_array_matrix_form_ulong(const c_array_ulong* arr, int n_row){
+    c_matrix_ulong mat;
+    c_array_matrix_form_init(arr, &mat, n_row);
+    c_array_matrix_form_process(&mat, arr);
+    return mat;
+}
+
+c_matrix_float c_array_matrix_form_float(const c_array_float* arr, int n_row){
+    c_matrix_float mat;
+    c_array_matrix_form_init(arr, &mat, n_row);
+    c_array_matrix_form_process(&mat, arr);
+    return mat;
+}
+
+c_matrix_double c_array_matrix_form_double(const c_array_double* arr, int n_row){
+    c_matrix_double mat;
+    c_array_matrix_form_init(arr, &mat, n_row);
+    c_array_matrix_form_process(&mat, arr);
+    return mat;
+}
+
+c_matrix_ldouble c_array_matrix_form_ldouble(const c_array_ldouble* arr, int n_row){
+    c_matrix_ldouble mat;
+    c_array_matrix_form_init(arr, &mat, n_row);
+    c_array_matrix_form_process(&mat, arr);
+    return mat;
+}
+
+/* -------------------------------------------------------------------- */
 /*                         Matrix Flatten                               */
 
 c_array_short c_matrix_flatten_short(const c_matrix_short* mat) {
