@@ -839,6 +839,28 @@ int main() {
 ```
 
 ----
+### `c_array_matrix_form(arr, n_row)`
+- params:<br>
+`arr`: c_matrix structure -> (**c_array**)<br>
+`n_row`: number of rows -> (**int**)<br>
+- return: `c_matrix` -> (**c_matrix**)<br>
+
+Reshape array to matrix with given row numbers.
+```C
+int main() {
+    c_array_int arr;
+    c_matrix_init(&mat, 20);
+    for (int i = 0; i < arr.size; i++) {
+        arr.data[i] = i;
+    }
+    c_matrix_int mat = c_array_matrix_form(&arr, 4); // mat.rows = 4, mat.cols = 5
+    c_array_free(&arr);
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
+
+----
 ### `c_matrix_flatten(mat)`
 - params:<br>
 `mat`: c_matrix structure -> (**c_matrix**)<br>

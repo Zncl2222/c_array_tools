@@ -364,6 +364,7 @@ c_matrix_ushort c_array_matrix_form_ushort(const c_array_ushort* arr, int n_row)
 c_matrix_int c_array_matrix_form_int(const c_array_int* arr, int n_row){
     c_matrix_int mat;
     c_array_matrix_form_init(arr, &mat, n_row);
+    c_array_matrix_form_process(&mat, arr);
     return mat;
 }
 
