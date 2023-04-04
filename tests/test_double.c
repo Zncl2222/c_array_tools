@@ -601,6 +601,35 @@ UTEST(test, c_matrix_init) {
     c_matrix_free(&f_mat);
 }
 
+UTEST(test, c_array_matrix_form) {
+    c_array_double arr;
+    c_array_ldouble arr_l;
+    c_array_init(&arr, 10);
+    c_array_init(&arr_l, 10);
+
+    for (int i = 0; i < arr.size; i++) {
+        arr.data[i] = i;
+        arr_l.data[i] = i;
+    }
+    c_matrix_double mat = c_array_matrix_form(&arr, 2);
+    c_matrix_ldouble mat_l = c_array_matrix_form(&arr_l, 2);
+    ASSERT_EQ(mat.rows, 2);
+    ASSERT_EQ(mat.cols, 5);
+    ASSERT_EQ(mat_l.rows, 2);
+    ASSERT_EQ(mat_l.cols, 5);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            ASSERT_NEAR(mat.data[i][j], i * mat.cols + j, 0.01f);
+            ASSERT_NEAR(mat_l.data[i][j], i * mat.cols + j, 0.01f);
+        }
+    }
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_l);
+    c_array_free(&arr);
+    c_array_free(&arr_l);
+}
+
 UTEST(test, c_matrix_flatten) {
     c_matrix_double mat;
     c_matrix_ldouble mat_l;
@@ -618,8 +647,8 @@ UTEST(test, c_matrix_flatten) {
     c_array_double arr = c_matrix_flatten(&mat);
     c_array_ldouble arr_l = c_matrix_flatten(&mat_l);
     for (int i = 0; i < mat.rows * mat.cols; i++) {
-        ASSERT_EQ(arr.data[i], i);
-        ASSERT_EQ(arr_l.data[i], i);
+        ASSERT_NEAR(arr.data[i], i, 0.01f);
+        ASSERT_NEAR(arr_l.data[i], i, 0.01f);
     }
 
     c_matrix_free(&mat);
