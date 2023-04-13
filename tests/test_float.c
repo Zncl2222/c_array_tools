@@ -578,6 +578,24 @@ UTEST(test, c_matrix_flatten) {
     c_array_free(&arr);
 }
 
+UTEST(test, c_matrix_reshape) {
+    c_matrix_float mat;
+    c_matrix_init(&mat, 10, 6);
+    ASSERT_EQ(mat.rows, 10);
+    ASSERT_EQ(mat.cols, 6);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i * mat.cols + j;
+        }
+    }
+    c_matrix_float mat2 = c_matrix_reshape(&mat, 6, 10);
+    ASSERT_EQ(mat2.rows, 6);
+    ASSERT_EQ(mat2.cols, 10);
+
+    c_matrix_free(&mat2);
+}
+
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_float mat;
 

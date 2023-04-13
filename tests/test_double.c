@@ -657,6 +657,32 @@ UTEST(test, c_matrix_flatten) {
     c_array_free(&arr_l);
 }
 
+UTEST(test, c_matrix_reshape) {
+    c_matrix_double mat;
+    c_matrix_ldouble mat_l;
+    c_matrix_init(&mat, 10, 6);
+    c_matrix_init(&mat_l, 10, 6);
+    ASSERT_EQ(mat.rows, 10);
+    ASSERT_EQ(mat.cols, 6);
+    ASSERT_EQ(mat_l.rows, 10);
+    ASSERT_EQ(mat_l.cols, 6);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i * mat.cols + j;
+            mat_l.data[i][j] = i * mat.cols + j;
+        }
+    }
+    c_matrix_double mat2 = c_matrix_reshape(&mat, 6, 10);
+    c_matrix_ldouble mat2_l = c_matrix_reshape(&mat_l, 6, 10);
+    ASSERT_EQ(mat2.rows, 6);
+    ASSERT_EQ(mat2.cols, 10);
+    ASSERT_EQ(mat2_l.rows, 6);
+    ASSERT_EQ(mat2_l.cols, 10);
+
+    c_matrix_free(&mat2);
+    c_matrix_free(&mat2_l);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_double mat;
 

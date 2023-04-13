@@ -489,3 +489,76 @@ c_array_ldouble c_matrix_flatten_ldouble(const c_matrix_ldouble* mat) {
     c_matrix_flatten_process(mat, &arr);
     return arr;
 }
+
+/* -------------------------------------------------------------------- */
+/*                          Matrix Reshape                              */
+
+c_matrix_short c_matrix_reshape_short(c_matrix_short* mat, int n_row, int n_col){
+    c_matrix_short mat_new;
+    c_matrix_reshape_init(mat, &mat_new, n_row, n_col);
+    c_matrix_reshape_process(mat, &mat_new, n_row, n_col);
+    return mat_new;
+}
+
+c_matrix_ushort c_matrix_reshape_ushort(c_matrix_ushort* mat, int n_row, int n_col){
+    c_matrix_ushort mat_new;
+    c_matrix_reshape_init(mat, &mat_new, n_row, n_col);
+    c_matrix_reshape_process(mat, &mat_new, n_row, n_col);
+    return mat_new;
+}
+
+c_matrix_int c_matrix_reshape_int(c_matrix_int* mat, int n_row, int n_col){
+    c_matrix_int mat_new;
+    c_matrix_reshape_init(mat, &mat_new, n_row, n_col);
+    c_matrix_reshape_process(mat, &mat_new, n_row, n_col);
+    return mat_new;
+}
+
+c_matrix_uint c_matrix_reshape_uint(c_matrix_uint* mat, int n_row, int n_col){
+    c_matrix_uint mat_new;
+    c_matrix_reshape_init(mat, &mat_new, n_row, n_col);
+    c_matrix_reshape_process(mat, &mat_new, n_row, n_col);
+    return mat_new;
+}
+
+c_matrix_long c_matrix_reshape_long(c_matrix_long* mat, int n_row, int n_col){
+    c_matrix_long mat_new;
+    c_matrix_reshape_init(mat, &mat_new, n_row, n_col);
+    c_matrix_reshape_process(mat, &mat_new, n_row, n_col);
+    return mat_new;
+}
+
+c_matrix_long_long c_matrix_reshape_long_long(c_matrix_long_long* mat, int n_row, int n_col){
+    c_matrix_long_long mat_new;
+    c_matrix_reshape_init(mat, &mat_new, n_row, n_col);
+    c_matrix_reshape_process(mat, &mat_new, n_row, n_col);
+    return mat_new;
+}
+
+c_matrix_ulong c_matrix_reshape_ulong(c_matrix_ulong* mat, int n_row, int n_col){
+    c_matrix_ulong mat_new;
+    c_matrix_reshape_init(mat, &mat_new, n_row, n_col);
+    c_matrix_reshape_process(mat, &mat_new, n_row, n_col);
+    return mat_new;
+}
+
+c_matrix_float c_matrix_reshape_float(c_matrix_float* mat, int n_row, int n_col){
+    c_matrix_float mat_new;
+    c_matrix_reshape_init(mat, &mat_new, n_row, n_col);
+    c_matrix_reshape_process(mat, &mat_new, n_row, n_col);
+    return mat_new;
+}
+
+c_matrix_double c_matrix_reshape_double(c_matrix_double* mat, int n_row, int n_col){
+    c_matrix_double mat_new;
+    c_matrix_reshape_init(mat, &mat_new, n_row, n_col);
+    c_matrix_reshape_process(mat, &mat_new, n_row, n_col);
+    return mat_new;
+}
+
+c_matrix_ldouble c_matrix_reshape_ldouble(c_matrix_ldouble* mat, int n_row, int n_col){
+    c_matrix_ldouble mat_new;
+    c_matrix_reshape_init(mat, &mat_new, n_row, n_col);
+    c_matrix_reshape_process(mat, &mat_new, n_row, n_col);
+    return mat_new;
+}

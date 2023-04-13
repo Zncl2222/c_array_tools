@@ -844,6 +844,61 @@ c_array_double c_matrix_flatten_double(const c_matrix_double* mat);
 c_array_ldouble c_matrix_flatten_ldouble(const c_matrix_ldouble* mat);
 
 /* -------------------------------------------------------------------- */
+/*                          Matrix Reshape                              */
+# define c_matrix_reshape(mat, row, col)            \
+    _Generic((mat)->data,                           \
+        short**: c_matrix_reshape_short,            \
+        unsigned short**: c_matrix_reshape_ushort,  \
+        int**: c_matrix_reshape_int,                \
+        unsigned int**: c_matrix_reshape_uint,      \
+        long**: c_matrix_reshape_long,              \
+        unsigned long**: c_matrix_reshape_ulong,    \
+        long long**: c_matrix_reshape_long_long,    \
+        float**: c_matrix_reshape_float,            \
+        double**: c_matrix_reshape_double,          \
+        long double**: c_matrix_reshape_ldouble     \
+    )((mat), (row), (col))
+
+# define c_matrix_reshape_init(mat_old, mat_new, row, col)                              \
+    do {                                                                                \
+        int matsize = (mat_old)->rows * (mat_old)->cols;                                \
+        if (matsize != (row) * (col)                                                    \
+            || ((mat_old)->rows == (row) && (mat_old)->cols == (col))) {                \
+            c_array_error("Matrix can't reshape to the target shape.\n");               \
+        }                                                                               \
+        c_matrix_init((mat_new), (row), (col));                                         \
+    } while (0)
+
+# define c_matrix_reshape_process(mat_old, mat_new, row, col)               \
+    do {                                                                    \
+        for (int i = 0; i < (row) * (col); i++) {                           \
+            (mat_new)->data[i / (col)][i % (col)] =                         \
+                (mat_old)->data[i / (mat_old)->cols][i % (mat_old)->cols];  \
+        }                                                                   \
+        c_matrix_free(mat_old);                                             \
+    } while (0)
+
+c_matrix_short c_matrix_reshape_short(c_matrix_short* mat, int row, int col);
+
+c_matrix_ushort c_matrix_reshape_ushort(c_matrix_ushort* mat, int row, int col);
+
+c_matrix_int c_matrix_reshape_int(c_matrix_int* mat, int row, int col);
+
+c_matrix_uint c_matrix_reshape_uint(c_matrix_uint* mat, int row, int col);
+
+c_matrix_long c_matrix_reshape_long(c_matrix_long* mat, int row, int col);
+
+c_matrix_long_long c_matrix_reshape_long_long(c_matrix_long_long* mat, int row, int col);
+
+c_matrix_ulong c_matrix_reshape_ulong(c_matrix_ulong* mat, int row, int col);
+
+c_matrix_float c_matrix_reshape_float(c_matrix_float* mat, int row, int col);
+
+c_matrix_double c_matrix_reshape_double(c_matrix_double* mat, int row, int col);
+
+c_matrix_ldouble c_matrix_reshape_ldouble(c_matrix_ldouble* mat, int row, int col);
+
+/* -------------------------------------------------------------------- */
 /*                            Matrix utils                              */
 
 # define c_matrix_print(mat)                                                \
