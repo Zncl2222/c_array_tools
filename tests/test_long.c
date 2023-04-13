@@ -732,6 +732,41 @@ UTEST(test, c_matrix_flatten) {
     c_array_free(&arr_ul);
 }
 
+UTEST(test, c_matrix_reshape) {
+    c_matrix_long mat;
+    c_matrix_long_long mat_ll;
+    c_matrix_ulong mat_u;
+    c_matrix_init(&mat, 10, 6);
+    c_matrix_init(&mat_ll, 10, 6);
+    c_matrix_init(&mat_u, 10, 6);
+    ASSERT_EQ(mat.rows, 10);
+    ASSERT_EQ(mat.cols, 6);
+    ASSERT_EQ(mat_ll.rows, 10);
+    ASSERT_EQ(mat_ll.cols, 6);
+    ASSERT_EQ(mat_u.rows, 10);
+    ASSERT_EQ(mat_u.cols, 6);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i * mat.cols + j;
+            mat_ll.data[i][j] = i * mat.cols + j;
+            mat_u.data[i][j] = i * mat.cols + j;
+        }
+    }
+    c_matrix_long mat2 = c_matrix_reshape(&mat, 6, 10);
+    c_matrix_long_long mat2_ll = c_matrix_reshape(&mat_ll, 6, 10);
+    c_matrix_ulong mat2_u = c_matrix_reshape(&mat_u, 6, 10);
+    ASSERT_EQ(mat2.rows, 6);
+    ASSERT_EQ(mat2.cols, 10);
+    ASSERT_EQ(mat2_u.rows, 6);
+    ASSERT_EQ(mat2_u.cols, 10);
+    ASSERT_EQ(mat2_ll.rows, 6);
+    ASSERT_EQ(mat2_ll.cols, 10);
+
+    c_matrix_free(&mat2);
+    c_matrix_free(&mat2_ll);
+    c_matrix_free(&mat2_u);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_long mat;
 
