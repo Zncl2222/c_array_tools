@@ -23,6 +23,25 @@ UTEST(test, c_array_init) {
     ASSERT_TRUE(arr2.capacity == 20);
     ASSERT_TRUE(arr2.size == 20);
 
+    for (int i = 0; i < arr2.size; i++) {
+        ASSERT_EQ(arr2.data[i], 0);
+    }
+
+    c_array_free(&arr);
+    c_array_free(&arr2);
+}
+
+UTEST(test, c_array_empty_init) {
+    c_array_int arr;
+    c_array_empty_init(&arr, 0);
+    ASSERT_TRUE(arr.capacity == 0);
+    ASSERT_TRUE(arr.size == 0);
+
+    c_array_int arr2;
+    c_array_empty_init(&arr2, 20);
+    ASSERT_TRUE(arr2.capacity == 20);
+    ASSERT_TRUE(arr2.size == 20);
+
     c_array_free(&arr);
     c_array_free(&arr2);
 }
