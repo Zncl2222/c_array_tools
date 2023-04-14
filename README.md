@@ -183,6 +183,24 @@ int main() {
 ```
 
 ----
+### `c_array_empty_init(arr, c)`
+- params:<br>
+`T`: the data type of the array -> (**int, long long, float, double etc..**)<br>
+`arr`: c_array structure -> (**c_array**)<br>
+`c`: the capacity for init -> (**size_t**)<br>
+
+Allocate memory of the array with the given size & capacity (No initialize value).
+```C
+int main() {
+    c_array(int) arr;  // You can use this method to declare array, but it can't be used in other function which need to declare the dtype.
+    c_array_int array; // This is the dtype of c_array(int). You can use this in any function which need to declare dtype like void foo(c_array_int array, int num);
+    c_array_init(&arr, 10); // arr[0] ~ arr[9] will be initialized with 0
+    c_array_free(&arr); // free memory
+    return 0;
+}
+```
+
+----
 ### `c_array_copy(arr1, arr2)`
 - params:<br>
 `arr1`: c_array structure you want to copy -> (**c_array**)<br>
@@ -769,7 +787,24 @@ Initialize c_matrix with given rows and cols.
 ```C
 int main() {
     c_matrix_int mat;
-    c_matrix_init(&mat, 2, 2);
+    c_matrix_init(&mat, 2, 2); // matrix will init with value = 0
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
+
+----
+### `c_matrix_empty_init(mat, rows, cols)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+`rows`: number of rows -> (**int**)<br>
+`cols`: number of cols -> (**int**)<br>
+
+Allocate memory of the matrix with given rows and cols (No initialize value).
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_empty_init(&mat, 2, 2);
     c_matrix_free(&mat); // free memory
     return 0;
 }

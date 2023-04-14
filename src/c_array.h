@@ -36,6 +36,14 @@ typedef double var_t;
         (arr)->data = calloc((c), sizeof(x));                            \
     } while (0)
 
+# define c_array_empty_init(arr, c)                                      \
+    do {                                                                 \
+        typeof(*((arr)->data)) x;                                        \
+        (arr)->size = (c);                                               \
+        (arr)->capacity = (c);                                           \
+        (arr)->data = malloc((c) * sizeof(x));                           \
+    } while (0)
+
 # define c_array_copy(arr1, arr2)                                                                \
     do {                                                                                         \
         char* dtype_arr1 = c_array_dtype(arr1);                                                  \
@@ -686,6 +694,26 @@ long double c_array_min_long_double(long double* arr, int size);
 # define c_matrix(T) struct { T** data; size_t rows; size_t cols; }
 
 # define c_matrix_init(mat, r, c)                                           \
+    do{                                                                     \
+        typeof(**((mat)->data)) m;                                          \
+        typeof(*((mat)->data)) n;                                           \
+        (mat)->rows = (r);                                                  \
+        (mat)->cols = (c);                                                  \
+        (mat)->data = calloc((r), sizeof(n));                               \
+        if ((mat)->data == NULL) {                                          \
+            c_array_error(                                                  \
+                "Failed to allocate memory for matrix data (row)");         \
+        }                                                                   \
+        for (int i = 0; i < (r); i++) {                                     \
+            (mat)->data[i] = calloc((c), sizeof(m));                        \
+            if ((mat)->data[i] == NULL) {                                   \
+                c_array_error(                                              \
+                    "Failed to allocate memory for matrix data (col)");     \
+            }                                                               \
+        }                                                                   \
+    } while (0)
+
+# define c_matrix_empty_init(mat, r, c)                                     \
     do{                                                                     \
         typeof(**((mat)->data)) m;                                          \
         typeof(*((mat)->data)) n;                                           \
