@@ -623,7 +623,17 @@ long double c_array_min_long_double(long double* arr, int size);
         long long*: "long long",            \
         float*: "float",                    \
         double*: "double",                  \
-        long double*: "long double"         \
+        long double*: "long double",        \
+        short**: "short",                   \
+        unsigned short**: "unsigned short", \
+        int**: "int",                       \
+        unsigned int**: "unsigned int",     \
+        long**: "long",                     \
+        unsigned long**: "unsigned long",   \
+        long long**: "long long",           \
+        float**: "float",                   \
+        double**: "double",                 \
+        long double**: "long double"        \
     )
 
 # define c_array_print(arr)                                         \
@@ -731,6 +741,29 @@ long double c_array_min_long_double(long double* arr, int size);
                     "Failed to allocate memory for matrix data (col)");     \
             }                                                               \
         }                                                                   \
+    } while (0)
+
+# define c_matrix_copy(mat_old, mat_new)                                                            \
+    do {                                                                                            \
+        char* dtype_mat1 = c_array_dtype(mat_old);                                                  \
+        char* dtype_mat2 = c_array_dtype(mat_new);                                                  \
+        if (dtype_mat1 != dtype_mat2) {                                                             \
+            c_array_error("dtype of two arrays are different");                                     \
+        }                                                                                           \
+        (mat_new)->rows = (mat_old)->rows;                                                          \
+        (mat_new)->cols = (mat_old)->cols;                                                          \
+        (mat_new)->data = malloc((mat_old)->rows * sizeof(typeof(*(mat_old)->data)));               \
+        if ((mat_new)->data == NULL) {                                                              \
+            c_array_error("failed to allocate memory in c_matrix_copy");                            \
+        }                                                                                           \
+        for (int i = 0; i < (mat_old)->rows; i++) {                                                 \
+            (mat_new)->data[i] = malloc((mat_old)->cols * sizeof(typeof(*(mat_old)->data[i])));     \
+            memcpy(                                                                                 \
+                (mat_new)->data[i],                                                                 \
+                (mat_old)->data[i],                                                                 \
+                (mat_new)->cols * sizeof(typeof(*(mat_new)->data[i]))                               \
+            );                                                                                      \
+        }                                                                                           \
     } while (0)
 
 typedef c_matrix(short) c_matrix_short;

@@ -794,6 +794,25 @@ int main() {
 ```
 
 ----
+### `c_matrix_copy(mat_old, mat_new)`
+- params:<br>
+`mat_old`: c_matrix structure to be copied -> (**c_matrix**)<br>
+`mat_new`: The new clone of c_matrix structure -> (**c_matrix**)<br>
+
+Copy memory of mat_old to mat_new.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_int mat_new;
+    c_matrix_init(&mat, 4, 5);
+    c_matrix_copy(&mat, &mat_new); // mat_new row = 4, mat_new col = 5
+    c_matrix_free(&mat); // free memory
+    c_matrix_free(&mat_new);
+    return 0;
+}
+```
+
+----
 ### `c_matrix_empty_init(mat, rows, cols)`
 - params:<br>
 `mat`: c_matrix structure -> (**c_matrix**)<br>

@@ -592,6 +592,35 @@ UTEST(test, c_matrix_init) {
     c_matrix_free(&mat);
 }
 
+UTEST(test, c_matrix_copy) {
+    c_matrix_int mat1;
+    c_matrix_int mat2;
+    c_matrix_uint mat_u1;
+    c_matrix_uint mat_u2;
+    c_matrix_init(&mat1, 5, 10);
+    c_matrix_init(&mat_u1, 5, 10);
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 10; j++) {
+            mat1.data[i][j] = i + j;
+            mat_u1.data[i][j] = i + j;
+        }
+    }
+    c_matrix_copy(&mat1, &mat2);
+    c_matrix_copy(&mat_u1, &mat_u2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 10; j++) {
+            ASSERT_EQ(mat1.data[i][j], mat2.data[i][j]);
+            ASSERT_EQ(mat_u1.data[i][j], mat_u2.data[i][j]);
+        }
+    }
+
+    c_matrix_free(&mat1);
+    c_matrix_free(&mat2);
+    c_matrix_free(&mat_u1);
+    c_matrix_free(&mat_u2);
+}
+
 UTEST(test, c_array_matrix_form) {
     c_array_int arr;
     c_array_uint arr_l;
