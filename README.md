@@ -201,10 +201,10 @@ int main() {
 ```
 
 ----
-### `c_array_copy(arr1, arr2)`
+### `c_array_copy(arr_old, arr_new)`
 - params:<br>
-`arr1`: c_array structure you want to copy -> (**c_array**)<br>
-`arr2`: new c_array structure -> (**c_array**)<br>
+`arr_old`: c_array structure you want to copy -> (**c_array**)<br>
+`arr_new`: new c_array structure -> (**c_array**)<br>
 
 Copy an array to the target arry.
 ```C
