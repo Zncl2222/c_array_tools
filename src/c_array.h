@@ -44,20 +44,20 @@ typedef double var_t;
         (arr)->data = malloc((c) * sizeof(x));                           \
     } while (0)
 
-# define c_array_copy(arr1, arr2)                                                                \
-    do {                                                                                         \
-        char* dtype_arr1 = c_array_dtype(arr1);                                                  \
-        char* dtype_arr2 = c_array_dtype(arr2);                                                  \
-        if (dtype_arr1 != dtype_arr2) {                                                          \
-            c_array_error("dtype of two arrays are different");                                  \
-        }                                                                                        \
-        (arr2)->size = (arr1)->size;                                                             \
-        (arr2)->capacity = (arr1)->capacity;                                                     \
-        (arr2)->data = malloc((arr2)->capacity * sizeof(typeof(*(arr2)->data)));                 \
-        if ((arr2)->data == NULL) {                                                              \
-            c_array_error("failed to allocate memory in c_array_copy");                          \
-        }                                                                                        \
-        memcpy((arr2)->data, (arr1)->data, (arr2)->capacity * sizeof(typeof(*(arr2)->data)));    \
+# define c_array_copy(arr_old, arr_new)                                                                     \
+    do {                                                                                                    \
+        char* dtype_arr1 = c_array_dtype(arr_old);                                                          \
+        char* dtype_arr2 = c_array_dtype(arr_new);                                                          \
+        if (dtype_arr1 != dtype_arr2) {                                                                     \
+            c_array_error("dtype of two arrays are different");                                             \
+        }                                                                                                   \
+        (arr_new)->size = (arr_old)->size;                                                                  \
+        (arr_new)->capacity = (arr_old)->capacity;                                                          \
+        (arr_new)->data = malloc((arr_new)->capacity * sizeof(typeof(*(arr_new)->data)));                   \
+        if ((arr_new)->data == NULL) {                                                                      \
+            c_array_error("failed to allocate memory in c_array_copy");                                     \
+        }                                                                                                   \
+        memcpy((arr_new)->data, (arr_old)->data, (arr_new)->capacity * sizeof(typeof(*(arr_new)->data)));   \
     } while (0)
 
 /* c_array_mt.c is necessary for c_array_randnormal & c_array_rand_range */
