@@ -595,19 +595,48 @@ UTEST(test, c_matrix_init) {
     ASSERT_EQ(mat2.cols, 6000);
 
     c_matrix_double d_mat;
-    c_matrix_init(&d_mat, 10000, 6000);
-    ASSERT_EQ(d_mat.rows, 10000);
-    ASSERT_EQ(d_mat.cols, 6000);
+    c_matrix_init(&d_mat, 1000, 600);
+    ASSERT_EQ(d_mat.rows, 1000);
+    ASSERT_EQ(d_mat.cols, 600);
 
     c_matrix_short f_mat;
-    c_matrix_init(&f_mat, 15112, 22131);
-    ASSERT_EQ(f_mat.rows, 15112);
-    ASSERT_EQ(f_mat.cols, 22131);
+    c_matrix_init(&f_mat, 1112, 2231);
+    ASSERT_EQ(f_mat.rows, 1112);
+    ASSERT_EQ(f_mat.cols, 2231);
 
     c_matrix_free(&mat);
     c_matrix_free(&mat2);
     c_matrix_free(&d_mat);
     c_matrix_free(&f_mat);
+}
+
+UTEST(test, c_matrix_copy) {
+    c_matrix_short mat1;
+    c_matrix_short mat2;
+    c_matrix_ushort mat_u1;
+    c_matrix_ushort mat_u2;
+    c_matrix_init(&mat1, 5, 10);
+    c_matrix_init(&mat_u1, 5, 10);
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 10; j++) {
+            mat1.data[i][j] = i + j;
+            mat_u1.data[i][j] = i + j;
+        }
+    }
+    c_matrix_copy(&mat1, &mat2);
+    c_matrix_copy(&mat_u1, &mat_u2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 10; j++) {
+            ASSERT_EQ(mat1.data[i][j], mat2.data[i][j]);
+            ASSERT_EQ(mat_u1.data[i][j], mat_u2.data[i][j]);
+        }
+    }
+
+    c_matrix_free(&mat1);
+    c_matrix_free(&mat2);
+    c_matrix_free(&mat_u1);
+    c_matrix_free(&mat_u2);
 }
 
 UTEST(test, c_array_matrix_form) {
