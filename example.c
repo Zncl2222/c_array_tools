@@ -5,7 +5,7 @@ int main() {
     printf("\nc_array Example\n\n");
 
     // Initialize the array. If capacity > 0, then it will initialize with 0 val.
-    c_array(int) array;
+    c_array_int array;
     c_array_init(&array, 0);
 
     // add element to the back (the idx of back is the current size of array)

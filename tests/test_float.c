@@ -23,10 +23,28 @@ UTEST(test, c_array_init) {
     ASSERT_TRUE(arr2.capacity == 20);
     ASSERT_TRUE(arr2.size == 20);
 
+    for (int i = 0; i < arr2.size; i++) {
+        ASSERT_NEAR(arr2.data[i], 0, 0.01f);
+    }
+
     c_array_free(&arr);
     c_array_free(&arr2);
 }
 
+UTEST(test, c_array_empty_init) {
+    c_array_float arr;
+    c_array_empty_init(&arr, 0);
+    ASSERT_TRUE(arr.capacity == 0);
+    ASSERT_TRUE(arr.size == 0);
+
+    c_array_float arr2;
+    c_array_empty_init(&arr2, 20);
+    ASSERT_TRUE(arr2.capacity == 20);
+    ASSERT_TRUE(arr2.size == 20);
+
+    c_array_free(&arr);
+    c_array_free(&arr2);
+}
 
 UTEST(test, c_array_assign) {
     c_array_float arr;
@@ -64,7 +82,6 @@ UTEST(test, c_array_copy) {
     c_array_free(&arr);
     c_array_free(&arr_copy);
 }
-
 
 UTEST(test, c_array_resize) {
     c_array_float arr;
@@ -526,20 +543,98 @@ UTEST(test, c_matrix_init) {
     ASSERT_EQ(mat2.cols, 6000);
 
     c_matrix_double d_mat;
-    c_matrix_init(&d_mat, 10000, 6000);
-    ASSERT_EQ(d_mat.rows, 10000);
-    ASSERT_EQ(d_mat.cols, 6000);
+    c_matrix_init(&d_mat, 1000, 600);
+    ASSERT_EQ(d_mat.rows, 1000);
+    ASSERT_EQ(d_mat.cols, 600);
 
     c_matrix_float f_mat;
-    c_matrix_init(&f_mat, 15112, 22131);
-    ASSERT_EQ(f_mat.rows, 15112);
-    ASSERT_EQ(f_mat.cols, 22131);
+    c_matrix_init(&f_mat, 1512, 2231);
+    ASSERT_EQ(f_mat.rows, 1512);
+    ASSERT_EQ(f_mat.cols, 2231);
 
     c_matrix_free(&mat);
     c_matrix_free(&mat2);
     c_matrix_free(&d_mat);
     c_matrix_free(&f_mat);
 }
+
+UTEST(test, c_matrix_copy) {
+    c_matrix_float mat1;
+    c_matrix_float mat2;
+    c_matrix_init(&mat1, 5, 10);
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 10; j++) {
+            mat1.data[i][j] = i + 0.5 * j;
+        }
+    }
+    c_matrix_copy(&mat1, &mat2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 10; j++) {
+            ASSERT_NEAR(mat1.data[i][j], mat2.data[i][j], 0.01f);
+        }
+    }
+
+    c_matrix_free(&mat1);
+    c_matrix_free(&mat2);
+}
+
+UTEST(test, c_array_matrix_form) {
+    c_array_float arr;
+    c_array_init(&arr, 10);
+
+    for (int i = 0; i < arr.size; i++) {
+        arr.data[i] = i;
+    }
+    c_matrix_float mat = c_array_matrix_form(&arr, 2);
+    ASSERT_EQ(mat.rows, 2);
+    ASSERT_EQ(mat.cols, 5);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            ASSERT_NEAR(mat.data[i][j], i * mat.cols + j, 0.01f);
+        }
+    }
+
+    c_matrix_free(&mat);
+    c_array_free(&arr);
+}
+
+UTEST(test, c_matrix_flatten) {
+    c_matrix_float mat;
+    c_matrix_init(&mat, 10, 6);
+    ASSERT_EQ(mat.rows, 10);
+    ASSERT_EQ(mat.cols, 6);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i * mat.cols + j;
+        }
+    }
+    c_array_float arr = c_matrix_flatten(&mat);
+    for (int i = 0; i < mat.rows * mat.cols; i++) {
+        ASSERT_EQ(arr.data[i], i);
+    }
+
+    c_matrix_free(&mat);
+    c_array_free(&arr);
+}
+
+UTEST(test, c_matrix_reshape) {
+    c_matrix_float mat;
+    c_matrix_init(&mat, 10, 6);
+    ASSERT_EQ(mat.rows, 10);
+    ASSERT_EQ(mat.cols, 6);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i * mat.cols + j;
+        }
+    }
+    c_matrix_float mat2 = c_matrix_reshape(&mat, 6, 10);
+    ASSERT_EQ(mat2.rows, 6);
+    ASSERT_EQ(mat2.cols, 10);
+
+    c_matrix_free(&mat2);
+}
+
 
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_float mat;
