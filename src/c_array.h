@@ -777,6 +777,34 @@ typedef c_matrix(float) c_matrix_float;
 typedef c_matrix(double) c_matrix_double;
 typedef c_matrix(long double) c_matrix_ldouble;
 
+/* c_array_mt.c is necessary for c_array_randnormal & c_array_rand_range */
+
+# define c_matrix_randnormal(mat, r, c, rng_state)                            \
+    do {                                                                      \
+        (mat)->rows = (r);                                                    \
+        (mat)->cols = (c);                                                    \
+        (mat)->data = malloc(sizeof(typeof(*((mat)->data))) * (r));           \
+        for (int i = 0; i < (r); i++) {                                       \
+            (mat)->data[i] = malloc(sizeof(typeof(*(mat)->data[i])) * (c));   \
+            for (int j = 0; j < (c); j++) {                                   \
+                (mat)->data[i][j] = random_normal(rng_state);                 \
+            }                                                                 \
+        }                                                                     \
+    } while (0)
+
+# define c_matrix_rand_range(mat, r, c, rng_function)                         \
+    do {                                                                      \
+        (mat)->rows = (r);                                                    \
+        (mat)->cols = (c);                                                    \
+        (mat)->data = malloc(sizeof(typeof(*((mat)->data))) * (r));           \
+        for (int i = 0; i < (r); i++) {                                       \
+            (mat)->data[i] = malloc(sizeof(typeof(*(mat)->data[i])) * (c));   \
+            for (int j = 0; j < (c); j++) {                                   \
+                (mat)->data[i][j] = rng_function;                             \
+            }                                                                 \
+        }                                                                     \
+    } while (0)
+
 /* -------------------------------------------------------------------- */
 /*                       Matrix basic operations                        */
 
