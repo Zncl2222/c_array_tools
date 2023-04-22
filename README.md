@@ -770,7 +770,7 @@ int main() {
     mt19937_init(&state, 12345);
     c_array_double array;
     double num = random_normal(&state);
-    c_array_rand_range(&arr, c, mt19937_get_int32_range(&state, -5, 20))
+    c_array_rand_range(&arr, c, mt19937_get_int32_range(&state, -5, 20));
     c_array_free(&array); // free memory
     return 0;
 }
@@ -824,6 +824,48 @@ Allocate memory of the matrix with given rows and cols (No initialize value).
 int main() {
     c_matrix_int mat;
     c_matrix_empty_init(&mat, 2, 2);
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
+
+----
+### `c_matrix_randnormal(mat, r, c, rng_state)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+`r`: number of rows -> (**int**)<br>
+`c`: number of cols -> (**int**)<br>
+`rng_state`: state of random seed generator -> (**mt19937_state***)<br>
+
+Initialize c_matrix with random value draw from noraml distribution.
+```C
+int main() {
+    c_matrix_double mat;
+    mt19937_state rng;
+    unsigned int seed = 12345;
+    mt19937_init(&rng, seed);
+    c_matrix_randnormal(&mat, 10, 10, &rng);
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
+
+----
+### `c_matrix_rand_range(mat, r, c, rng_function)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+`r`: number of rows -> (**int**)<br>
+`c`: number of cols -> (**int**)<br>
+`rng_state`: state of random seed generator -> (**mt19937_state***)<br>
+
+Initialize the c_matrix with the random value from given random function.
+```C
+int main() {
+    c_matrix_int mat;
+    mt19937_state rng;
+    unsigned int seed = 12345;
+    mt19937_init(&rng, seed);
+    c_matrix_rand_range(&mat, r, c, mt19937_get_int32_range(&state, -5, 20));
     c_matrix_free(&mat); // free memory
     return 0;
 }
