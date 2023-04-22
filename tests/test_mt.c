@@ -173,4 +173,61 @@ UTEST(test, c_array_random_range) {
     c_array_free(&array_f);
 }
 
+UTEST(test, c_matrix_randnormal) {
+    mt19937_state state;
+    unsigned int seed = 12345;
+    mt19937_init(&state, seed);
+
+    c_matrix_double mat;
+    c_matrix_randnormal(&mat, 500, 600, &state);
+    ASSERT_EQ(mat.rows, 500);
+    ASSERT_EQ(mat.cols, 600);
+    for (int i = 0; i < 500; i++) {
+        for (int j = 0; j < 600; j++) {
+            ASSERT_TRUE((mat.data[i][j] < 6 & mat.data[i][j] >= -6));
+        }
+    }
+    c_matrix_free(&mat);
+}
+
+UTEST(test, c_matrix_random_range) {
+    mt19937_state state;
+    unsigned int seed = 12345;
+    mt19937_init(&state, seed);
+
+    c_matrix_double mat_d;
+    c_matrix_rand_range(&mat_d, 500, 600, mt19937_get_double_range(&state, 2.65, 5.5));
+    ASSERT_EQ(mat_d.rows, 500);
+    ASSERT_EQ(mat_d.cols, 600);
+    for (int i = 0; i < 500; i++) {
+        for (int j = 0; j < 600; j++) {
+            ASSERT_TRUE((mat_d.data[i][j] < 5.5 & mat_d.data[i][j] >= 2.65));
+        }
+    }
+
+    c_matrix_float mat_f;
+    c_matrix_rand_range(&mat_f, 500, 600, mt19937_get_double_range(&state, -5.99, 5.5));
+    ASSERT_EQ(mat_f.rows, 500);
+    ASSERT_EQ(mat_f.cols, 600);
+    for (int i = 0; i < 500; i++) {
+        for (int j = 0; j < 600; j++) {
+            ASSERT_TRUE((mat_f.data[i][j] < 5.5 & mat_f.data[i][j] >= -5.99));
+        }
+    }
+
+    c_matrix_int mat;
+    c_matrix_rand_range(&mat, 500, 600, mt19937_get_double_range(&state, -5, 5));
+    ASSERT_EQ(mat.rows, 500);
+    ASSERT_EQ(mat.cols, 600);
+    for (int i = 0; i < 500; i++) {
+        for (int j = 0; j < 600; j++) {
+            ASSERT_TRUE((mat.data[i][j] < 5 & mat.data[i][j] >= -5));
+        }
+    }
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_f);
+    c_matrix_free(&mat_d);
+}
+
 UTEST_MAIN();
