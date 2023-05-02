@@ -721,6 +721,29 @@ UTEST(test, c_matrix_reshape) {
     c_matrix_free(&mat2_u);
 }
 
+UTEST(test, c_matrix_sum) {
+    c_matrix_short mat;
+    c_matrix_ushort mat_u;
+
+    c_matrix_init(&mat, 5, 2);
+    c_matrix_init(&mat_u, 5, 2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = i + j;
+            mat_u.data[i][j] = 1;
+        }
+    }
+
+    short sum_short = c_matrix_sum(&mat);
+    ASSERT_EQ(sum_short, 25);
+    unsigned short sum_ushort = c_matrix_sum(&mat_u);
+    ASSERT_EQ(sum_ushort, 10);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_u);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_short mat;
 

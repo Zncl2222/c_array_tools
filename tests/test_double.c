@@ -731,6 +731,30 @@ UTEST(test, c_matrix_reshape) {
     c_matrix_free(&mat2_l);
 }
 
+UTEST(test, c_matrix_sum) {
+    c_matrix_double mat;
+    c_matrix_ldouble mat_l;
+
+    c_matrix_init(&mat, 5, 2);
+    c_matrix_init(&mat_l, 5, 2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = 0.5 * i + 0.5 * j;
+            mat_l.data[i][j] = 0.01;
+        }
+    }
+
+    double sum_d = c_matrix_sum(&mat);
+    ASSERT_NEAR(sum_d, 12.5, 0.01f);
+    long double sum_ld = c_matrix_sum(&mat_l);
+    ASSERT_NEAR(sum_ld, 0.1, 0.01f);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_l);
+}
+
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_double mat;
 
