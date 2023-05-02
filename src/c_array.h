@@ -988,6 +988,52 @@ c_matrix_double c_matrix_reshape_double(c_matrix_double* mat, int row, int col);
 c_matrix_ldouble c_matrix_reshape_ldouble(c_matrix_ldouble* mat, int row, int col);
 
 /* -------------------------------------------------------------------- */
+/*                            Matrix sum                                */
+
+# define c_matrix_sum(mat)                       \
+    _Generic((mat)->data,                       \
+        short**: c_matrix_sum_short,              \
+        unsigned short**: c_matrix_sum_ushort,    \
+        int**: c_matrix_sum_int,                  \
+        unsigned int**: c_matrix_sum_uint,        \
+        long**: c_matrix_sum_long,                \
+        unsigned long**: c_matrix_sum_ulong,      \
+        long long**: c_matrix_sum_long_long,      \
+        float**: c_matrix_sum_float,              \
+        double**: c_matrix_sum_double,            \
+        long double**: c_matrix_sum_long_double   \
+    )((mat)->data, (mat)->rows, (mat)->cols)
+
+# define c_matrix_sum_process(mat, rows, cols)  \
+   typeof(**(mat)) sum = 0;                     \
+    for (int i = 0; i < (rows); i++) {          \
+        for (int j = 0; j < (cols); j++) {      \
+            sum += (mat)[i][j];                 \
+        }                                       \
+    }                                           \
+    return sum;                                 \
+
+short c_matrix_sum_short(short** mat, int rows, int cols);
+
+unsigned short c_matrix_sum_ushort(unsigned short** mat, int rows, int cols);
+
+int c_matrix_sum_int(int** mat, int rows, int cols);
+
+unsigned int c_matrix_sum_uint(unsigned int** mat, int rows, int cols);
+
+long c_matrix_sum_long(long** mat, int rows, int cols);
+
+unsigned long c_matrix_sum_ulong(unsigned long** mat, int rows, int cols);
+
+long long c_matrix_sum_long_long(long long** mat, int rows, int cols);
+
+float c_matrix_sum_float(float** mat, int rows, int cols);
+
+double c_matrix_sum_double(double** mat, int rows, int cols);
+
+long double c_matrix_sum_long_double(long double** mat, int rows, int cols);
+
+/* -------------------------------------------------------------------- */
 /*                            Matrix utils                              */
 
 # define c_matrix_print(mat)                                                \

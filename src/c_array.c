@@ -562,3 +562,46 @@ c_matrix_ldouble c_matrix_reshape_ldouble(c_matrix_ldouble* mat, int n_row, int 
     c_matrix_reshape_process(mat, &mat_new, n_row, n_col);
     return mat_new;
 }
+
+/* -------------------------------------------------------------------- */
+/*                            Matrix sum                                */
+
+short c_matrix_sum_short(short** mat, int rows, int cols) {
+    c_matrix_sum_process(mat, rows, cols)
+}
+
+unsigned short c_matrix_sum_ushort(unsigned short** mat, int rows, int cols) {
+    c_matrix_sum_process(mat, rows, cols)
+}
+
+int c_matrix_sum_int(int** mat, int rows, int cols) {
+    c_matrix_sum_process(mat, rows, cols)
+}
+
+unsigned int c_matrix_sum_uint(unsigned int** mat, int rows, int cols) {
+    c_matrix_sum_process(mat, rows, cols)
+}
+
+long c_matrix_sum_long(long** mat, int rows, int cols) {
+    c_matrix_sum_process(mat, rows, cols)
+}
+
+unsigned long c_matrix_sum_ulong(unsigned long** mat, int rows, int cols) {
+    c_matrix_sum_process(mat, rows, cols)
+}
+
+long long c_matrix_sum_long_long(long long** mat, int rows, int cols) {
+    c_matrix_sum_process(mat, rows, cols)
+}
+
+float c_matrix_sum_float(float** mat, int rows, int cols) {
+    c_matrix_sum_process(mat, rows, cols)
+}
+
+double c_matrix_sum_double(double** mat, int rows, int cols) {
+    c_matrix_sum_process(mat, rows, cols)
+}
+
+long double c_matrix_sum_long_double(long double** mat, int rows, int cols) {
+    c_matrix_sum_process(mat, rows, cols)
+}
