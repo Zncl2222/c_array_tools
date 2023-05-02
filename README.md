@@ -1002,3 +1002,25 @@ int main() {
     return 0;
 }
 ```
+
+----
+### `c_matrix_sum(mat)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+- return: `sum` -> (**int, long long, float, double etc..**)<br>
+
+Reshape c_matrix.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = 5;
+        }
+    }
+    int sum_i = c_matrix_sum(&mat); // sum i = 20
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
