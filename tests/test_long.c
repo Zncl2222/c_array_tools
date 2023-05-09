@@ -823,6 +823,35 @@ UTEST(test, c_matrix_reshape) {
     c_matrix_free(&mat2_u);
 }
 
+UTEST(test, c_matrix_sum) {
+    c_matrix_long mat;
+    c_matrix_long_long mat_ll;
+    c_matrix_ulong mat_u;
+
+    c_matrix_init(&mat, 5, 2);
+    c_matrix_init(&mat_ll, 5, 2);
+    c_matrix_init(&mat_u, 5, 2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = i + j;
+            mat_u.data[i][j] = 1;
+            mat_ll.data[i][j] = 2;
+        }
+    }
+
+    long sum_long = c_matrix_sum(&mat);
+    ASSERT_EQ(sum_long, 25);
+    unsigned long sum_ulong = c_matrix_sum(&mat_u);
+    ASSERT_EQ(sum_ulong, 10);
+    long long sum_long_long = c_matrix_sum(&mat_ll);
+    ASSERT_EQ(sum_long_long, 20);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_u);
+    c_matrix_free(&mat_ll);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_long mat;
 

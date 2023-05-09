@@ -635,6 +635,22 @@ UTEST(test, c_matrix_reshape) {
     c_matrix_free(&mat2);
 }
 
+UTEST(test, c_matrix_sum) {
+    c_matrix_float mat;
+
+    c_matrix_init(&mat, 5, 2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = 0.5 * i + 0.5 * j;
+        }
+    }
+
+    float sum_float = c_matrix_sum(&mat);
+    ASSERT_NEAR(sum_float, 12.5, 0.01f);
+
+    c_matrix_free(&mat);
+}
 
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_float mat;
