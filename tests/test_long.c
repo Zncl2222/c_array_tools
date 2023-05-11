@@ -852,6 +852,35 @@ UTEST(test, c_matrix_sum) {
     c_matrix_free(&mat_ll);
 }
 
+UTEST(test, c_matrix_mean) {
+    c_matrix_long mat;
+    c_matrix_ulong mat_u;
+    c_matrix_long_long mat_ll;
+
+    c_matrix_init(&mat, 5, 2);
+    c_matrix_init(&mat_u, 5, 2);
+    c_matrix_init(&mat_ll, 5, 2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = 2;
+            mat_u.data[i][j] = 1;
+            mat_ll.data[i][j] = 1024;
+        }
+    }
+
+    mean_t mean_long = c_matrix_mean(&mat);
+    ASSERT_NEAR(mean_long, 2, 0.01f);
+    mean_t mean_ulong = c_matrix_mean(&mat_u);
+    ASSERT_NEAR(mean_ulong, 1, 0.01f);
+    mean_t mean_long_long = c_matrix_mean(&mat_ll);
+    ASSERT_NEAR(mean_long_long, 1024, 0.01f);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_u);
+    c_matrix_free(&mat_ll);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_long mat;
 
