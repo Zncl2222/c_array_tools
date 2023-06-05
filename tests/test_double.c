@@ -649,6 +649,29 @@ UTEST(test, c_matrix_copy) {
     c_matrix_free(&mat_l2);
 }
 
+UTEST(test, c_matrix_mean) {
+    c_matrix_double mat;
+    c_matrix_ldouble mat_l;
+
+    c_matrix_init(&mat, 5, 2);
+    c_matrix_init(&mat_l, 5, 2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = 222;
+            mat_l.data[i][j] = 111;
+        }
+    }
+
+    mean_t mean_double = c_matrix_mean(&mat);
+    ASSERT_NEAR(mean_double, 222, 0.01f);
+    mean_t mean_ldouble = c_matrix_mean(&mat_l);
+    ASSERT_NEAR(mean_ldouble, 111, 0.01f);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_l);
+}
+
 UTEST(test, c_array_matrix_form) {
     c_array_double arr;
     c_array_ldouble arr_l;

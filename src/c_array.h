@@ -1034,6 +1034,47 @@ double c_matrix_sum_double(double** mat, int rows, int cols);
 long double c_matrix_sum_long_double(long double** mat, int rows, int cols);
 
 /* -------------------------------------------------------------------- */
+/*                            Matrix mean                               */
+
+# define c_matrix_mean(mat)                       \
+    _Generic((mat)->data,                       \
+        short**: c_matrix_mean_short,              \
+        unsigned short**: c_matrix_mean_ushort,    \
+        int**: c_matrix_mean_int,                  \
+        unsigned int**: c_matrix_mean_uint,        \
+        long**: c_matrix_mean_long,                \
+        unsigned long**: c_matrix_mean_ulong,      \
+        long long**: c_matrix_mean_long_long,      \
+        float**: c_matrix_mean_float,              \
+        double**: c_matrix_mean_double,            \
+        long double**: c_matrix_mean_long_double   \
+    )((mat)->data, (mat)->rows, (mat)->cols, c_matrix_sum((mat)))
+
+# define c_matrix_mean_process(mat, rows, cols, sum)    \
+    mean_t mean = (mean_t)(sum) / ((rows) * (cols));    \
+    return mean;                                        \
+
+mean_t c_matrix_mean_short(const short** mat, int rows, int cols, short sum);
+
+mean_t c_matrix_mean_ushort(const unsigned short** mat, int rows, int cols, unsigned short sum);
+
+mean_t c_matrix_mean_int(const int** mat, int rows, int cols, int sum);
+
+mean_t c_matrix_mean_uint(const unsigned int** mat, int rows, int cols, unsigned int sum);
+
+mean_t c_matrix_mean_long(const long** mat, int rows, int cols, long sum);
+
+mean_t c_matrix_mean_ulong(const unsigned long** mat, int rows, int cols, unsigned long sum);
+
+mean_t c_matrix_mean_long_long(const long long** mat, int rows, int cols, long long sum);
+
+mean_t c_matrix_mean_float(const float** mat, int rows, int cols, float sum);
+
+mean_t c_matrix_mean_double(const double** mat, int rows, int cols, double sum);
+
+mean_t c_matrix_mean_long_double(const long double** mat, int rows, int cols, long double sum);
+
+/* -------------------------------------------------------------------- */
 /*                            Matrix utils                              */
 
 # define c_matrix_print(mat)                                                \

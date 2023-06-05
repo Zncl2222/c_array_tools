@@ -1024,3 +1024,25 @@ int main() {
     return 0;
 }
 ```
+
+----
+### `c_matrix_mean(mat)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+- return: `mean` -> (**mean_t**)<br>
+
+Reshape c_matrix.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = 5;
+        }
+    }
+    mean_t mean = c_matrix_mean(&mat); // mean = 5
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```

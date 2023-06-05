@@ -652,6 +652,24 @@ UTEST(test, c_matrix_sum) {
     c_matrix_free(&mat);
 }
 
+UTEST(test, c_matrix_mean) {
+    c_matrix_float mat;
+
+    c_matrix_init(&mat, 5, 2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = 2.58;
+        }
+    }
+
+    mean_t mean_float = c_matrix_mean(&mat);
+    ASSERT_NEAR(mean_float, 2.58, 0.01f);
+
+    c_matrix_free(&mat);
+}
+
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_float mat;
 

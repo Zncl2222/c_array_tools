@@ -605,3 +605,46 @@ double c_matrix_sum_double(double** mat, int rows, int cols) {
 long double c_matrix_sum_long_double(long double** mat, int rows, int cols) {
     c_matrix_sum_process(mat, rows, cols)
 }
+
+/* -------------------------------------------------------------------- */
+/*                          matrix mean value                            */
+
+mean_t c_matrix_mean_short(const short** mat, int rows, int cols, short sum) {
+    c_matrix_mean_process(mat, rows, cols, sum)
+}
+
+mean_t c_matrix_mean_ushort(const unsigned short** mat, int rows, int cols, unsigned short sum) {
+    c_matrix_mean_process(mat, rows, cols, sum)
+}
+
+mean_t c_matrix_mean_int(const int** mat, int rows, int cols, int sum) {
+    c_matrix_mean_process(mat, rows, cols, sum)
+}
+
+mean_t c_matrix_mean_uint(const unsigned int** mat, int rows, int cols, unsigned int sum) {
+    c_matrix_mean_process(mat, rows, cols, sum)
+}
+
+mean_t c_matrix_mean_long(const long** mat, int rows, int cols, long sum) {
+    c_matrix_mean_process(mat, rows, cols, sum)
+}
+
+mean_t c_matrix_mean_ulong(const unsigned long** mat, int rows, int cols, unsigned long sum) {
+    c_matrix_mean_process(mat, rows, cols, sum)
+}
+
+mean_t c_matrix_mean_long_long(const long long** mat, int rows, int cols, long long sum) {
+    c_matrix_mean_process(mat, rows, cols, sum)
+}
+
+mean_t c_matrix_mean_float(const float** mat, int rows, int cols, float sum) {
+    c_matrix_mean_process(mat, rows, cols, sum)
+}
+
+mean_t c_matrix_mean_double(const double** mat, int rows, int cols, double sum) {
+    c_matrix_mean_process(mat, rows, cols, sum)
+}
+
+mean_t c_matrix_mean_long_double(const long double** mat, int rows, int cols, long double sum) {
+    c_matrix_mean_process(mat, rows, cols, sum)
+}
