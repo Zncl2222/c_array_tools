@@ -507,7 +507,21 @@ std_t c_array_std_long_double(const long double* arr, int size, mean_t mean);
         long double*: c_array_min_long_double          \
     )((arr)->data, (arr)->size)
 
-# define c_array_maxmin_process(arr, n, mode)                               \
+# define c_array_maxmin(arr)                              \
+    _Generic((arr)->data,                                 \
+        short*: c_array_maxmin_short,                     \
+        unsigned short*: c_array_maxmin_ushort,           \
+        int*: c_array_maxmin_int,                         \
+        unsigned int*: c_array_maxmin_uint,               \
+        long*: c_array_maxmin_long,                       \
+        unsigned long*: c_array_maxmin_ulong,             \
+        long long*: c_array_maxmin_long_long,             \
+        float*: c_array_maxmin_float,                     \
+        double*: c_array_maxmin_double,                   \
+        long double*: c_array_maxmin_long_double          \
+    )((arr)->data, (arr)->size)
+
+# define c_array_maxmin_process(arr, n)                                     \
     int odd = (n) & 1;                                                      \
     typeof(*(arr)) max = -pow(2, (((sizeof(typeof(*(arr)))-  1) * 8)));     \
     typeof(*(arr)) min = pow(2, (((sizeof(typeof(*(arr)))-  1) * 8))) - 1;  \
@@ -539,11 +553,28 @@ std_t c_array_std_long_double(const long double* arr, int size, mean_t mean);
             min = arr[n];                                                   \
         }                                                                   \
     }                                                                       \
-    if (mode == "max") {                                                    \
-        return max;                                                         \
-    } else {                                                                \
-        return min;                                                         \
+    typeof(*(arr))* res = malloc(sizeof(typeof(*(arr))) * 2);               \
+    res[0] = min;                                                           \
+    res[1] = max;                                                           \
+    return res;
+
+# define c_array_max_process(arr, n)                                        \
+    typeof(*(arr)) max = -pow(2, (((sizeof(typeof(*(arr)))-  1) * 8)));     \
+    for (int i = 0; i < n; i++) {                                           \
+        if (max < (arr)[i]) {                                               \
+            max = (arr)[i];                                                 \
+        }                                                                   \
     }                                                                       \
+    return max;
+
+# define c_array_min_process(arr, n)                                        \
+    typeof(*(arr)) min = pow(2, (((sizeof(typeof(*(arr)))-  1) * 8))) - 1;  \
+    for (int i = 0; i < n; i++) {                                           \
+        if (min > (arr)[i]) {                                               \
+            min = (arr)[i];                                                 \
+        }                                                                   \
+    }                                                                       \
+    return min;
 
 short c_array_max_short(short* arr, int size);
 
@@ -584,6 +615,26 @@ float c_array_min_float(float* arr, int size);
 double c_array_min_double(double* arr, int size);
 
 long double c_array_min_long_double(long double* arr, int size);
+
+short* c_array_maxmin_short(short* arr, int size);
+
+unsigned short* c_array_maxmin_ushort(unsigned short* arr, int size);
+
+int* c_array_maxmin_int(int* arr, int size);
+
+unsigned int* c_array_maxmin_uint(unsigned int* arr, int size);
+
+long* c_array_maxmin_long(long* arr, int size);
+
+unsigned long* c_array_maxmin_ulong(unsigned long* arr, int size);
+
+long long* c_array_maxmin_long_long(long long* arr, int size);
+
+float* c_array_maxmin_float(float* arr, int size);
+
+double* c_array_maxmin_double(double* arr, int size);
+
+long double* c_array_maxmin_long_double(long double* arr, int size);
 
 /* -------------------------------------------------------------------- */
 /*                            Arrary utils                              */
