@@ -563,6 +563,27 @@ int main() {
 ```
 
 ----
+### `c_array_maxmin(arr)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+- return: `and pointer contain min and max (arr[0] = min, arr[1] = max)` -> (**int*, long long*, float*, double* etc..**)<br>
+
+Get min or max value of an array
+```C
+int main() {
+    c_array_int arr;
+    c_array(&arr, 0);
+    c_array_push_back(&arr, 1);
+    c_array_push_back(&arr, 2);
+    c_array_push_back(&arr, 3);
+    int* max_min = c_array_maxmin(&arr); // max_min[0] = 1, max_min[1] = 3
+    c_array_free(&arr); // free memory
+    free(max_min)
+    return 0;
+}
+```
+
+----
 ### `c_array_mean(arr)`
 - params:<br>
 `arr`: c_array structure -> (**c_array**)<br>
