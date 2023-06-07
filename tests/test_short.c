@@ -507,6 +507,38 @@ UTEST(test, c_array_min_max_2) {
     c_array_free(&arr_u);
 }
 
+UTEST(test, c_array_min_max_process) {
+    c_array_short arr;
+    c_array_ushort arr_u;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_u, 0);
+
+    short test_arr[] = {3, 7, 1, 9, 2, 8, 60};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+        c_array_push_back(&arr_u, (unsigned short)test_arr[i]);
+    }
+    short* maxmin_short = c_array_maxmin(&arr);
+    unsigned short* maxmin_ushort = c_array_maxmin(&arr_u);
+    ASSERT_EQ(maxmin_short[1], 60);
+    ASSERT_EQ(maxmin_short[0], 1);
+    ASSERT_EQ(maxmin_ushort[1], 60);
+    ASSERT_EQ(maxmin_ushort[0], 1);
+
+    c_array_push_back(&arr, 4);
+    c_array_push_back(&arr_u, 4);
+    ASSERT_EQ(maxmin_short[1], 60);
+    ASSERT_EQ(maxmin_short[0], 1);
+    ASSERT_EQ(maxmin_ushort[1], 60);
+    ASSERT_EQ(maxmin_ushort[0], 1);
+
+    c_array_free(&arr);
+    c_array_free(&arr_u);
+    free(maxmin_short);
+    free(maxmin_ushort);
+}
+
 UTEST(test, c_array_statistic_original_func) {
     c_array_short arr;
     c_array_ushort arr_u;

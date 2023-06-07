@@ -474,6 +474,25 @@ UTEST(test, c_array_min_max_2) {
     c_array_free(&arr);
 }
 
+UTEST(test, c_array_min_max_process) {
+    c_array_float arr;
+    c_array_init(&arr, 0);
+    float test_arr[] = {3.5, 7.6, 1.4, 9.5, 2.5, 8.5, 60.112};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+    }
+    float* maxmin_float = c_array_maxmin(&arr);
+    ASSERT_NEAR(maxmin_float[1], 60.112, 0.01f);
+    ASSERT_NEAR(maxmin_float[0], 1.4, 0.01f);
+
+    c_array_push_back(&arr, 4);
+
+    ASSERT_NEAR(maxmin_float[1], 60.112, 0.01f);
+    ASSERT_NEAR(maxmin_float[0], 1.4, 0.01f);
+
+    c_array_free(&arr);
+    free(maxmin_float);
+}
 
 UTEST(test, c_array_statistic_original_func) {
     c_array_float arr;
