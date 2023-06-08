@@ -691,3 +691,86 @@ mean_t c_matrix_mean_double(const double** mat, int rows, int cols, double sum) 
 mean_t c_matrix_mean_long_double(const long double** mat, int rows, int cols, long double sum) {
     c_matrix_mean_process(mat, rows, cols, sum)
 }
+
+/* -------------------------------------------------------------------- */
+/*                          Matrix Min and Max                           */
+
+short c_matrix_max_short(short** mat, int r, int c) {
+    c_matrix_max_process(mat, r, c)
+}
+
+unsigned short c_matrix_max_ushort(unsigned short** mat, int r, int c) {
+    c_matrix_max_process(mat, r, c)
+}
+
+int c_matrix_max_int(int** mat, int r, int c) {
+    c_matrix_max_process(mat, r, c)
+}
+
+unsigned int c_matrix_max_uint(unsigned int** mat, int r, int c) {
+    c_matrix_max_process(mat, r, c)
+}
+
+long c_matrix_max_long(long** mat, int r, int c) {
+    c_matrix_max_process(mat, r, c)
+}
+
+unsigned long c_matrix_max_ulong(unsigned long** mat, int r, int c) {
+    c_matrix_max_process(mat, r, c)
+}
+
+long long c_matrix_max_long_long(long long** mat, int r, int c) {
+    c_matrix_max_process(mat, r, c)
+}
+
+float c_matrix_max_float(float** mat, int r, int c) {
+    c_matrix_max_process(mat, r, c)
+}
+
+double c_matrix_max_double(double** mat, int r, int c) {
+    c_matrix_max_process(mat, r, c)
+}
+
+long double c_matrix_max_long_double(long double** mat, int r, int c) {
+    c_matrix_max_process(mat, r, c)
+}
+
+short c_matrix_min_short(short** mat, int r, int c) {
+    c_matrix_min_process(mat, r, c)
+}
+
+unsigned short c_matrix_min_ushort(unsigned short** mat, int r, int c) {
+    c_matrix_min_process(mat, r, c)
+}
+
+int c_matrix_min_int(int** mat, int r, int c) {
+    c_matrix_min_process(mat, r, c)
+}
+
+unsigned int c_matrix_min_uint(unsigned int** mat, int r, int c) {
+    c_matrix_min_process(mat, r, c)
+}
+
+long c_matrix_min_long(long** mat, int r, int c) {
+    c_matrix_min_process(mat, r, c)
+}
+
+unsigned long c_matrix_min_ulong(unsigned long** mat, int r, int c) {
+    c_matrix_min_process(mat, r, c)
+}
+
+long long c_matrix_min_long_long(long long** mat, int r, int c) {
+    c_matrix_min_process(mat, r, c)
+}
+
+float c_matrix_min_float(float** mat, int r, int c) {
+    c_matrix_min_process(mat, r, c)
+}
+
+double c_matrix_min_double(double** mat, int r, int c) {
+    c_matrix_min_process(mat, r, c)
+}
+
+long double c_matrix_min_long_double(long double** mat, int r, int c) {
+    c_matrix_min_process(mat, r, c)
+}

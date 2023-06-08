@@ -1126,6 +1126,99 @@ mean_t c_matrix_mean_double(const double** mat, int rows, int cols, double sum);
 mean_t c_matrix_mean_long_double(const long double** mat, int rows, int cols, long double sum);
 
 /* -------------------------------------------------------------------- */
+/*                          Array Min and Max                           */
+
+# define c_matrix_max(mat)                               \
+    _Generic((mat)->data,                                \
+        short**: c_matrix_max_short,                     \
+        unsigned short**: c_matrix_max_ushort,           \
+        int**: c_matrix_max_int,                         \
+        unsigned int**: c_matrix_max_uint,               \
+        long**: c_matrix_max_long,                       \
+        unsigned long**: c_matrix_max_ulong,             \
+        long long**: c_matrix_max_long_long,             \
+        float**: c_matrix_max_float,                     \
+        double**: c_matrix_max_double,                   \
+        long double**: c_matrix_max_long_double          \
+    )((mat)->data, (mat)->rows, (mat)->cols)
+
+# define c_matrix_min(mat)                               \
+    _Generic((mat)->data,                                \
+        short**: c_matrix_min_short,                     \
+        unsigned short**: c_matrix_min_ushort,           \
+        int**: c_matrix_min_int,                         \
+        unsigned int**: c_matrix_min_uint,               \
+        long**: c_matrix_min_long,                       \
+        unsigned long**: c_matrix_min_ulong,             \
+        long long**: c_matrix_min_long_long,             \
+        float**: c_matrix_min_float,                     \
+        double**: c_matrix_min_double,                   \
+        long double**: c_matrix_min_long_double          \
+    )((mat)->data, (mat)->rows, (mat)->cols)
+
+# define c_matrix_max_process(mat, r, c)                                    \
+    typeof(**(mat)) max = -pow(2, (((sizeof(typeof(**(mat)))-  1) * 8)));   \
+    for (int i = 0; i < (r); i++) {                                         \
+        for (int j = 0; j < (c); j++) {                                     \
+            if (max < (mat)[i][j]) {                                        \
+                max = (mat)[i][j];                                          \
+            }                                                               \
+        }                                                                   \
+    }                                                                       \
+    return max;
+
+# define c_matrix_min_process(mat, r, c)                                    \
+    typeof(**(mat)) min = pow(2, (((sizeof(typeof(**(mat)))-  1) * 8))) - 1;\
+    for (int i = 0; i < (r); i++) {                                         \
+        for (int j = 0; j < (c); j++) {                                     \
+            if (min > (mat)[i][j]) {                                        \
+                min = (mat)[i][j];                                          \
+            }                                                               \
+        }                                                                   \
+    }                                                                       \
+    return min;
+
+short c_matrix_max_short(short** mat, int r, int c);
+
+unsigned short c_matrix_max_ushort(unsigned short** mat, int r, int c);
+
+int c_matrix_max_int(int** mat, int r, int c);
+
+unsigned int c_matrix_max_uint(unsigned int** mat, int r, int c);
+
+long c_matrix_max_long(long** mat, int r, int c);
+
+unsigned long c_matrix_max_ulong(unsigned long** mat, int r, int c);
+
+long long c_matrix_max_long_long(long long** mat, int r, int c);
+
+float c_matrix_max_float(float** mat, int r, int c);
+
+double c_matrix_max_double(double** mat, int r, int c);
+
+long double c_matrix_max_long_double(long double** mat, int r, int c);
+
+short c_matrix_min_short(short** mat, int r, int c);
+
+unsigned short c_matrix_min_ushort(unsigned short** mat, int r, int c);
+
+int c_matrix_min_int(int** mat, int r, int c);
+
+unsigned int c_matrix_min_uint(unsigned int** mat, int r, int c);
+
+long c_matrix_min_long(long** mat, int r, int c);
+
+unsigned long c_matrix_min_ulong(unsigned long** mat, int r, int c);
+
+long long c_matrix_min_long_long(long long** mat, int r, int c);
+
+float c_matrix_min_float(float** mat, int r, int c);
+
+double c_matrix_min_double(double** mat, int r, int c);
+
+long double c_matrix_min_long_double(long double** mat, int r, int c);
+
+/* -------------------------------------------------------------------- */
 /*                            Matrix utils                              */
 
 # define c_matrix_print(mat)                                                \
