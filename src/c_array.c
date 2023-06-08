@@ -15,83 +15,126 @@
 /*                          Array Min and Max                           */
 
 short c_array_max_short(short* arr, int size) {
-    c_array_maxmin_process(arr, size, "max")
+    c_array_max_process(arr, size)
 }
 
 unsigned short c_array_max_ushort(unsigned short* arr, int size) {
-    c_array_maxmin_process(arr, size, "max")
+    c_array_max_process(arr, size)
 }
 
 int c_array_max_int(int* arr, int size) {
-    c_array_maxmin_process(arr, size, "max")
+    c_array_max_process(arr, size)
 }
 
 unsigned int c_array_max_uint(unsigned int* arr, int size) {
-    c_array_maxmin_process(arr, size, "max")
+    c_array_max_process(arr, size)
 }
 
 long c_array_max_long(long* arr, int size) {
-    c_array_maxmin_process(arr, size, "max")
+    c_array_max_process(arr, size)
 }
 
 unsigned long c_array_max_ulong(unsigned long* arr, int size) {
-    c_array_maxmin_process(arr, size, "max")
+    c_array_max_process(arr, size)
 }
 
 long long c_array_max_long_long(long long* arr, int size) {
-    c_array_maxmin_process(arr, size, "max")
+    c_array_max_process(arr, size)
 }
 
 float c_array_max_float(float* arr, int size) {
-    c_array_maxmin_process(arr, size, "max")
+    c_array_max_process(arr, size)
 }
 
 double c_array_max_double(double* arr, int size) {
-    c_array_maxmin_process(arr, size, "max")
+    c_array_max_process(arr, size)
 }
 
 long double c_array_max_long_double(long double* arr, int size) {
-    c_array_maxmin_process(arr, size, "max")
+    c_array_max_process(arr, size)
 }
 
 short c_array_min_short(short* arr, int size) {
-    c_array_maxmin_process(arr, size, "min")
+    c_array_min_process(arr, size)
 }
 
 unsigned short c_array_min_ushort(unsigned short* arr, int size) {
-    c_array_maxmin_process(arr, size, "min")
+    c_array_min_process(arr, size)
 }
 
 int c_array_min_int(int* arr, int size) {
-    c_array_maxmin_process(arr, size, "min")
+    c_array_min_process(arr, size)
 }
 
 unsigned int c_array_min_uint(unsigned int* arr, int size) {
-    c_array_maxmin_process(arr, size, "min")
+    c_array_min_process(arr, size)
 }
 
 long c_array_min_long(long* arr, int size) {
-    c_array_maxmin_process(arr, size, "min")
+    c_array_min_process(arr, size)
 }
 
 unsigned long c_array_min_ulong(unsigned long* arr, int size) {
-    c_array_maxmin_process(arr, size, "min")
+    c_array_min_process(arr, size)
 }
 
 long long c_array_min_long_long(long long* arr, int size) {
-    c_array_maxmin_process(arr, size, "min")
+    c_array_min_process(arr, size)
 }
 
 float c_array_min_float(float* arr, int size) {
-    c_array_maxmin_process(arr, size, "min")
+    c_array_min_process(arr, size)
 }
 
 double c_array_min_double(double* arr, int size) {
-    c_array_maxmin_process(arr, size, "min")
+    c_array_min_process(arr, size)
 }
 
 long double c_array_min_long_double(long double* arr, int size) {
-    c_array_maxmin_process(arr, size, "min")
+    c_array_min_process(arr, size)
+}
+
+/* -------------------------------------------------------------------- */
+/*                         Array maxmin process                         */
+
+short* c_array_maxmin_short(short* arr, int size) {
+    c_array_maxmin_process(arr, size)
+}
+
+unsigned short* c_array_maxmin_ushort(unsigned short* arr, int size) {
+    c_array_maxmin_process(arr, size)
+}
+
+int* c_array_maxmin_int(int* arr, int size) {
+    c_array_maxmin_process(arr, size)
+}
+
+unsigned int* c_array_maxmin_uint(unsigned int* arr, int size) {
+    c_array_maxmin_process(arr, size)
+}
+
+long* c_array_maxmin_long(long* arr, int size) {
+    c_array_maxmin_process(arr, size)
+}
+
+unsigned long* c_array_maxmin_ulong(unsigned long* arr, int size) {
+    c_array_maxmin_process(arr, size)
+}
+
+long long* c_array_maxmin_long_long(long long* arr, int size) {
+    c_array_maxmin_process(arr, size)
+}
+
+float* c_array_maxmin_float(float* arr, int size) {
+    c_array_maxmin_process(arr, size)
+}
+
+double* c_array_maxmin_double(double* arr, int size) {
+    c_array_maxmin_process(arr, size)
+}
+
+long double* c_array_maxmin_long_double(long double* arr, int size) {
+    c_array_maxmin_process(arr, size)
 }
 
 /* -------------------------------------------------------------------- */

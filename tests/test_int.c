@@ -504,6 +504,37 @@ UTEST(test, c_array_min_max_2) {
     c_array_free(&arr_u);
 }
 
+UTEST(test, c_array_min_max_process) {
+    c_array_int arr;
+    c_array_uint arr_u;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_u, 0);
+
+    int test_arr[] = {3, 7, 1, 9, 2, 8, 60};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+        c_array_push_back(&arr_u, (unsigned int)test_arr[i]);
+    }
+    int* maxmin_int = c_array_maxmin(&arr);
+    unsigned int* maxmin_uint = c_array_maxmin(&arr_u);
+    ASSERT_EQ(maxmin_int[1], 60);
+    ASSERT_EQ(maxmin_int[0], 1);
+    ASSERT_EQ(maxmin_uint[1], 60);
+    ASSERT_EQ(maxmin_uint[0], 1);
+
+    c_array_push_back(&arr, 4);
+    c_array_push_back(&arr_u, 4);
+    ASSERT_EQ(maxmin_int[1], 60);
+    ASSERT_EQ(maxmin_int[0], 1);
+    ASSERT_EQ(maxmin_uint[1], 60);
+    ASSERT_EQ(maxmin_uint[0], 1);
+
+    c_array_free(&arr);
+    c_array_free(&arr_u);
+    free(maxmin_int);
+    free(maxmin_uint);
+}
 
 UTEST(test, c_array_statistic_original_func) {
     c_array_int arr;

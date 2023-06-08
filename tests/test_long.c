@@ -552,6 +552,47 @@ UTEST(test, c_array_min_max_2) {
     c_array_free(&arr_ul);
 }
 
+UTEST(test, c_array_min_max_process) {
+    c_array_long arr;
+    c_array_long_long arr_ll;
+    c_array_ulong arr_ul;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_ll, 0);
+    c_array_init(&arr_ul, 0);
+
+    long test_arr[] = {3, 7, 1, 9, 2, 8, 60};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+        c_array_push_back(&arr_ll, (long long)test_arr[i]);
+        c_array_push_back(&arr_ul, (unsigned long)test_arr[i]);
+    }
+    long* maxmin_long = c_array_maxmin(&arr);
+    long long* maxmin_long_long = c_array_maxmin(&arr_ll);
+    unsigned long* maxmin_ulong = c_array_maxmin(&arr_ul);
+    ASSERT_EQ(maxmin_long[1], 60);
+    ASSERT_EQ(maxmin_long[0], 1);
+    ASSERT_EQ(maxmin_long_long[1], 60);
+    ASSERT_EQ(maxmin_long_long[0], 1);
+    ASSERT_EQ(maxmin_ulong[1], 60);
+    ASSERT_EQ(maxmin_ulong[0], 1);
+
+    c_array_push_back(&arr, 4);
+    c_array_push_back(&arr_ll, 4);
+    c_array_push_back(&arr_ul, 4);
+    ASSERT_EQ(maxmin_long[1], 60);
+    ASSERT_EQ(maxmin_long[0], 1);
+    ASSERT_EQ(maxmin_ulong[1], 60);
+    ASSERT_EQ(maxmin_ulong[0], 1);
+
+    c_array_free(&arr);
+    c_array_free(&arr_ll);
+    c_array_free(&arr_ul);
+    free(maxmin_long);
+    free(maxmin_long_long);
+    free(maxmin_ulong);
+}
+
 UTEST(test, c_array_statistic_original_func) {
     c_array_long arr;
     c_array_long_long arr_ll;
