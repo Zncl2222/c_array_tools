@@ -566,7 +566,7 @@ int main() {
 ### `c_array_maxmin(arr)`
 - params:<br>
 `arr`: c_array structure -> (**c_array**)<br>
-- return: `and pointer contain min and max (arr[0] = min, arr[1] = max)` -> (**int*, long long*, float*, double* etc..**)<br>
+- return: `pointer contain min and max (arr[0] = min, arr[1] = max)` -> (**int*, long long*, float*, double* etc..**)<br>
 
 Get min or max value of an array
 ```C
@@ -1063,6 +1063,29 @@ int main() {
         }
     }
     mean_t mean = c_matrix_mean(&mat); // mean = 5
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
+
+----
+### `c_matrix_max(mat) and c_matrix_min(mat)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+- return: `max or min` -> (**int, long long, float, double etc..**)<br>
+
+Reshape c_matrix.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i + j;
+        }
+    }
+    int max = c_matrix_max(&mat); // mean = 2
+    int min = c_matrix_min(&mat); // min = 0
     c_matrix_free(&mat); // free memory
     return 0;
 }
