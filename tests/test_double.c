@@ -810,6 +810,33 @@ UTEST(test, c_matrix_sum) {
 }
 
 
+UTEST(test, c_matrix_max_min) {
+    c_matrix_double mat;
+    c_matrix_ldouble mat_l;
+
+    c_matrix_init(&mat, 2, 2);
+    c_matrix_init(&mat_l, 2, 2);
+
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = 0.2 * i +  0.2 * j;
+            mat_l.data[i][j] = 3.545 + i;
+        }
+    }
+
+    double max = c_matrix_max(&mat);
+    double min = c_matrix_min(&mat);
+    double max_l = c_matrix_max(&mat_l);
+    double min_l = c_matrix_min(&mat_l);
+    ASSERT_NEAR(max, 0.4, 0.01f);
+    ASSERT_NEAR(min, 0, 0.01f);
+    ASSERT_NEAR(max_l, 4.545, 0.01f);
+    ASSERT_NEAR(min_l, 3.545, 0.01f);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_l);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_double mat;
 

@@ -689,6 +689,25 @@ UTEST(test, c_matrix_mean) {
 }
 
 
+UTEST(test, c_matrix_max_min) {
+    c_matrix_float mat;
+
+    c_matrix_init(&mat, 2, 2);
+
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = 0.2 * i +  0.2 * j;
+        }
+    }
+
+    float max = c_matrix_max(&mat);
+    float min = c_matrix_min(&mat);
+    ASSERT_NEAR(max, 0.4, 0.01f);
+    ASSERT_NEAR(min, 0, 0.01f);
+
+    c_matrix_free(&mat);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_float mat;
 

@@ -781,6 +781,33 @@ UTEST(test, c_matrix_mean) {
     c_matrix_free(&mat_u);
 }
 
+UTEST(test, c_matrix_max_min) {
+    c_matrix_int mat;
+    c_matrix_uint mat_u;
+
+    c_matrix_init(&mat, 2, 2);
+    c_matrix_init(&mat_u, 2, 2);
+
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = i + j;
+            mat_u.data[i][j] = i + j;
+        }
+    }
+
+    int max = c_matrix_max(&mat);
+    int max_u = c_matrix_max(&mat_u);
+    int min = c_matrix_min(&mat);
+    int min_u = c_matrix_min(&mat_u);
+    ASSERT_EQ(max, 2);
+    ASSERT_EQ(max_u, 2);
+    ASSERT_EQ(min, 0);
+    ASSERT_EQ(min_u, 0);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_u);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_int mat;
 
