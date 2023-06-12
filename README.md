@@ -1090,3 +1090,27 @@ int main() {
     return 0;
 }
 ```
+
+
+----
+### `c_matrix_var(mat) and c_matrix_std(mat)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+- return: `std or var` -> (**std_t, var_t**)<br>
+
+Calculate the variance or the standard deviation of the matrix.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 3, 3);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i + j;
+        }
+    }
+    var_t var = c_matrix_var(&mat); // var = 1.3333333
+    std_t std = c_matrix_std(&mat); // std = 1.154701
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
