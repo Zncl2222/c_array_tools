@@ -708,6 +708,26 @@ UTEST(test, c_matrix_max_min) {
     c_matrix_free(&mat);
 }
 
+UTEST(test, c_matrix_var_std) {
+    c_matrix_float mat;
+
+    c_matrix_init(&mat, 3, 3);
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            mat.data[i][j] = 0.5 * i + 12.212 * j;
+        }
+    }
+
+    var_t var_float = c_matrix_var(&mat);
+    ASSERT_NEAR(var_float, 99.588628, 0.01f);
+
+    std_t std_float = c_matrix_std(&mat);
+    ASSERT_NEAR(std_float, 9.979410, 0.01f);
+
+    c_matrix_free(&mat);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_float mat;
 

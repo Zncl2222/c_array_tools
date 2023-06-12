@@ -837,6 +837,34 @@ UTEST(test, c_matrix_max_min) {
     c_matrix_free(&mat_l);
 }
 
+UTEST(test, c_matrix_var_std) {
+    c_matrix_double mat;
+    c_matrix_ldouble mat_l;
+
+    c_matrix_init(&mat, 3, 3);
+    c_matrix_init(&mat_l, 3, 3);
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            mat.data[i][j] = 0.5 * i + 12.212 * j;
+            mat_l.data[i][j] = 2147483648.99225 * i + 55564798542384.512 * j;
+        }
+    }
+
+    var_t var_double = c_matrix_var(&mat);
+    var_t var_ldouble = c_matrix_var(&mat_l);
+    ASSERT_NEAR(var_double, 99.588628, 0.01f);
+    ASSERT_NEAR(var_ldouble, 2058297894444975095399055360.000000, 0.01f);
+
+    std_t std_double = c_matrix_std(&mat);
+    std_t std_ldouble = c_matrix_std(&mat_l);
+    ASSERT_NEAR(std_double, 9.979410, 0.01f);
+    ASSERT_NEAR(std_ldouble, 45368468063678.046875, 0.01f);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_l);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_double mat;
 
