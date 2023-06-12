@@ -1219,6 +1219,85 @@ double c_matrix_min_double(double** mat, int r, int c);
 long double c_matrix_min_long_double(long double** mat, int r, int c);
 
 /* -------------------------------------------------------------------- */
+/*                     Matrix standard deviation                        */
+
+# define c_matrix_std(mat)                                          \
+    _Generic((mat)->data,                                           \
+        short**: c_matrix_std_short,                                \
+        unsigned short**: c_matrix_std_ushort,                      \
+        int**: c_matrix_std_int,                                    \
+        unsigned int**: c_matrix_std_uint,                          \
+        long**: c_matrix_std_long,                                  \
+        unsigned long**: c_matrix_std_ulong,                        \
+        long long**: c_matrix_std_long_long,                        \
+        float**: c_matrix_std_float,                                \
+        double**: c_matrix_std_double,                              \
+        long double**: c_matrix_std_long_double                     \
+    )((mat)->data, (mat)->rows, (mat)->cols, c_matrix_mean((mat)))
+
+# define c_matrix_var(mat)                                          \
+    _Generic((mat)->data,                                           \
+        short**: c_matrix_var_short,                                \
+        unsigned short**: c_matrix_var_ushort,                      \
+        int**: c_matrix_var_int,                                    \
+        unsigned int**: c_matrix_var_uint,                          \
+        long**: c_matrix_var_long,                                  \
+        unsigned long**: c_matrix_var_ulong,                        \
+        long long**: c_matrix_var_long_long,                        \
+        float**: c_matrix_var_float,                                \
+        double**: c_matrix_var_double,                              \
+        long double**: c_matrix_var_long_double                     \
+    )((mat)->data, (mat)->rows, (mat)->cols, c_matrix_mean((mat)))
+
+# define c_matrix_var_process(mat, row, col, mean)  \
+    var_t var = 0;                                  \
+    for (int i = 0; i < (row); i++) {               \
+        for (int j = 0; j < (col); j++) {           \
+            var += pow((mat)[i][j] - (mean), 2);    \
+        }                                           \
+    }                                               \
+
+var_t c_matrix_var_short(const short** mat, int row, int col, mean_t mean);
+
+var_t c_matrix_var_ushort(const unsigned short** mat, int row, int col, mean_t mean);
+
+var_t c_matrix_var_int(const int** mat, int row, int col, mean_t mean);
+
+var_t c_matrix_var_uint(const unsigned int** mat, int row, int col, mean_t mean);
+
+var_t c_matrix_var_long(const long** mat, int row, int col, mean_t mean);
+
+var_t c_matrix_var_ulong(const unsigned long** mat, int row, int col, mean_t mean);
+
+var_t c_matrix_var_long_long(const long long** mat, int row, int col, mean_t mean);
+
+var_t c_matrix_var_float(const float** mat, int row, int col, mean_t mean);
+
+var_t c_matrix_var_double(const double** mat, int row, int col, mean_t mean);
+
+var_t c_matrix_var_long_double(const long double** mat, int row, int col, mean_t mean);
+
+std_t c_matrix_std_short(const short** mat, int row, int col, mean_t mean);
+
+std_t c_matrix_std_ushort(const unsigned short** mat, int row, int col, mean_t mean);
+
+std_t c_matrix_std_int(const int** mat, int row, int col, mean_t mean);
+
+std_t c_matrix_std_uint(const unsigned int** mat, int row, int col, mean_t mean);
+
+std_t c_matrix_std_long(const long** mat, int row, int col, mean_t mean);
+
+std_t c_matrix_std_ulong(const unsigned long** mat, int row, int col, mean_t mean);
+
+std_t c_matrix_std_long_long(const long long** mat, int row, int col, mean_t mean);
+
+std_t c_matrix_std_float(const float** mat, int row, int col, mean_t mean);
+
+std_t c_matrix_std_double(const double** mat, int row, int col, mean_t mean);
+
+std_t c_matrix_std_long_double(const long double** mat, int row, int col, mean_t mean);
+
+/* -------------------------------------------------------------------- */
 /*                            Matrix utils                              */
 
 # define c_matrix_print(mat)                                                \
