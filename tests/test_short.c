@@ -826,6 +826,36 @@ UTEST(test, c_matrix_max_min) {
     c_matrix_free(&mat_u);
 }
 
+UTEST(test, c_matrix_var_std) {
+    c_matrix_short mat;
+    c_matrix_ushort mat_u;
+
+    c_matrix_init(&mat, 3, 3);
+    c_matrix_init(&mat_u, 3, 3);
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            int val = i + j;
+            mat.data[i][j] = val;
+            mat_u.data[i][j] = val;
+        }
+    }
+
+    var_t var_short = c_matrix_var(&mat);
+    var_t var_ushort = c_matrix_var(&mat_u);
+
+    ASSERT_NEAR(var_short, 1.3333333, 0.01f);
+    ASSERT_NEAR(var_ushort, 1.333333, 0.01f);
+
+    std_t std_short = c_matrix_std(&mat);
+    std_t std_ushort = c_matrix_std(&mat_u);
+    ASSERT_NEAR(std_short, 1.154701, 0.01f);
+    ASSERT_NEAR(std_ushort, 1.154701, 0.01f);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_u);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_short mat;
 

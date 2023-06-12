@@ -774,3 +774,106 @@ double c_matrix_min_double(double** mat, int r, int c) {
 long double c_matrix_min_long_double(long double** mat, int r, int c) {
     c_matrix_min_process(mat, r, c)
 }
+
+/* -------------------------------------------------------------------- */
+/*                     Matrix standard deviation                        */
+
+var_t c_matrix_var_short(const short** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return (var / (row * col));
+}
+
+var_t c_matrix_var_ushort(const unsigned short** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return (var / (row * col));
+}
+
+var_t c_matrix_var_int(const int** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return (var / (row * col));
+}
+
+var_t c_matrix_var_uint(const unsigned int** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return (var / (row * col));
+}
+
+var_t c_matrix_var_long(const long** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return (var / (row * col));
+}
+
+var_t c_matrix_var_ulong(const unsigned long** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return (var / (row * col));
+}
+
+var_t c_matrix_var_long_long(const long long** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return (var / (row * col));
+}
+
+var_t c_matrix_var_float(const float** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return (var / (row * col));
+}
+
+var_t c_matrix_var_double(const double** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return (var / (row * col));
+}
+
+var_t c_matrix_var_long_double(const long double** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return (var / (row * col));
+}
+
+std_t c_matrix_std_short(const short** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return sqrt(var / (row * col));
+}
+
+std_t c_matrix_std_ushort(const unsigned short** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return sqrt(var / (row * col));
+}
+
+std_t c_matrix_std_int(const int** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return sqrt(var / (row * col));
+}
+
+std_t c_matrix_std_uint(const unsigned int** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return sqrt(var / (row * col));
+}
+
+std_t c_matrix_std_long(const long** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return sqrt(var / (row * col));
+}
+
+std_t c_matrix_std_ulong(const unsigned long** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return sqrt(var / (row * col));
+}
+
+std_t c_matrix_std_long_long(const long long** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return sqrt(var / (row * col));
+}
+
+std_t c_matrix_std_float(const float** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return sqrt(var / (row * col));
+}
+
+std_t c_matrix_std_double(const double** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return sqrt(var / (row * col));
+}
+
+std_t c_matrix_std_long_double(const long double** mat, int row, int col, mean_t mean) {
+    c_matrix_var_process(mat, row, col, mean)
+    return sqrt(var / (row * col));
+}

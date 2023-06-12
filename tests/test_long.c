@@ -957,6 +957,44 @@ UTEST(test, c_matrix_max_min) {
     c_matrix_free(&mat_ll);
 }
 
+UTEST(test, c_matrix_var_std) {
+    c_matrix_long mat;
+    c_matrix_long_long mat_ll;
+    c_matrix_ulong mat_ul;
+
+    c_matrix_init(&mat, 3, 3);
+    c_matrix_init(&mat_ul, 3, 3);
+    c_matrix_init(&mat_ll, 3, 3);
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            int val = i + j;
+            mat.data[i][j] = val;
+            mat_ul.data[i][j] = val;
+            mat_ll.data[i][j] = 12456 * i + val;
+        }
+    }
+
+    var_t var_long = c_matrix_var(&mat);
+    var_t var_ulong = c_matrix_var(&mat_ul);
+    var_t var_long_long = c_matrix_var(&mat_ll);
+
+    ASSERT_NEAR(var_long, 1.3333333, 0.01f);
+    ASSERT_NEAR(var_ulong, 1.333333, 0.01f);
+    ASSERT_NEAR(var_long_long, 103451233.3333333, 0.01f);
+
+    std_t std_long = c_matrix_std(&mat);
+    std_t std_ulong = c_matrix_std(&mat_ul);
+    std_t std_long_long = c_matrix_std(&mat_ll);
+    ASSERT_NEAR(std_long, 1.154701, 0.01f);
+    ASSERT_NEAR(std_ulong, 1.154701, 0.01f);
+    ASSERT_NEAR(std_long_long, 10171.097941, 0.01f);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_ul);
+    c_matrix_free(&mat_ll);
+}
+
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_long mat;
 
