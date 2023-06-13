@@ -1030,7 +1030,7 @@ int main() {
 `mat`: c_matrix structure -> (**c_matrix**)<br>
 - return: `sum` -> (**int, long long, float, double etc..**)<br>
 
-Reshape c_matrix.
+Calculate the sum of the matrix.
 ```C
 int main() {
     c_matrix_int mat;
@@ -1052,7 +1052,7 @@ int main() {
 `mat`: c_matrix structure -> (**c_matrix**)<br>
 - return: `mean` -> (**mean_t**)<br>
 
-Reshape c_matrix.
+Calculate the mean value of the matrix.
 ```C
 int main() {
     c_matrix_int mat;
@@ -1074,7 +1074,7 @@ int main() {
 `mat`: c_matrix structure -> (**c_matrix**)<br>
 - return: `max or min` -> (**int, long long, float, double etc..**)<br>
 
-Reshape c_matrix.
+Get the max or min of the matrix.
 ```C
 int main() {
     c_matrix_int mat;
