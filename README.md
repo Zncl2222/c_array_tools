@@ -563,6 +563,27 @@ int main() {
 ```
 
 ----
+### `c_array_maxmin(arr)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+- return: `pointer contain min and max (arr[0] = min, arr[1] = max)` -> (**int*, long long*, float*, double* etc..**)<br>
+
+Get min or max value of an array
+```C
+int main() {
+    c_array_int arr;
+    c_array(&arr, 0);
+    c_array_push_back(&arr, 1);
+    c_array_push_back(&arr, 2);
+    c_array_push_back(&arr, 3);
+    int* max_min = c_array_maxmin(&arr); // max_min[0] = 1, max_min[1] = 3
+    c_array_free(&arr); // free memory
+    free(max_min)
+    return 0;
+}
+```
+
+----
 ### `c_array_mean(arr)`
 - params:<br>
 `arr`: c_array structure -> (**c_array**)<br>
@@ -998,6 +1019,97 @@ int main() {
         }
     }
     c_array_int arr = c_matrix_reshape(&mat, 4, 1);
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
+
+----
+### `c_matrix_sum(mat)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+- return: `sum` -> (**int, long long, float, double etc..**)<br>
+
+Calculate the sum of the matrix.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = 5;
+        }
+    }
+    int sum_i = c_matrix_sum(&mat); // sum i = 20
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
+
+----
+### `c_matrix_mean(mat)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+- return: `mean` -> (**mean_t**)<br>
+
+Calculate the mean value of the matrix.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = 5;
+        }
+    }
+    mean_t mean = c_matrix_mean(&mat); // mean = 5
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
+
+----
+### `c_matrix_max(mat) and c_matrix_min(mat)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+- return: `max or min` -> (**int, long long, float, double etc..**)<br>
+
+Get the max or min of the matrix.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 2, 2);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i + j;
+        }
+    }
+    int max = c_matrix_max(&mat); // mean = 2
+    int min = c_matrix_min(&mat); // min = 0
+    c_matrix_free(&mat); // free memory
+    return 0;
+}
+```
+
+
+----
+### `c_matrix_var(mat) and c_matrix_std(mat)`
+- params:<br>
+`mat`: c_matrix structure -> (**c_matrix**)<br>
+- return: `std or var` -> (**std_t, var_t**)<br>
+
+Calculate the variance or the standard deviation of the matrix.
+```C
+int main() {
+    c_matrix_int mat;
+    c_matrix_init(&mat, 3, 3);
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++) {
+            mat.data[i][j] = i + j;
+        }
+    }
+    var_t var = c_matrix_var(&mat); // var = 1.3333333
+    std_t std = c_matrix_std(&mat); // std = 1.154701
     c_matrix_free(&mat); // free memory
     return 0;
 }

@@ -552,6 +552,47 @@ UTEST(test, c_array_min_max_2) {
     c_array_free(&arr_ul);
 }
 
+UTEST(test, c_array_min_max_process) {
+    c_array_long arr;
+    c_array_long_long arr_ll;
+    c_array_ulong arr_ul;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_ll, 0);
+    c_array_init(&arr_ul, 0);
+
+    long test_arr[] = {3, 7, 1, 9, 2, 8, 60};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+        c_array_push_back(&arr_ll, (long long)test_arr[i]);
+        c_array_push_back(&arr_ul, (unsigned long)test_arr[i]);
+    }
+    long* maxmin_long = c_array_maxmin(&arr);
+    long long* maxmin_long_long = c_array_maxmin(&arr_ll);
+    unsigned long* maxmin_ulong = c_array_maxmin(&arr_ul);
+    ASSERT_EQ(maxmin_long[1], 60);
+    ASSERT_EQ(maxmin_long[0], 1);
+    ASSERT_EQ(maxmin_long_long[1], 60);
+    ASSERT_EQ(maxmin_long_long[0], 1);
+    ASSERT_EQ(maxmin_ulong[1], 60);
+    ASSERT_EQ(maxmin_ulong[0], 1);
+
+    c_array_push_back(&arr, 4);
+    c_array_push_back(&arr_ll, 4);
+    c_array_push_back(&arr_ul, 4);
+    ASSERT_EQ(maxmin_long[1], 60);
+    ASSERT_EQ(maxmin_long[0], 1);
+    ASSERT_EQ(maxmin_ulong[1], 60);
+    ASSERT_EQ(maxmin_ulong[0], 1);
+
+    c_array_free(&arr);
+    c_array_free(&arr_ll);
+    c_array_free(&arr_ul);
+    free(maxmin_long);
+    free(maxmin_long_long);
+    free(maxmin_ulong);
+}
+
 UTEST(test, c_array_statistic_original_func) {
     c_array_long arr;
     c_array_long_long arr_ll;
@@ -821,6 +862,137 @@ UTEST(test, c_matrix_reshape) {
     c_matrix_free(&mat2);
     c_matrix_free(&mat2_ll);
     c_matrix_free(&mat2_u);
+}
+
+UTEST(test, c_matrix_sum) {
+    c_matrix_long mat;
+    c_matrix_long_long mat_ll;
+    c_matrix_ulong mat_u;
+
+    c_matrix_init(&mat, 5, 2);
+    c_matrix_init(&mat_ll, 5, 2);
+    c_matrix_init(&mat_u, 5, 2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = i + j;
+            mat_u.data[i][j] = 1;
+            mat_ll.data[i][j] = 2;
+        }
+    }
+
+    long sum_long = c_matrix_sum(&mat);
+    ASSERT_EQ(sum_long, 25);
+    unsigned long sum_ulong = c_matrix_sum(&mat_u);
+    ASSERT_EQ(sum_ulong, 10);
+    long long sum_long_long = c_matrix_sum(&mat_ll);
+    ASSERT_EQ(sum_long_long, 20);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_u);
+    c_matrix_free(&mat_ll);
+}
+
+UTEST(test, c_matrix_mean) {
+    c_matrix_long mat;
+    c_matrix_ulong mat_u;
+    c_matrix_long_long mat_ll;
+
+    c_matrix_init(&mat, 5, 2);
+    c_matrix_init(&mat_u, 5, 2);
+    c_matrix_init(&mat_ll, 5, 2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = 2;
+            mat_u.data[i][j] = 1;
+            mat_ll.data[i][j] = 1024;
+        }
+    }
+
+    mean_t mean_long = c_matrix_mean(&mat);
+    ASSERT_NEAR(mean_long, 2, 0.01f);
+    mean_t mean_ulong = c_matrix_mean(&mat_u);
+    ASSERT_NEAR(mean_ulong, 1, 0.01f);
+    mean_t mean_long_long = c_matrix_mean(&mat_ll);
+    ASSERT_NEAR(mean_long_long, 1024, 0.01f);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_u);
+    c_matrix_free(&mat_ll);
+}
+
+UTEST(test, c_matrix_max_min) {
+    c_matrix_long mat;
+    c_matrix_ulong mat_ul;
+    c_matrix_long_long mat_ll;
+
+    c_matrix_init(&mat, 2, 2);
+    c_matrix_init(&mat_ul, 2, 2);
+    c_matrix_init(&mat_ll, 2, 2);
+
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = i + j;
+            mat_ul.data[i][j] = i + j;
+            mat_ll.data[i][j] = 2 + j;
+        }
+    }
+
+    long max = c_matrix_max(&mat);
+    unsigned long max_ul = c_matrix_max(&mat_ul);
+    long min = c_matrix_min(&mat);
+    unsigned long min_ul = c_matrix_min(&mat_ul);
+    long long min_ll = c_matrix_min(&mat_ll);
+    long long max_ll = c_matrix_max(&mat_ll);
+    ASSERT_EQ(max, 2);
+    ASSERT_EQ(max_ul, 2);
+    ASSERT_EQ(min, 0);
+    ASSERT_EQ(min_ul, 0);
+    ASSERT_EQ(max_ll, 3);
+    ASSERT_EQ(min_ll, 2);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_ul);
+    c_matrix_free(&mat_ll);
+}
+
+UTEST(test, c_matrix_var_std) {
+    c_matrix_long mat;
+    c_matrix_long_long mat_ll;
+    c_matrix_ulong mat_ul;
+
+    c_matrix_init(&mat, 3, 3);
+    c_matrix_init(&mat_ul, 3, 3);
+    c_matrix_init(&mat_ll, 3, 3);
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            int val = i + j;
+            mat.data[i][j] = val;
+            mat_ul.data[i][j] = val;
+            mat_ll.data[i][j] = 12456 * i + val;
+        }
+    }
+
+    var_t var_long = c_matrix_var(&mat);
+    var_t var_ulong = c_matrix_var(&mat_ul);
+    var_t var_long_long = c_matrix_var(&mat_ll);
+
+    ASSERT_NEAR(var_long, 1.3333333, 0.01f);
+    ASSERT_NEAR(var_ulong, 1.333333, 0.01f);
+    ASSERT_NEAR(var_long_long, 103451233.3333333, 0.01f);
+
+    std_t std_long = c_matrix_std(&mat);
+    std_t std_ulong = c_matrix_std(&mat_ul);
+    std_t std_long_long = c_matrix_std(&mat_ll);
+    ASSERT_NEAR(std_long, 1.154701, 0.01f);
+    ASSERT_NEAR(std_ulong, 1.154701, 0.01f);
+    ASSERT_NEAR(std_long_long, 10171.097941, 0.01f);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_ul);
+    c_matrix_free(&mat_ll);
 }
 
 UTEST (test, c_matrix_print_and_printf) {

@@ -474,6 +474,25 @@ UTEST(test, c_array_min_max_2) {
     c_array_free(&arr);
 }
 
+UTEST(test, c_array_min_max_process) {
+    c_array_float arr;
+    c_array_init(&arr, 0);
+    float test_arr[] = {3.5, 7.6, 1.4, 9.5, 2.5, 8.5, 60.112};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+    }
+    float* maxmin_float = c_array_maxmin(&arr);
+    ASSERT_NEAR(maxmin_float[1], 60.112, 0.01f);
+    ASSERT_NEAR(maxmin_float[0], 1.4, 0.01f);
+
+    c_array_push_back(&arr, 4);
+
+    ASSERT_NEAR(maxmin_float[1], 60.112, 0.01f);
+    ASSERT_NEAR(maxmin_float[0], 1.4, 0.01f);
+
+    c_array_free(&arr);
+    free(maxmin_float);
+}
 
 UTEST(test, c_array_statistic_original_func) {
     c_array_float arr;
@@ -635,6 +654,79 @@ UTEST(test, c_matrix_reshape) {
     c_matrix_free(&mat2);
 }
 
+UTEST(test, c_matrix_sum) {
+    c_matrix_float mat;
+
+    c_matrix_init(&mat, 5, 2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = 0.5 * i + 0.5 * j;
+        }
+    }
+
+    float sum_float = c_matrix_sum(&mat);
+    ASSERT_NEAR(sum_float, 12.5, 0.01f);
+
+    c_matrix_free(&mat);
+}
+
+UTEST(test, c_matrix_mean) {
+    c_matrix_float mat;
+
+    c_matrix_init(&mat, 5, 2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = 2.58;
+        }
+    }
+
+    mean_t mean_float = c_matrix_mean(&mat);
+    ASSERT_NEAR(mean_float, 2.58, 0.01f);
+
+    c_matrix_free(&mat);
+}
+
+
+UTEST(test, c_matrix_max_min) {
+    c_matrix_float mat;
+
+    c_matrix_init(&mat, 2, 2);
+
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = 0.2 * i +  0.2 * j;
+        }
+    }
+
+    float max = c_matrix_max(&mat);
+    float min = c_matrix_min(&mat);
+    ASSERT_NEAR(max, 0.4, 0.01f);
+    ASSERT_NEAR(min, 0, 0.01f);
+
+    c_matrix_free(&mat);
+}
+
+UTEST(test, c_matrix_var_std) {
+    c_matrix_float mat;
+
+    c_matrix_init(&mat, 3, 3);
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            mat.data[i][j] = 0.5 * i + 12.212 * j;
+        }
+    }
+
+    var_t var_float = c_matrix_var(&mat);
+    ASSERT_NEAR(var_float, 99.588628, 0.01f);
+
+    std_t std_float = c_matrix_std(&mat);
+    ASSERT_NEAR(std_float, 9.979410, 0.01f);
+
+    c_matrix_free(&mat);
+}
 
 UTEST (test, c_matrix_print_and_printf) {
     c_matrix_float mat;

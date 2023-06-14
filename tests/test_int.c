@@ -504,6 +504,37 @@ UTEST(test, c_array_min_max_2) {
     c_array_free(&arr_u);
 }
 
+UTEST(test, c_array_min_max_process) {
+    c_array_int arr;
+    c_array_uint arr_u;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_u, 0);
+
+    int test_arr[] = {3, 7, 1, 9, 2, 8, 60};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+        c_array_push_back(&arr_u, (unsigned int)test_arr[i]);
+    }
+    int* maxmin_int = c_array_maxmin(&arr);
+    unsigned int* maxmin_uint = c_array_maxmin(&arr_u);
+    ASSERT_EQ(maxmin_int[1], 60);
+    ASSERT_EQ(maxmin_int[0], 1);
+    ASSERT_EQ(maxmin_uint[1], 60);
+    ASSERT_EQ(maxmin_uint[0], 1);
+
+    c_array_push_back(&arr, 4);
+    c_array_push_back(&arr_u, 4);
+    ASSERT_EQ(maxmin_int[1], 60);
+    ASSERT_EQ(maxmin_int[0], 1);
+    ASSERT_EQ(maxmin_uint[1], 60);
+    ASSERT_EQ(maxmin_uint[0], 1);
+
+    c_array_free(&arr);
+    c_array_free(&arr_u);
+    free(maxmin_int);
+    free(maxmin_uint);
+}
 
 UTEST(test, c_array_statistic_original_func) {
     c_array_int arr;
@@ -702,6 +733,109 @@ UTEST(test, c_matrix_reshape) {
 
     c_matrix_free(&mat2);
     c_matrix_free(&mat2_u);
+}
+
+UTEST(test, c_matrix_sum) {
+    c_matrix_int mat;
+    c_matrix_uint mat_u;
+
+    c_matrix_init(&mat, 5, 2);
+    c_matrix_init(&mat_u, 5, 2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = i + j;
+            mat_u.data[i][j] = 1;
+        }
+    }
+
+    int sum_int = c_matrix_sum(&mat);
+    ASSERT_EQ(sum_int, 25);
+    unsigned int sum_uint = c_matrix_sum(&mat_u);
+    ASSERT_EQ(sum_uint, 10);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_u);
+}
+
+UTEST(test, c_matrix_mean) {
+    c_matrix_int mat;
+    c_matrix_uint mat_u;
+
+    c_matrix_init(&mat, 5, 2);
+    c_matrix_init(&mat_u, 5, 2);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = 2;
+            mat_u.data[i][j] = 1;
+        }
+    }
+
+    mean_t mean_int = c_matrix_mean(&mat);
+    ASSERT_NEAR(mean_int, 2, 0.01f);
+    mean_t mean_uint = c_matrix_mean(&mat_u);
+    ASSERT_NEAR(mean_uint, 1, 0.01f);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_u);
+}
+
+UTEST(test, c_matrix_max_min) {
+    c_matrix_int mat;
+    c_matrix_uint mat_u;
+
+    c_matrix_init(&mat, 2, 2);
+    c_matrix_init(&mat_u, 2, 2);
+
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            mat.data[i][j] = i + j;
+            mat_u.data[i][j] = i + j;
+        }
+    }
+
+    int max = c_matrix_max(&mat);
+    int max_u = c_matrix_max(&mat_u);
+    int min = c_matrix_min(&mat);
+    int min_u = c_matrix_min(&mat_u);
+    ASSERT_EQ(max, 2);
+    ASSERT_EQ(max_u, 2);
+    ASSERT_EQ(min, 0);
+    ASSERT_EQ(min_u, 0);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_u);
+}
+
+UTEST(test, c_matrix_var_std) {
+    c_matrix_int mat;
+    c_matrix_uint mat_u;
+
+    c_matrix_init(&mat, 3, 3);
+    c_matrix_init(&mat_u, 3, 3);
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            int val = i + j;
+            mat.data[i][j] = val;
+            mat_u.data[i][j] = val;
+        }
+    }
+
+    var_t var_int = c_matrix_var(&mat);
+    var_t var_uint = c_matrix_var(&mat_u);
+
+    ASSERT_NEAR(var_int, 1.3333333, 0.01f);
+    ASSERT_NEAR(var_uint, 1.333333, 0.01f);
+
+    std_t std_int = c_matrix_std(&mat);
+    std_t std_uint = c_matrix_std(&mat_u);
+    ASSERT_NEAR(std_int, 1.154701, 0.01f);
+    ASSERT_NEAR(std_uint, 1.154701, 0.01f);
+
+    c_matrix_free(&mat);
+    c_matrix_free(&mat_u);
 }
 
 UTEST (test, c_matrix_print_and_printf) {
