@@ -33,3 +33,16 @@ jobs:
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: make test && make memcheck
+
+  build_windows:
+    name: c-build-windows
+    runs-on: windows-latest
+    env:
+      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+      - name: build and test
+        run: |
+          .\test.bat
