@@ -125,8 +125,11 @@ UTEST(test, c_array_byte) {
     c_array_long arr;
     c_array_init(&arr, 1);
     c_array_assign(&arr, 0, 15);
-    ASSERT_EQ(c_array_byte(&arr), 8);
-
+#ifdef _WIN32
+        ASSERT_EQ(c_array_byte(&arr), 4);
+#elif __linux__
+        ASSERT_EQ(c_array_byte(&arr), 8);
+#endif
     c_array_free(&arr);
 }
 
