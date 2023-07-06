@@ -637,6 +637,51 @@ double* c_array_maxmin_double(double* arr, int size);
 long double* c_array_maxmin_long_double(long double* arr, int size);
 
 /* -------------------------------------------------------------------- */
+/*                            Array search                              */
+
+# define c_array_search(arr, target)                      \
+    _Generic((arr)->data,                                 \
+        short*: c_array_search_short,                     \
+        unsigned short*: c_array_search_ushort,           \
+        int*: c_array_search_int,                         \
+        unsigned int*: c_array_search_uint,               \
+        long*: c_array_search_long,                       \
+        unsigned long*: c_array_search_ulong,             \
+        long long*: c_array_search_long_long,             \
+        float*: c_array_search_float,                     \
+        double*: c_array_search_double,                   \
+        long double*: c_array_search_ldouble              \
+    )((arr)->data, (arr)->size, (target))
+
+# define c_array_search_process(arr, size, target)          \
+    for (int i = 0; i < (size); i++) {                      \
+        if (fabs((arr)[i] - (target)) < 1e-6) {             \
+            return i;                                       \
+        }                                                   \
+    }                                                       \
+    return -1;
+
+int c_array_search_short(const short* arr, int size, short target);
+
+int c_array_search_ushort(const unsigned short* arr, int size, unsigned short target);
+
+int c_array_search_int(const int* arr, int size, int target);
+
+int c_array_search_uint(const unsigned int* arr, int size, unsigned int target);
+
+int c_array_search_long(const long* arr, int size, long target);
+
+int c_array_search_long_long(const long long* arr, int size, long long target);
+
+int c_array_search_ulong(const unsigned long* arr, int size, unsigned long target);
+
+int c_array_search_float(const float* arr, int size, float target);
+
+int c_array_search_double(const double* arr, int size, double target);
+
+int c_array_search_ldouble(const long double* arr, int size, long double target);
+
+/* -------------------------------------------------------------------- */
 /*                            Arrary utils                              */
 
 # define c_array_autoformat(arr)    \
