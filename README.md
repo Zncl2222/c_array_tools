@@ -798,6 +798,27 @@ int main() {
 ```
 
 ----
+### `c_array_search(arr, target)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+`target`: target you want to search -> (**int, long long, float, double etc..**)<br>
+- return: `Index of the target` -> (**int**)<br>
+
+Initialize the c_array with the random value from given random function
+```C
+int main() {
+    c_array_int array;
+    c_array_init(&array, 0);
+    for (int i = 0; i < 5; i++) {
+        array.data[i] = i * 2;
+    }
+    int idx = c_array_search(&array, 8); // idx = 4
+    c_array_free(&array); // free memory
+    return 0;
+}
+```
+
+----
 ### `c_matrix_init(mat, rows, cols)`
 - params:<br>
 `mat`: c_matrix structure -> (**c_matrix**)<br>
