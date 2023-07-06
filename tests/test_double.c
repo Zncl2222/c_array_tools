@@ -625,6 +625,30 @@ UTEST(test, c_array_var_std) {
     c_array_free(&arr_ld);
 }
 
+UTEST(test, c_array_search) {
+    c_array_double arr;
+    c_array_ldouble arr_ld;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_ld, 0);
+
+    for (int i = 0; i < 6; i++) {
+        c_array_push_back(&arr, i * 2.5);
+        c_array_push_back(&arr_ld, i * 4.5);
+    }
+
+    int search_d = c_array_search(&arr, 7.5);
+    int search_ld = c_array_search(&arr_ld, 22.5);
+    int search_fail = c_array_search(&arr, 99957);
+
+    ASSERT_EQ(search_d, 3);
+    ASSERT_EQ(search_ld, 5);
+    ASSERT_EQ(search_fail, -1);
+
+    c_array_free(&arr);
+    c_array_free(&arr_ld);
+}
+
 UTEST(test, c_matrix_init) {
     c_matrix_double mat;
     c_matrix_init(&mat, 10, 6);
