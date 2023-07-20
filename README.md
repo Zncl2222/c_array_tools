@@ -68,6 +68,13 @@ Due to the `typeof` and `_Generic` features in the code, now the project was onl
 - [c_array_qsort](#c_array_qsortarr--c_array_msortarr)
 - [c_matrix_flatten](#c_matrix_flattenmat)
 - [c_matrix_reshape](#c_matrix_reshapemat-row-col)
+- [c_matrix_sum](#c_matrix_summat)
+- [c_matrix_mean](#c_matrix_meanmat)
+- [c_matrix_max](#c_matrix_maxmat)
+- [c_matrix_min](#c_matrix_minmat)
+- [c_matrix_var](#c_matrix_varmat)
+- [c_matrix_std](#c_matrix_stdmat)
+- [c_array_search](#c_array_searcharr-target)
 
 ### Extension in c_array_mt.c
 - [mt19937_init](#void-mt19937_initmt19937_state-state-unsigned-int-seed)
