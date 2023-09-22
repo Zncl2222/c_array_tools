@@ -550,6 +550,24 @@ UTEST(test, c_array_var_std) {
     c_array_free(&arr);
 }
 
+UTEST(test, c_array_search) {
+    c_array_float arr;
+
+    c_array_init(&arr, 0);
+
+    for (int i = 0; i < 6; i++) {
+        c_array_push_back(&arr, i * 2.5);
+    }
+
+    int search_float = c_array_search(&arr, 7.5);
+    int search_fail = c_array_search(&arr, 99957);
+
+    ASSERT_EQ(search_float, 3);
+    ASSERT_EQ(search_fail, -1);
+
+    c_array_free(&arr);
+}
+
 UTEST(test, c_matrix_init) {
     c_matrix_float mat;
     c_matrix_init(&mat, 10, 6);

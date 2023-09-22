@@ -125,8 +125,11 @@ UTEST(test, c_array_byte) {
     c_array_long arr;
     c_array_init(&arr, 1);
     c_array_assign(&arr, 0, 15);
-    ASSERT_EQ(c_array_byte(&arr), 8);
-
+#ifdef _WIN32
+        ASSERT_EQ(c_array_byte(&arr), 4);
+#elif __linux__
+        ASSERT_EQ(c_array_byte(&arr), 8);
+#endif
     c_array_free(&arr);
 }
 
@@ -691,6 +694,36 @@ UTEST(test, c_array_var_std) {
     c_array_free(&arr);
     c_array_free(&arr_ll);
     c_array_free(&arr_ul);
+}
+
+UTEST(test, c_array_search) {
+    c_array_long arr;
+    c_array_ulong arr_u;
+    c_array_long_long arr_ll;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_u, 0);
+    c_array_init(&arr_ll, 0);
+
+    for (int i = 0; i < 6; i++) {
+        c_array_push_back(&arr, i * 2);
+        c_array_push_back(&arr_u, i * 2);
+        c_array_push_back(&arr_ll, i * 3);
+    }
+
+    int search_l = c_array_search(&arr, 6);
+    int search_ul = c_array_search(&arr_u, 6);
+    int search_ll = c_array_search(&arr_ll, 9);
+    int search_fail = c_array_search(&arr, 99957);
+
+    ASSERT_EQ(search_l, 3);
+    ASSERT_EQ(search_ul, 3);
+    ASSERT_EQ(search_ll, 3);
+    ASSERT_EQ(search_fail, -1);
+
+    c_array_free(&arr);
+    c_array_free(&arr_u);
+    c_array_free(&arr_ll);
 }
 
 UTEST(test, c_matrix_init) {

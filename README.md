@@ -2,7 +2,7 @@
 ![size](https://img.shields.io/github/repo-size/Zncl2222/c_array_tools)
 ![language](https://img.shields.io/badge/-Solutions-blue.svg?style=flat&logo=c%2B%2B)
 ![language_percent](https://img.shields.io/github/languages/top/Zncl2222/c_array_tools)
-[![build](https://github.com/Zncl2222/c_array_tools/actions/workflows/cmake.yml/badge.svg)](https://github.com/Zncl2222/c_array_tools/actions/workflows/cmake.yml)
+![cmake](https://img.shields.io/github/actions/workflow/status/Zncl2222/c_array_tools/cmake.yml?logo=cmake&logoColor=red&label=CMake)
 [![build](https://github.com/Zncl2222/c_array_tools/actions/workflows/codeql.yml/badge.svg)](https://github.com/Zncl2222/c_array_tools/actions/workflows/codeql.yml)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Zncl2222_c_array_tools&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Zncl2222_c_array_tools)
@@ -12,12 +12,12 @@
 
 
 # c_array_tools
-This is a simple dynamic array tools similary to C++ **```std::vector```** implemented by C. It coded by macro to simulate the **```template```** function like in C++ or other languages. Thus user can use array in C more easily without declare the type again and again.
+This is a simple dynamic array tool, similar to C++'s **```std::vector```**, implemented in C. It is coded using macros to simulate **```template-like```** functions found in languages like C++. This allows users to work with arrays in C more easily, without the need to repeatedly declare the data type.
 
 # Installation
-It is a single header file library. For most basic dynamic array features, you only need to include `src/c_array.h` into your project. If you want to use the extension features like **statistic calculation** and **mt19937 random number generator**, you should also link `src/c_array.c` or `src/c_array_mt.c` while compiling. (The functions are declared in `src/c_array.h`, so you can call any of them if you include the header file `src/c_array.h` in your source code.).
+It's a single-header library. For most basic dynamic array functionality, you only need to include `src/c_array.h` in your project. If you want to use extended features such as statistical calculations and the `mt19937 random number generator`, you should also link either `src/c_array.c` or `src/c_array_mt.c` when compiling your code. (All the functions are declared in `src/c_array.h`, so you can call any of them by including the header file `src/c_array.h` in your source code.)
 
-For example, you have a program main.c like:
+For example, if you have a program like main.c:
 
 
 ### main.c
@@ -45,7 +45,7 @@ compile with gcc (remember to add -lm to link math.h in linux os)
 gcc main.c c_array_mt.c c_array.c -lm -o main.out
 ```
 
-Due to the `typeof` and `_Generic` features in the code, now the project was only tested base on the gcc compiler on windows (mingw) and ubuntu os. (gcc >= 4.9 is required, gcc does not support `_Generic` until version 4.9)
+Because of the `typeof` and `_Generic` features in the code, the project has been tested exclusively with the GCC compiler on both Windows (MinGW) and Ubuntu operating systems. (A minimum version of GCC 4.9 is required, as `_Generic` support was introduced starting from version 4.9.)
 
 
 <div align='center'>
@@ -68,6 +68,13 @@ Due to the `typeof` and `_Generic` features in the code, now the project was onl
 - [c_array_qsort](#c_array_qsortarr--c_array_msortarr)
 - [c_matrix_flatten](#c_matrix_flattenmat)
 - [c_matrix_reshape](#c_matrix_reshapemat-row-col)
+- [c_matrix_sum](#c_matrix_summat)
+- [c_matrix_mean](#c_matrix_meanmat)
+- [c_matrix_max](#c_matrix_maxmat)
+- [c_matrix_min](#c_matrix_minmat)
+- [c_matrix_var](#c_matrix_varmat)
+- [c_matrix_std](#c_matrix_stdmat)
+- [c_array_search](#c_array_searcharr-target)
 
 ### Extension in c_array_mt.c
 - [mt19937_init](#void-mt19937_initmt19937_state-state-unsigned-int-seed)
@@ -82,7 +89,7 @@ Due to the `typeof` and `_Generic` features in the code, now the project was onl
 - [c_array_rand_range](#c_array_rand_rangearr-c-rng_function)
 
 # Usuage
-Here is an example.c to display how to use this llibrary. You could just use the shell script example.sh (linux) or batch file example.bat to compile and run the program. The example program print out the results for user to understand how it works.
+Here is an example in `example.c` that demonstrates how to use this library. You can simply use the shell script `example.sh (for Linux)` or the batch file `example.bat` to compile and run the program. The example program prints out results to help users understand how it works.
 
 ### Example
 ```C
@@ -792,6 +799,27 @@ int main() {
     c_array_double array;
     double num = random_normal(&state);
     c_array_rand_range(&arr, c, mt19937_get_int32_range(&state, -5, 20));
+    c_array_free(&array); // free memory
+    return 0;
+}
+```
+
+----
+### `c_array_search(arr, target)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+`target`: target you want to search -> (**int, long long, float, double etc..**)<br>
+- return: `Index of the target` -> (**int**)<br>
+
+Initialize the c_array with the random value from given random function
+```C
+int main() {
+    c_array_int array;
+    c_array_init(&array, 0);
+    for (int i = 0; i < 5; i++) {
+        array.data[i] = i * 2;
+    }
+    int idx = c_array_search(&array, 8); // idx = 4
     c_array_free(&array); // free memory
     return 0;
 }
