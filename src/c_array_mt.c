@@ -6,7 +6,7 @@
  * All rights reserved.
  *
  * -----------------------------------------------------------------------
- * Version: v1.4.1
+ * Version: v1.4.2
  * file   : c_array_mt.c
  *
  * The latest version is avaliable at:
