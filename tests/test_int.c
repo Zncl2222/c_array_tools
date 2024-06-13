@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2022 Jian Yu, Chen
     License: MIT License
-    file   : test.c
+    file   : test_int.c
 
     The latest version is avaliable at:
     https://github.com/Zncl2222/c_array_tools
@@ -12,7 +12,7 @@
 # include "../src/c_array.h"
 # include "utest.h"
 
-UTEST(test, c_array_init) {
+UTEST(test_int, c_array_init) {
     c_array_int arr;
     c_array_init(&arr, 0);
     ASSERT_TRUE(arr.capacity == 0);
@@ -31,7 +31,7 @@ UTEST(test, c_array_init) {
     c_array_free(&arr2);
 }
 
-UTEST(test, c_array_empty_init) {
+UTEST(test_int, c_array_empty_init) {
     c_array_int arr;
     c_array_empty_init(&arr, 0);
     ASSERT_TRUE(arr.capacity == 0);
@@ -46,7 +46,7 @@ UTEST(test, c_array_empty_init) {
     c_array_free(&arr2);
 }
 
-UTEST(test, c_array_assign) {
+UTEST(test_int, c_array_assign) {
     c_array_int arr;
     c_array_init(&arr, 3);
 
@@ -62,7 +62,7 @@ UTEST(test, c_array_assign) {
     c_array_free(&arr);
 }
 
-UTEST(test, c_array_copy) {
+UTEST(test_int, c_array_copy) {
     c_array_int arr;
     c_array_int arr_copy;
     c_array_init(&arr, 0);
@@ -83,7 +83,7 @@ UTEST(test, c_array_copy) {
     c_array_free(&arr_copy);
 }
 
-UTEST(test, c_array_resize) {
+UTEST(test_int, c_array_resize) {
     c_array_int arr;
     c_array_init(&arr, 3);
     ASSERT_EQ(arr.capacity, 3);
@@ -99,7 +99,7 @@ UTEST(test, c_array_resize) {
     c_array_free(&arr);
 }
 
-UTEST(test, c_array_set_size) {
+UTEST(test_int, c_array_set_size) {
     c_array_int arr;
     c_array_init(&arr, 30);
     ASSERT_EQ(arr.capacity, 30);
@@ -121,7 +121,7 @@ UTEST(test, c_array_set_size) {
     c_array_free(&arr);
 }
 
-UTEST(test, c_array_byte) {
+UTEST(test_int, c_array_byte) {
     c_array_int arr;
     c_array_init(&arr, 1);
     c_array_assign(&arr, 0, 15);
@@ -130,7 +130,7 @@ UTEST(test, c_array_byte) {
     c_array_free(&arr);
 }
 
-UTEST(test, c_array_empty) {
+UTEST(test_int, c_array_empty) {
     c_array_int arr;
     c_array_init(&arr, 0);
     ASSERT_EQ(c_array_empty(&arr), 1);
@@ -144,7 +144,7 @@ UTEST(test, c_array_empty) {
     c_array_free(&arr);
 }
 
-UTEST(test, c_array_swap) {
+UTEST(test_int, c_array_swap) {
     c_array_int arr;
     c_array_init(&arr, 0);
 
@@ -167,7 +167,7 @@ UTEST(test, c_array_swap) {
     c_array_free(&arr);
 }
 
-UTEST(test, c_array_push_back) {
+UTEST(test_int, c_array_push_back) {
     c_array_int arr;
     c_array_init(&arr, 0);
 
@@ -200,7 +200,7 @@ UTEST(test, c_array_push_back) {
     c_array_free(&arr);
 }
 
-UTEST (test, c_array_print_and_printf) {
+UTEST (test_int, c_array_print_and_printf) {
     c_array_int arr;
     c_array_init(&arr, 0);
 
@@ -213,7 +213,7 @@ UTEST (test, c_array_print_and_printf) {
     c_array_free(&arr);
 }
 
-UTEST(test, c_array_reverse) {
+UTEST(test_int, c_array_reverse) {
     c_array_int arr;
     c_array_init(&arr, 0);
 
@@ -251,7 +251,7 @@ UTEST(test, c_array_reverse) {
     c_array_free(&arr);
 }
 
-UTEST(test, c_array_pop_back) {
+UTEST(test_int, c_array_pop_back) {
     c_array_int arr;
     c_array_init(&arr, 0);
 
@@ -266,7 +266,7 @@ UTEST(test, c_array_pop_back) {
     c_array_free(&arr);
 }
 
-UTEST(test, c_array_insert) {
+UTEST(test_int, c_array_insert) {
     c_array_int arr;
     c_array_init(&arr, 0);
 
@@ -305,7 +305,7 @@ UTEST(test, c_array_insert) {
     c_array_free(&arr);
 }
 
-UTEST(test, c_array_remove) {
+UTEST(test_int, c_array_remove) {
     c_array_int arr;
     c_array_init(&arr, 0);
 
@@ -331,7 +331,7 @@ UTEST(test, c_array_remove) {
     c_array_free(&arr);
 }
 
-UTEST(test, c_array_concat) {
+UTEST(test_int, c_array_concat) {
     c_array_int arr;
     c_array_int arr2;
 
@@ -369,7 +369,7 @@ UTEST(test, c_array_concat) {
     c_array_free(&arr2);
 }
 
-UTEST(test, c_array_qsort) {
+UTEST(test_int, c_array_qsort) {
     c_array_int arr;
     c_array_uint arr_u;
 
@@ -398,7 +398,7 @@ UTEST(test, c_array_qsort) {
     c_array_free(&arr_u);
 }
 
-UTEST(test, c_array_msort) {
+UTEST(test_int, c_array_msort) {
     c_array_int arr;
 
     c_array_init(&arr, 0);
@@ -419,7 +419,7 @@ UTEST(test, c_array_msort) {
     c_array_free(&arr);
 }
 
-UTEST(test, c_array_sum) {
+UTEST(test_int, c_array_sum) {
     c_array_int arr;
     c_array_uint arr_u;
 
@@ -440,7 +440,7 @@ UTEST(test, c_array_sum) {
     c_array_free(&arr_u);
 }
 
-UTEST(test, c_array_min_max) {
+UTEST(test_int, c_array_min_max) {
     c_array_int arr;
     c_array_uint arr_u;
 
@@ -472,7 +472,7 @@ UTEST(test, c_array_min_max) {
     c_array_free(&arr_u);
 }
 
-UTEST(test, c_array_min_max_2) {
+UTEST(test_int, c_array_min_max_2) {
     c_array_int arr;
     c_array_uint arr_u;
 
@@ -504,7 +504,7 @@ UTEST(test, c_array_min_max_2) {
     c_array_free(&arr_u);
 }
 
-UTEST(test, c_array_min_max_process) {
+UTEST(test_int, c_array_min_max_process) {
     c_array_int arr;
     c_array_uint arr_u;
 
@@ -536,7 +536,7 @@ UTEST(test, c_array_min_max_process) {
     free(maxmin_uint);
 }
 
-UTEST(test, c_array_statistic_original_func) {
+UTEST(test_int, c_array_statistic_original_func) {
     c_array_int arr;
     c_array_uint arr_u;
 
@@ -564,7 +564,7 @@ UTEST(test, c_array_statistic_original_func) {
     c_array_free(&arr_u);
 }
 
-UTEST(test, c_array_mean) {
+UTEST(test_int, c_array_mean) {
     c_array_int arr;
     c_array_uint arr_u;
 
@@ -586,7 +586,7 @@ UTEST(test, c_array_mean) {
     c_array_free(&arr_u);
 }
 
-UTEST(test, c_array_var_std) {
+UTEST(test_int, c_array_var_std) {
     c_array_int arr;
     c_array_uint arr_u;
 
@@ -614,7 +614,7 @@ UTEST(test, c_array_var_std) {
     c_array_free(&arr_u);
 }
 
-UTEST(test, c_array_search) {
+UTEST(test_int, c_array_search) {
     c_array_int arr;
     c_array_uint arr_u;
 
@@ -638,7 +638,7 @@ UTEST(test, c_array_search) {
     c_array_free(&arr_u);
 }
 
-UTEST(test, c_matrix_init) {
+UTEST(test_int, c_matrix_init) {
     c_matrix_int mat;
     c_matrix_init(&mat, 10, 6);
     ASSERT_EQ(mat.rows, 10);
@@ -647,7 +647,7 @@ UTEST(test, c_matrix_init) {
     c_matrix_free(&mat);
 }
 
-UTEST(test, c_matrix_copy) {
+UTEST(test_int, c_matrix_copy) {
     c_matrix_int mat1;
     c_matrix_int mat2;
     c_matrix_uint mat_u1;
@@ -676,7 +676,7 @@ UTEST(test, c_matrix_copy) {
     c_matrix_free(&mat_u2);
 }
 
-UTEST(test, c_array_matrix_form) {
+UTEST(test_int, c_array_matrix_form) {
     c_array_int arr;
     c_array_uint arr_l;
     c_array_init(&arr, 10);
@@ -705,7 +705,7 @@ UTEST(test, c_array_matrix_form) {
     c_array_free(&arr_l);
 }
 
-UTEST(test, c_matrix_flatten) {
+UTEST(test_int, c_matrix_flatten) {
     c_matrix_int mat;
     c_matrix_uint mat_u;
     c_matrix_init(&mat, 10, 6);
@@ -733,7 +733,7 @@ UTEST(test, c_matrix_flatten) {
     c_array_free(&arr_u);
 }
 
-UTEST(test, c_matrix_reshape) {
+UTEST(test_int, c_matrix_reshape) {
     c_matrix_int mat;
     c_matrix_uint mat_u;
     c_matrix_init(&mat, 10, 6);
@@ -759,7 +759,7 @@ UTEST(test, c_matrix_reshape) {
     c_matrix_free(&mat2_u);
 }
 
-UTEST(test, c_matrix_sum) {
+UTEST(test_int, c_matrix_sum) {
     c_matrix_int mat;
     c_matrix_uint mat_u;
 
@@ -782,7 +782,7 @@ UTEST(test, c_matrix_sum) {
     c_matrix_free(&mat_u);
 }
 
-UTEST(test, c_matrix_mean) {
+UTEST(test_int, c_matrix_mean) {
     c_matrix_int mat;
     c_matrix_uint mat_u;
 
@@ -805,7 +805,7 @@ UTEST(test, c_matrix_mean) {
     c_matrix_free(&mat_u);
 }
 
-UTEST(test, c_matrix_max_min) {
+UTEST(test_int, c_matrix_max_min) {
     c_matrix_int mat;
     c_matrix_uint mat_u;
 
@@ -832,7 +832,7 @@ UTEST(test, c_matrix_max_min) {
     c_matrix_free(&mat_u);
 }
 
-UTEST(test, c_matrix_var_std) {
+UTEST(test_int, c_matrix_var_std) {
     c_matrix_int mat;
     c_matrix_uint mat_u;
 
@@ -862,7 +862,7 @@ UTEST(test, c_matrix_var_std) {
     c_matrix_free(&mat_u);
 }
 
-UTEST (test, c_matrix_print_and_printf) {
+UTEST (test_int, c_matrix_print_and_printf) {
     c_matrix_int mat;
 
     c_matrix_init(&mat, 5, 1);

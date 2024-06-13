@@ -13,7 +13,7 @@
 # include "utest.h"
 
 
-UTEST(test, mt19937_generate) {
+UTEST(test_mt, mt19937_generate) {
     mt19937_state state1;
     mt19937_state state2;
     unsigned int seed = 12345;
@@ -36,7 +36,7 @@ UTEST(test, mt19937_generate) {
     }
 }
 
-UTEST(test, mt19937_get_int32_range) {
+UTEST(test_mt, mt19937_get_int32_range) {
     mt19937_state state;
     unsigned int seed = 12345;
     mt19937_init(&state, seed);
@@ -57,7 +57,7 @@ UTEST(test, mt19937_get_int32_range) {
     }
 }
 
-UTEST(test, mt19937_get_float) {
+UTEST(test_mt, mt19937_get_float) {
     mt19937_state state;
     unsigned int seed = 12345;
     mt19937_init(&state, seed);
@@ -83,7 +83,7 @@ UTEST(test, mt19937_get_float) {
     }
 }
 
-UTEST(test, mt19937_get_double) {
+UTEST(test_mt, mt19937_get_double) {
     mt19937_state state;
     unsigned int seed = 12345;
     mt19937_init(&state, seed);
@@ -109,7 +109,7 @@ UTEST(test, mt19937_get_double) {
     }
 }
 
-UTEST(test, random_normal) {
+UTEST(test_mt, random_normal) {
     mt19937_state state;
     unsigned int seed = 12345;
     mt19937_init(&state, seed);
@@ -119,7 +119,7 @@ UTEST(test, random_normal) {
     }
 }
 
-UTEST(test, c_array_randnormal) {
+UTEST(test_mt, c_array_randnormal) {
     mt19937_state state;
     unsigned int seed = 12345;
     mt19937_init(&state, seed);
@@ -136,7 +136,7 @@ UTEST(test, c_array_randnormal) {
     c_array_free(&array);
 }
 
-UTEST(test, c_array_random_range) {
+UTEST(test_mt, c_array_random_range) {
     mt19937_state state;
     unsigned int seed = 12345;
     mt19937_init(&state, seed);
@@ -173,7 +173,7 @@ UTEST(test, c_array_random_range) {
     c_array_free(&array_f);
 }
 
-UTEST(test, c_matrix_randnormal) {
+UTEST(test_mt, c_matrix_randnormal) {
     mt19937_state state;
     unsigned int seed = 12345;
     mt19937_init(&state, seed);
@@ -190,7 +190,7 @@ UTEST(test, c_matrix_randnormal) {
     c_matrix_free(&mat);
 }
 
-UTEST(test, c_matrix_random_range) {
+UTEST(test_mt, c_matrix_random_range) {
     mt19937_state state;
     unsigned int seed = 12345;
     mt19937_init(&state, seed);
