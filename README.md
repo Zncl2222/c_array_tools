@@ -809,7 +809,7 @@ int main() {
 - params:<br>
 `arr`: c_array structure -> (**c_array**)<br>
 `target`: target you want to search -> (**int, long long, float, double etc..**)<br>
-- return: `Index of the target` -> (**int**)<br>
+- return: `An heap array of the target` -> (**int pointer**)<br>
 
 Initialize the c_array with the random value from given random function
 ```C
@@ -819,8 +819,9 @@ int main() {
     for (int i = 0; i < 5; i++) {
         array.data[i] = i * 2;
     }
-    int idx = c_array_search(&array, 8); // idx = 4
+    int* indices = c_array_search(&array, 8); // idx[0] = 4;
     c_array_free(&array); // free memory
+    free(indices);
     return 0;
 }
 ```
