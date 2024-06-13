@@ -711,15 +711,19 @@ UTEST(test_long, c_array_search) {
         c_array_push_back(&arr_ll, i * 3);
     }
 
-    int search_l = c_array_search(&arr, 6);
-    int search_ul = c_array_search(&arr_u, 6);
-    int search_ll = c_array_search(&arr_ll, 9);
-    int search_fail = c_array_search(&arr, 99957);
+    int* search_l = c_array_search(&arr, 6);
+    int* search_ul = c_array_search(&arr_u, 6);
+    int* search_ll = c_array_search(&arr_ll, 9);
+    int* search_fail = c_array_search(&arr, 99957);
 
-    ASSERT_EQ(search_l, 3);
-    ASSERT_EQ(search_ul, 3);
-    ASSERT_EQ(search_ll, 3);
-    ASSERT_EQ(search_fail, -1);
+    ASSERT_EQ(search_l[0], 3);
+    ASSERT_EQ(search_ul[0], 3);
+    ASSERT_EQ(search_ll[0], 3);
+    ASSERT_EQ(search_fail[0], -1);
+    free(search_l);
+    free(search_ul);
+    free(search_ll);
+    free(search_fail);
 
     c_array_free(&arr);
     c_array_free(&arr_u);

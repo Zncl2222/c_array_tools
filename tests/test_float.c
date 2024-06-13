@@ -559,11 +559,13 @@ UTEST(test_float, c_array_search) {
         c_array_push_back(&arr, i * 2.5);
     }
 
-    int search_float = c_array_search(&arr, 7.5);
-    int search_fail = c_array_search(&arr, 99957);
+    int* search_float = c_array_search(&arr, 7.5);
+    int* search_fail = c_array_search(&arr, 99957);
 
-    ASSERT_EQ(search_float, 3);
-    ASSERT_EQ(search_fail, -1);
+    ASSERT_EQ(search_float[0], 3);
+    ASSERT_EQ(search_fail[0], -1);
+    free(search_float);
+    free(search_fail);
 
     c_array_free(&arr);
 }

@@ -627,13 +627,16 @@ UTEST(test_short, c_array_search) {
         c_array_push_back(&arr_u, i * 2);
     }
 
-    int search_short = c_array_search(&arr, 6);
-    int search_ushort = c_array_search(&arr_u, 6);
-    int search_fail = c_array_search(&arr, -88);
+    int* search_short = c_array_search(&arr, 6);
+    int* search_ushort = c_array_search(&arr_u, 6);
+    int* search_fail = c_array_search(&arr, -88);
 
-    ASSERT_EQ(search_short, 3);
-    ASSERT_EQ(search_ushort, 3);
-    ASSERT_EQ(search_fail, -1);
+    ASSERT_EQ(search_short[0], 3);
+    ASSERT_EQ(search_ushort[0], 3);
+    ASSERT_EQ(search_fail[0], -1);
+    free(search_short);
+    free(search_ushort);
+    free(search_fail);
 
     c_array_free(&arr);
     c_array_free(&arr_u);

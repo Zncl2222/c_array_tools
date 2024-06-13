@@ -637,13 +637,16 @@ UTEST(test_double, c_array_search) {
         c_array_push_back(&arr_ld, i * 4.5);
     }
 
-    int search_d = c_array_search(&arr, 7.5);
-    int search_ld = c_array_search(&arr_ld, 22.5);
-    int search_fail = c_array_search(&arr, 99957);
+    int* search_d = c_array_search(&arr, 7.5);
+    int* search_ld = c_array_search(&arr_ld, 22.5);
+    int* search_fail = c_array_search(&arr, 99957);
 
-    ASSERT_EQ(search_d, 3);
-    ASSERT_EQ(search_ld, 5);
-    ASSERT_EQ(search_fail, -1);
+    ASSERT_EQ(search_d[0], 3);
+    ASSERT_EQ(search_ld[0], 5);
+    ASSERT_EQ(search_fail[0], -1);
+    free(search_d);
+    free(search_ld);
+    free(search_fail);
 
     c_array_free(&arr);
     c_array_free(&arr_ld);

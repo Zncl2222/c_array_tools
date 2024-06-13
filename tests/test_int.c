@@ -626,13 +626,16 @@ UTEST(test_int, c_array_search) {
         c_array_push_back(&arr_u, i * 2);
     }
 
-    int search_int = c_array_search(&arr, 6);
-    int search_uint = c_array_search(&arr_u, 6);
-    int search_fail = c_array_search(&arr, 99957);
+    int* search_int = c_array_search(&arr, 6);
+    int* search_uint = c_array_search(&arr_u, 6);
+    int* search_fail = c_array_search(&arr, 99957);
 
-    ASSERT_EQ(search_int, 3);
-    ASSERT_EQ(search_uint, 3);
-    ASSERT_EQ(search_fail, -1);
+    ASSERT_EQ(search_int[0], 3);
+    ASSERT_EQ(search_uint[0], 3);
+    ASSERT_EQ(search_fail[0], -1);
+    free(search_int);
+    free(search_uint);
+    free(search_fail);
 
     c_array_free(&arr);
     c_array_free(&arr_u);
