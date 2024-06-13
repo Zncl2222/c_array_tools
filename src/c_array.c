@@ -391,43 +391,43 @@ int cmpfunc_long_double(const void* a, const void* b) {
 /* -------------------------------------------------------------------- */
 /*                           Array search                               */
 
-int c_array_search_short(const short* arr, int size, short target) {
+int* c_array_search_short(const short* arr, int size, short target) {
     c_array_search_process(arr, size, target)
 }
 
-int c_array_search_ushort(const unsigned short* arr, int size, unsigned short target){
+int* c_array_search_ushort(const unsigned short* arr, int size, unsigned short target){
     c_array_search_process(arr, size, target)
 }
 
-int c_array_search_int(const int* arr, int size, int target){
+int* c_array_search_int(const int* arr, int size, int target){
     c_array_search_process(arr, size, target)
 }
 
-int c_array_search_uint(const unsigned int* arr, int size, unsigned int target){
+int* c_array_search_uint(const unsigned int* arr, int size, unsigned int target){
     c_array_search_process(arr, size, target)
 }
 
-int c_array_search_long(const long* arr, int size, long target){
+int* c_array_search_long(const long* arr, int size, long target){
     c_array_search_process(arr, size, target)
 }
 
-int c_array_search_long_long(const long long* arr, int size, long long target){
+int* c_array_search_long_long(const long long* arr, int size, long long target){
     c_array_search_process(arr, size, target)
 }
 
-int c_array_search_ulong(const unsigned long* arr, int size, unsigned long target){
+int* c_array_search_ulong(const unsigned long* arr, int size, unsigned long target){
     c_array_search_process(arr, size, target)
 }
 
-int c_array_search_float(const float* arr, int size, float target){
+int* c_array_search_float(const float* arr, int size, float target){
     c_array_search_process(arr, size, target)
 }
 
-int c_array_search_double(const double* arr, int size, double target){
+int* c_array_search_double(const double* arr, int size, double target){
     c_array_search_process(arr, size, target)
 }
 
-int c_array_search_ldouble(const long double* arr, int size, long double target){
+int* c_array_search_ldouble(const long double* arr, int size, long double target){
     c_array_search_process(arr, size, target)
 }
 

@@ -654,32 +654,43 @@ long double* c_array_maxmin_long_double(long double* arr, int size);
     )((arr)->data, (arr)->size, (target))
 
 # define c_array_search_process(arr, size, target)          \
+    int* indices_temp = malloc((size) * sizeof(int));       \
+    for (int i = 0; i < (size); i++) {                      \
+        indices_temp[i] = -1;                               \
+    }                                                       \
+    int count = 0;                                          \
     for (int i = 0; i < (size); i++) {                      \
         if (fabs((arr)[i] - (target)) < 1e-6) {             \
-            return i;                                       \
+            indices_temp[count] = i;                        \
+            count++;                                        \
         }                                                   \
     }                                                       \
-    return -1;
+    int* indices = malloc(count * sizeof(int));             \
+    for (int i = 0; i < count + 1; i++) {                   \
+        indices[i] = indices_temp[i];                       \
+    }                                                       \
+    free(indices_temp);                                     \
+    return indices;
 
-int c_array_search_short(const short* arr, int size, short target);
+int* c_array_search_short(const short* arr, int size, short target);
 
-int c_array_search_ushort(const unsigned short* arr, int size, unsigned short target);
+int* c_array_search_ushort(const unsigned short* arr, int size, unsigned short target);
 
-int c_array_search_int(const int* arr, int size, int target);
+int* c_array_search_int(const int* arr, int size, int target);
 
-int c_array_search_uint(const unsigned int* arr, int size, unsigned int target);
+int* c_array_search_uint(const unsigned int* arr, int size, unsigned int target);
 
-int c_array_search_long(const long* arr, int size, long target);
+int* c_array_search_long(const long* arr, int size, long target);
 
-int c_array_search_long_long(const long long* arr, int size, long long target);
+int* c_array_search_long_long(const long long* arr, int size, long long target);
 
-int c_array_search_ulong(const unsigned long* arr, int size, unsigned long target);
+int* c_array_search_ulong(const unsigned long* arr, int size, unsigned long target);
 
-int c_array_search_float(const float* arr, int size, float target);
+int* c_array_search_float(const float* arr, int size, float target);
 
-int c_array_search_double(const double* arr, int size, double target);
+int* c_array_search_double(const double* arr, int size, double target);
 
-int c_array_search_ldouble(const long double* arr, int size, long double target);
+int* c_array_search_ldouble(const long double* arr, int size, long double target);
 
 /* -------------------------------------------------------------------- */
 /*                            Arrary utils                              */
