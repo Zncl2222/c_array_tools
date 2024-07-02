@@ -65,6 +65,8 @@ Because of the `typeof` and `_Generic` features in the code, the project has bee
 - [c_array_var](#c_array_stdarr--c_array_vararr)
 - [c_array_max](#c_array_maxarr--c_array_minarr)
 - [c_array_min](#c_array_maxarr--c_array_minarr)
+- [c_array_argmax](#c_array_argmaxarr)
+- [c_array_argmin](#c_array_argminarr)
 - [c_array_qsort](#c_array_qsortarr--c_array_msortarr)
 - [c_matrix_flatten](#c_matrix_flattenmat)
 - [c_matrix_reshape](#c_matrix_reshapemat-row-col)
@@ -585,7 +587,51 @@ int main() {
     c_array_push_back(&arr, 3);
     int* max_min = c_array_maxmin(&arr); // max_min[0] = 1, max_min[1] = 3
     c_array_free(&arr); // free memory
-    free(max_min)
+    free(max_min);
+    return 0;
+}
+```
+
+----
+### `c_array_argmax(arr)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+- return: `pointer contain the index of max value in array` -> (**int*, long long*, float*, double* etc..**)<br>
+
+Get index of max value of an array
+```C
+int main() {
+    c_array_int arr;
+    c_array(&arr, 0);
+    c_array_push_back(&arr, 1);
+    c_array_push_back(&arr, 2);
+    c_array_push_back(&arr, 3);
+    c_array_push_back(&arr, 3);
+    int* max_indices = c_array_argmax(&arr); // max_indices[0] = 2, max_indices[1] = 3
+    c_array_free(&arr); // free memory
+    free(max_min); // You should free the max_indices manually.
+    return 0;
+}
+```
+
+----
+### `c_array_argmin(arr)`
+- params:<br>
+`arr`: c_array structure -> (**c_array**)<br>
+- return: `pointer contain the index of min value in array` -> (**int*, long long*, float*, double* etc..**)<br>
+
+Get the index of min value of an array
+```C
+int main() {
+    c_array_int arr;
+    c_array(&arr, 0);
+    c_array_push_back(&arr, 1);
+    c_array_push_back(&arr, 2);
+    c_array_push_back(&arr, 3);
+    c_array_push_back(&arr, 3);
+    int* min_indices = c_array_argmin(&arr); // min_indices[0] = 2, min_indices[1] = 3
+    c_array_free(&arr); // free memory
+    free(min_min); // You should free the min_indices manually.
     return 0;
 }
 ```
