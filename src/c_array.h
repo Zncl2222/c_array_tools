@@ -709,7 +709,6 @@ int* c_array_argmin_long_double(long double* arr, int size);
 
 # define c_array_argmax_process(arr, n)                                     \
     typeof(*(arr)) max = -pow(2, (((sizeof(typeof(*(arr)))-  1) * 8)));     \
-    int arg = 0;                                                            \
     int max_count = 1;                                                      \
     int* max_temp = malloc((n) * sizeof(int));                              \
     for (int i = 0; i < n; i++) {                                           \
@@ -734,7 +733,6 @@ int* c_array_argmin_long_double(long double* arr, int size);
 
 # define c_array_argmin_process(arr, n)                                     \
     typeof(*(arr)) min = pow(2, (((sizeof(typeof(*(arr)))-  1) * 8))) - 1;  \
-    int arg = 0;                                                            \
     int min_count = 1;                                                      \
     int* min_temp = calloc((n), sizeof(int));                               \
     for (int i = 0; i < n; i++) {                                           \
