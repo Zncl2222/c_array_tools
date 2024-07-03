@@ -138,6 +138,92 @@ long double* c_array_maxmin_long_double(long double* arr, int size) {
 }
 
 /* -------------------------------------------------------------------- */
+/*                      Array argmax process                           */
+
+int* c_array_argmax_short(short* arr, int arr_size) {
+    c_array_argmax_process(arr, arr_size)
+}
+
+int* c_array_argmax_ushort(unsigned short* arr, int arr_size) {
+    c_array_argmax_process(arr, arr_size)
+}
+
+int* c_array_argmax_int(int* arr, int arr_size) {
+    c_array_argmax_process(arr, arr_size)
+}
+
+int* c_array_argmax_uint(unsigned int* arr, int arr_size) {
+    c_array_argmax_process(arr, arr_size)
+}
+
+int* c_array_argmax_long(long* arr, int arr_size) {
+    c_array_argmax_process(arr, arr_size)
+}
+
+int* c_array_argmax_ulong(unsigned long* arr, int arr_size) {
+    c_array_argmax_process(arr, arr_size)
+}
+
+int* c_array_argmax_long_long(long long* arr, int arr_size) {
+    c_array_argmax_process(arr, arr_size)
+}
+
+int* c_array_argmax_float(float* arr, int arr_size) {
+    c_array_argmax_process(arr, arr_size)
+}
+
+int* c_array_argmax_double(double* arr, int arr_size) {
+    c_array_argmax_process(arr, arr_size)
+}
+
+int* c_array_argmax_long_double(long double* arr, int arr_size) {
+    c_array_argmax_process(arr, arr_size)
+}
+
+/* -------------------------------------------------------------------- */
+/*                      Array argmin process                           */
+
+int* c_array_argmin_short(short* arr, int arr_size) {
+    c_array_argmin_process(arr, arr_size)
+}
+
+int* c_array_argmin_ushort(unsigned short* arr, int arr_size) {
+    c_array_argmin_process(arr, arr_size)
+}
+
+int* c_array_argmin_int(int* arr, int arr_size) {
+    c_array_argmin_process(arr, arr_size)
+}
+
+int* c_array_argmin_uint(unsigned int* arr, int arr_size) {
+    c_array_argmin_process(arr, arr_size)
+}
+
+int* c_array_argmin_long(long* arr, int arr_size) {
+    c_array_argmin_process(arr, arr_size)
+}
+
+int* c_array_argmin_ulong(unsigned long* arr, int arr_size) {
+    c_array_argmin_process(arr, arr_size)
+}
+
+int* c_array_argmin_long_long(long long* arr, int arr_size) {
+    c_array_argmin_process(arr, arr_size)
+}
+
+int* c_array_argmin_float(float* arr, int arr_size) {
+    c_array_argmin_process(arr, arr_size)
+}
+
+int* c_array_argmin_double(double* arr, int arr_size) {
+    c_array_argmin_process(arr, arr_size)
+}
+
+int* c_array_argmin_long_double(long double* arr, int arr_size) {
+    c_array_argmin_process(arr, arr_size)
+}
+
+/* -------------------------------------------------------------------- */
 /*                     Array standard deviation                         */
 
 var_t c_array_var_short(const short* arr, int size, mean_t mean) {

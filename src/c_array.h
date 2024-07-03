@@ -637,6 +637,125 @@ double* c_array_maxmin_double(double* arr, int size);
 long double* c_array_maxmin_long_double(long double* arr, int size);
 
 /* -------------------------------------------------------------------- */
+/*                            Array argmax                              */
+
+# define c_array_argmax(arr)                              \
+    _Generic((arr)->data,                                 \
+        short*: c_array_argmax_short,                     \
+        unsigned short*: c_array_argmax_ushort,           \
+        int*: c_array_argmax_int,                         \
+        unsigned int*: c_array_argmax_uint,               \
+        long*: c_array_argmax_long,                       \
+        unsigned long*: c_array_argmax_ulong,             \
+        long long*: c_array_argmax_long_long,             \
+        float*: c_array_argmax_float,                     \
+        double*: c_array_argmax_double,                   \
+        long double*: c_array_argmax_long_double          \
+    )((arr)->data, (arr)->size)
+
+int* c_array_argmax_short(short* arr, int arr_size);
+
+int* c_array_argmax_ushort(unsigned short* arr, int arr_size);
+
+int* c_array_argmax_int(int* arr, int arr_size);
+
+int* c_array_argmax_uint(unsigned int* arr, int arr_size);
+
+int* c_array_argmax_long(long* arr, int arr_size);
+
+int* c_array_argmax_ulong(unsigned long* arr, int arr_size);
+
+int* c_array_argmax_long_long(long long* arr, int arr_size);
+
+int* c_array_argmax_float(float* arr, int arr_size);
+
+int* c_array_argmax_double(double* arr, int arr_size);
+
+int* c_array_argmax_long_double(long double* arr, int arr_size);
+
+# define c_array_argmin(arr)                              \
+    _Generic((arr)->data,                                 \
+        short*: c_array_argmin_short,                     \
+        unsigned short*: c_array_argmin_ushort,           \
+        int*: c_array_argmin_int,                         \
+        unsigned int*: c_array_argmin_uint,               \
+        long*: c_array_argmin_long,                       \
+        unsigned long*: c_array_argmin_ulong,             \
+        long long*: c_array_argmin_long_long,             \
+        float*: c_array_argmin_float,                     \
+        double*: c_array_argmin_double,                   \
+        long double*: c_array_argmin_long_double          \
+    )((arr)->data, (arr)->size)
+
+int* c_array_argmin_short(short* arr, int arr_size);
+
+int* c_array_argmin_ushort(unsigned short* arr, int arr_size);
+
+int* c_array_argmin_int(int* arr, int arr_size);
+
+int* c_array_argmin_uint(unsigned int* arr, int arr_size);
+
+int* c_array_argmin_long(long* arr, int arr_size);
+
+int* c_array_argmin_ulong(unsigned long* arr, int arr_size);
+
+int* c_array_argmin_long_long(long long* arr, int arr_size);
+
+int* c_array_argmin_float(float* arr, int arr_size);
+
+int* c_array_argmin_double(double* arr, int arr_size);
+
+int* c_array_argmin_long_double(long double* arr, int arr_size);
+
+# define c_array_argmax_process(arr, n)                                     \
+    typeof(*(arr)) max = -pow(2, (((sizeof(typeof(*(arr)))-  1) * 8)));     \
+    int max_count = 1;                                                      \
+    int* temp = calloc((n), sizeof(int));                                   \
+    for (int i = 0; i < n; i++) {                                           \
+        if (max < (arr)[i]) {                                               \
+            for (int j = 1; j < max_count; j++) {                           \
+                temp[j] = 0;                                                \
+            }                                                               \
+            temp[0] = i;                                                    \
+            max_count = 1;                                                  \
+            max = (arr)[i];                                                 \
+        } else if (max == (arr)[i]) {                                       \
+            temp[max_count] = i;                                            \
+            max_count++;                                                    \
+        }                                                                   \
+    }                                                                       \
+    int* max_indices = malloc((max_count + 1) * sizeof(int));               \
+    for (int i = 0; i < max_count + 1; i++) {                               \
+        max_indices[i] = temp[i];                                           \
+    }                                                                       \
+    free(temp);                                                             \
+    return max_indices;
+
+# define c_array_argmin_process(arr, n)                                     \
+    typeof(*(arr)) min = pow(2, (((sizeof(typeof(*(arr)))-  1) * 8))) - 1;  \
+    int min_count = 1;                                                      \
+    int* temp = calloc((n), sizeof(int));                                   \
+    for (int i = 0; i < n; i++) {                                           \
+        if (min > (arr)[i]) {                                               \
+            for (int j = 1; j < min_count; j++) {                           \
+                temp[j] = 0;                                                \
+            }                                                               \
+            temp[0] = i;                                                    \
+            min_count = 1;                                                  \
+            min = (arr)[i];                                                 \
+        } else if (min == (arr)[i]) {                                       \
+            temp[min_count] = i;                                            \
+            min_count++;                                                    \
+        }                                                                   \
+    }                                                                       \
+    int* min_indices = malloc((min_count + 1) * sizeof(int));               \
+    for (int i = 0; i < min_count + 1; i++) {                               \
+        min_indices[i] = temp[i];                                           \
+    }                                                                       \
+    free(temp) ;                                                            \
+    return min_indices;
+
+/* -------------------------------------------------------------------- */
 /*                            Array search                              */
 
 # define c_array_search(arr, target)                      \

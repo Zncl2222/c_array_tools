@@ -596,6 +596,146 @@ UTEST(test_long, c_array_min_max_process) {
     free(maxmin_ulong);
 }
 
+UTEST(test_long, c_array_argmax) {
+    c_array_long arr;
+    c_array_long_long arr_ll;
+    c_array_ulong arr_ul;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_ll, 0);
+    c_array_init(&arr_ul, 0);
+
+    int test_arr[] = {3, 7, 1, 9, 2, 8, 69778};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+        c_array_push_back(&arr_ll, (uint)test_arr[i]);
+        c_array_push_back(&arr_ul, (uint)test_arr[i]);
+    }
+
+    int* max_index = c_array_argmax(&arr);
+    int* max_index_ll = c_array_argmax(&arr_ll);
+    int* max_index_ul = c_array_argmax(&arr_ul);
+    ASSERT_EQ(max_index[0], 6);
+    ASSERT_EQ(max_index_ll[0], 6);
+    ASSERT_EQ(max_index_ul[0], 6);
+    free(max_index);
+    free(max_index_ll);
+    free(max_index_ul);
+
+    c_array_push_back(&arr, 999999);
+    c_array_push_back(&arr_ll, 999999);
+    c_array_push_back(&arr_ul, 999999);
+    max_index = c_array_argmax(&arr);
+    max_index_ll = c_array_argmax(&arr_ll);
+    max_index_ul = c_array_argmax(&arr_ul);
+    ASSERT_EQ(max_index[0], 7);
+    ASSERT_EQ(max_index_ll[0], 7);
+    ASSERT_EQ(max_index_ul[0], 7);
+    free(max_index);
+    free(max_index_ll);
+    free(max_index_ul);
+
+    c_array_insert(&arr, 3, 9999991);
+    c_array_insert(&arr_ll, 3, 9999991);
+    c_array_insert(&arr_ul, 3, 9999991);
+    max_index = c_array_argmax(&arr);
+    max_index_ll = c_array_argmax(&arr_ll);
+    max_index_ul = c_array_argmax(&arr_ul);
+    ASSERT_EQ(max_index[0], 3);
+    ASSERT_EQ(max_index_ll[0], 3);
+    ASSERT_EQ(max_index_ul[0], 3);
+    free(max_index);
+    free(max_index_ll);
+    free(max_index_ul);
+
+    c_array_insert(&arr, 0, 999999912);
+    c_array_insert(&arr_ll, 0, 999999912);
+    c_array_insert(&arr_ul, 0, 999999912);
+    max_index = c_array_argmax(&arr);
+    max_index_ll = c_array_argmax(&arr_ll);
+    max_index_ul = c_array_argmax(&arr_ul);
+    ASSERT_EQ(max_index[0], 0);
+    ASSERT_EQ(max_index_ll[0], 0);
+    ASSERT_EQ(max_index_ul[0], 0);
+    free(max_index);
+    free(max_index_ll);
+    free(max_index_ul);
+
+    c_array_free(&arr);
+    c_array_free(&arr_ll);
+    c_array_free(&arr_ul);
+}
+
+UTEST(test_long, c_array_argmin) {
+    c_array_long arr;
+    c_array_long_long arr_ll;
+    c_array_ulong arr_ul;
+
+    c_array_init(&arr, 0);
+    c_array_init(&arr_ll, 0);
+    c_array_init(&arr_ul, 0);
+
+    int test_arr[] = {3, 7, 1, 9, 2, 8, 69778};
+    for (int i = 0; i < 7; i++) {
+        c_array_push_back(&arr, test_arr[i]);
+        c_array_push_back(&arr_ll, (uint)test_arr[i]);
+        c_array_push_back(&arr_ul, (uint)test_arr[i]);
+    }
+
+    int* min_index = c_array_argmin(&arr);
+    int* min_index_ll = c_array_argmin(&arr_ll);
+    int* min_index_ul = c_array_argmin(&arr_ul);
+    ASSERT_EQ(min_index[0], 2);
+    ASSERT_EQ(min_index_ll[0], 2);
+    ASSERT_EQ(min_index_ul[0], 2);
+    free(min_index);
+    free(min_index_ll);
+    free(min_index_ul);
+
+    c_array_push_back(&arr, -999999);
+    c_array_push_back(&arr_ll, -999);
+    c_array_push_back(&arr_ul, 999);
+    min_index = c_array_argmin(&arr);
+    min_index_ll = c_array_argmin(&arr_ll);
+    min_index_ul = c_array_argmin(&arr_ul);
+    ASSERT_EQ(min_index[0], 7);
+    ASSERT_EQ(min_index_ll[0], 7);
+    ASSERT_EQ(min_index_ul[0], 2);
+    free(min_index);
+    free(min_index_ll);
+    free(min_index_ul);
+
+    c_array_insert(&arr, 3, -9999991);
+    c_array_insert(&arr_ll, 3, -1000);
+    c_array_insert(&arr_ul, 3, 0);
+    min_index = c_array_argmin(&arr);
+    min_index_ll = c_array_argmin(&arr_ll);
+    min_index_ul = c_array_argmin(&arr_ul);
+    ASSERT_EQ(min_index[0], 3);
+    ASSERT_EQ(min_index_ll[0], 3);
+    ASSERT_EQ(min_index_ul[0], 3);
+    free(min_index);
+    free(min_index_ll);
+    free(min_index_ul);
+
+    c_array_insert(&arr, 0, -999999912);
+    c_array_insert(&arr_ll, 0, -1011);
+    c_array_insert(&arr_ul, 0, 1919);
+    min_index = c_array_argmin(&arr);
+    min_index_ll = c_array_argmin(&arr_ll);
+    min_index_ul = c_array_argmin(&arr_ul);
+    ASSERT_EQ(min_index[0], 0);
+    ASSERT_EQ(min_index_ll[0], 0);
+    ASSERT_EQ(min_index_ul[0], 4);
+    free(min_index);
+    free(min_index_ll);
+    free(min_index_ul);
+
+    c_array_free(&arr);
+    c_array_free(&arr_ll);
+    c_array_free(&arr_ul);
+}
+
 UTEST(test_long, c_array_statistic_original_func) {
     c_array_long arr;
     c_array_long_long arr_ll;
